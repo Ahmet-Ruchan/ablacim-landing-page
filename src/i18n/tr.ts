@@ -13,11 +13,6 @@ export const tr = {
       'Avucundaki izler ve rüyaların üzerine Abla ile sakin, kişisel bir yansıma; aklına takılanı sohbetle sorabilirsin.',
   },
 
-  // Ortak arayüz metinleri
-  common: {
-    imagePlaceholder: 'Buraya görsel gelecek', // adım 3 talimatı, birebir
-  },
-
   header: {
     brand: 'Ablacım',
     // Pil kontrolleri — etiketler talimattan birebir (iki tema segmenti)
@@ -54,6 +49,9 @@ export const tr = {
   hero: {
     heading: 'Kendini daha yakından tanı',
     sub: 'Elini aç ya da rüyanı yaz, kuzum; Abla gerisini sakin sakin yorumlar. Aklına takılanı da birlikte konuşursunuz.',
+    // Görsel alt metni — TASLAK, onaya sunuldu
+    imageAlt:
+      'Parmak izi, notlar ve tablolar taşıyan kâğıt kartları birbirine bağlayan tek bir çizgi',
   },
 
   // Abla'nın sesi burada duyulur (hitap 2/3: "canım")
@@ -71,6 +69,7 @@ export const tr = {
     cards: [
       {
         title: 'El analizi',
+        imageAlt: 'Avuç içi çizgileri ve parmak izi detayıyla açık bir el çizimi',
         status: 'available',
         platformNote: "Android'de kullanılabilir", // BİREBİR (BRIEF-EK S-5)
         desc: 'Avucunun fotoğrafını ve birkaç bilgini paylaşırsın; Abla çizgilere ve elin genel karakterine bakarak kişisel bir yansıma hazırlar. Rapor altı bölümden oluşur ve üzerine sohbet açıktır.',
@@ -89,6 +88,8 @@ export const tr = {
       },
       {
         title: 'Rüya',
+        imageAlt:
+          'Not satırları ile anahtar, kuş ve kapı sembolleri olan açık bir rüya defteri',
         status: 'available',
         platformNote: null,
         desc: 'Rüyanı kendi cümlelerinle yazarsın; Abla sembolleri seninle birlikte ele alır ve senin için ne ifade edebileceğini yansıtır. Sonrasında 24 saatlik bir soru penceresi açılır; geçmiş yansımaların rüya günlüğünde saklanır.',
@@ -106,6 +107,7 @@ export const tr = {
       {
         // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
         title: 'Fizyonomi',
+        imageAlt: 'Gözleri kapalı, sakin bir yüz portresi',
         status: 'soon',
         platformNote: null,
         desc: 'Yüz hatları ve oranlarıyla yorum.',
@@ -118,6 +120,7 @@ export const tr = {
       {
         // Brief §7.4: hesaplama anlatılır, sonuç vaadi verilmez
         title: 'Ebced',
+        imageAlt: 'Harf ve sayı tabloları olan açık bir defter ile kamış kalem',
         status: 'soon',
         platformNote: null,
         desc: 'İsim ve soyisimden harflerle hesaplanan yorum.',

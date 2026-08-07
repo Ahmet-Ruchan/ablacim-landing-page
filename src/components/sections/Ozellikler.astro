@@ -34,10 +34,7 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
           >
             <div class="kart-ic">
               <div class="kart-on flex h-full flex-col gap-sm p-base">
-                <IllustrationSlot
-                  name={slotNames[i]!}
-                  label={dict.common.imagePlaceholder}
-                />
+                <IllustrationSlot name={slotNames[i]!} alt={card.imageAlt} />
                 <h3 class="text-h3 text-textPrimary">{card.title}</h3>
                 <div class="flex flex-wrap items-center gap-xs">
                   <span

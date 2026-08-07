@@ -8,8 +8,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const dict = t(locale);
-const d = dict.hero;
+const d = t(locale).hero;
 ---
 
 <!-- Bölüm 1 / Hero — ≥1024px: solda metin (7 birim), sağda 4:5 görsel
@@ -25,12 +24,8 @@ const d = dict.hero;
     <p class="text-bodyLg text-textSecondary">{d.sub}</p>
     <StoreBadge locale={locale} />
   </div>
-  <!-- Yuva küçültüldü (genel ölçek talebi) -->
+  <!-- Yuva küçültüldü (genel ölçek talebi); LCP adayı: eager -->
   <div class="w-3/4 lg:col-span-5 lg:ml-auto lg:w-3/5">
-    <IllustrationSlot
-      name="hero"
-      ratio="portrait"
-      label={dict.common.imagePlaceholder}
-    />
+    <IllustrationSlot name="hero" ratio="portrait" alt={d.imageAlt} eager />
   </div>
 </section>

@@ -14,10 +14,6 @@ export const en: Dict = {
       'A calm, personal reflection on your palm lines and your dreams, with Abla — and a chat for whatever stays on your mind.',
   },
 
-  common: {
-    imagePlaceholder: 'Image goes here', // adım 3 talimatı, birebir
-  },
-
   header: {
     brand: 'Ablacım',
     themeGroup: 'Theme selection',
@@ -51,6 +47,9 @@ export const en: Dict = {
   hero: {
     heading: 'Get to know yourself better',
     sub: 'Open your palm or tell your dream, love; Abla takes her time with it. Whatever stays on your mind, you talk it through together.',
+    // Görsel alt metni — TASLAK, onaya sunuldu
+    imageAlt:
+      'A single line connecting paper cards that carry a fingerprint, notes and tables',
   },
 
   // Abla'nın sesi ("love" 2/2)
@@ -67,6 +66,7 @@ export const en: Dict = {
     cards: [
       {
         title: 'Palm analysis',
+        imageAlt: 'Drawing of an open palm with its lines and a fingerprint detail',
         status: 'available',
         platformNote: 'Available on Android', // VERBATIM (BRIEF-EK S-5)
         desc: 'You share a photo of your palm and a few details; Abla looks at the lines and the overall character of the hand, then prepares a personal reflection. The report comes in six sections, and the chat stays open afterwards.',
@@ -85,6 +85,8 @@ export const en: Dict = {
       },
       {
         title: 'Dreams',
+        imageAlt:
+          'An open dream journal with note lines and key, bird and door symbols',
         status: 'available',
         platformNote: null,
         desc: 'You write your dream in your own words; Abla walks through its symbols with you and reflects on what they might mean for you. A 24-hour question window follows, and past reflections are kept in your dream journal.',
@@ -101,6 +103,7 @@ export const en: Dict = {
       {
         // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
         title: 'Physiognomy',
+        imageAlt: 'Portrait of a calm face with closed eyes',
         status: 'soon',
         platformNote: null,
         desc: 'Interpretation through facial features and proportions.',
@@ -112,6 +115,7 @@ export const en: Dict = {
       {
         // Brief §7.4: hesaplama anlatılır, sonuç vaadi verilmez
         title: 'Abjad',
+        imageAlt: 'An open notebook with letter and number tables and a reed pen',
         status: 'soon',
         platformNote: null,
         desc: 'An interpretation calculated from the letters of your name and surname.',

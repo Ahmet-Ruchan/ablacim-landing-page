@@ -1,44 +1,59 @@
 ---
 /**
- * İllüstrasyon yuvası (adım 3 / madde 2).
- * Görsel yok: görünür yer tutucu — surfaceAlt zemin, 1px dashed border,
- * radii-lg, ortada caption/textMuted "Buraya görsel gelecek".
- * Görsel geldiğinde assets/illustrations/<name>.(png|svg|webp|jpg) olarak
- * bırakmak yeterli — bir sonraki build'de aynı orana oturur, kod değişmez.
+ * İllüstrasyon — kaynak PNG'ler assets/illustrations/ altında saklanır;
+ * build sırasında Astro görsel optimizasyonu WebP (kalite 82) üretir,
+ * srcset 1x ve 2x adaylarını taşır.
+ * Koyu tema kararı: filtre/invert YOK — açık zeminli görsel "kâğıt öğesi"
+ * olarak durur; radii-lg köşe + 1px color-border hairline kenarıyla açık
+ * temada zeminden ayrılır, koyu temada kenarı belirir. Ek karartma yok.
+ * CLS: width/height öznitelikleri + aspect-ratio sınıfı oranı kilitler.
  * ratio: kart görselleri "square" (1:1), hero "portrait" (4:5).
  */
-const images = import.meta.glob<string>(
-  '../../assets/illustrations/*.{png,svg,webp,jpg}',
-  { eager: true, query: '?url', import: 'default' },
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/illustrations/*.{png,webp,jpg}',
+  { eager: true },
 );
 
 interface Props {
   name: string;
-  label: string;
+  alt: string;
   ratio?: 'square' | 'portrait';
-  alt?: string;
+  /** Hero: eager + fetchpriority high; kartlar lazy (varsayılan) */
+  eager?: boolean;
 }
 
-const { name, label, ratio = 'square', alt = '' } = Astro.props;
-const match = Object.entries(images).find(([path]) => path.includes(`/${name}.`));
-const ratioClass = ratio === 'portrait' ? 'aspect-4/5' : 'aspect-square';
+const { name, alt, ratio = 'square', eager = false } = Astro.props;
+const match = Object.entries(images).find(([path]) =>
+  path.includes(`/${name}.`),
+);
+if (!match) throw new Error(`İllüstrasyon kaynağı eksik: ${name}`);
+
+// 1x genişlik en büyük gösterim ölçüsünden: kart masaüstünde ~244px,
+// mobil tek sütunda tam genişlik; hero masaüstünde ~280px, mobilde %75.
+const oneX = ratio === 'portrait' ? 420 : 400;
+const height = ratio === 'portrait' ? oneX * 1.25 : oneX;
+const sizes =
+  ratio === 'portrait'
+    ? '(min-width: 1024px) 280px, 75vw'
+    : '(min-width: 768px) 244px, calc(100vw - 40px)';
 ---
 
-{
-  match ? (
-    <img
-      src={match[1]}
-      alt={alt}
-      class:list={[ratioClass, 'w-full rounded-lg border border-border object-cover']}
-    />
-  ) : (
-    <div
-      class:list={[
-        ratioClass,
-        'flex w-full items-center justify-center rounded-lg border border-dashed border-border bg-surfaceAlt',
-      ]}
-    >
-      <span class="text-caption text-textMuted">{label}</span>
-    </div>
-  )
-}
+<Image
+  src={match[1].default}
+  alt={alt}
+  width={oneX}
+  height={height}
+  widths={[oneX, oneX * 2]}
+  sizes={sizes}
+  format="webp"
+  quality={82}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  class:list={[
+    ratio === 'portrait' ? 'aspect-4/5' : 'aspect-square',
+    'w-full rounded-lg border border-border object-cover',
+  ]}
+/>
