@@ -14,14 +14,13 @@ const d = dict.ozellikler;
 const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
 ---
 
-<!-- Bölüm 3 / Özellikler — dört kart TEK SIRADA (sahip talebi):
-     ≥768px 4 yan yana, mobilde 2x2 (fiziksel sınır — raporda işaretli).
-     Kartlar kompakt: p-base, gap-sm. Çevrilebilir kart istisnası sürüyor.
-     "Yakında" rozeti premium ailede. -->
+<!-- Bölüm 3 / Özellikler — ≥768px dört kart TEK SIRADA (sahip talebi),
+     telefonda TEK SÜTUN alt alta (sahip talebi — 2x2 dar ekranda kötü
+     duruyordu). Kartlar kompakt; çevrilebilir kart istisnası sürüyor. -->
 <section id="ozellikler" data-section class="flex flex-col gap-lg">
   <h2 class="font-display text-h2">{d.title}</h2>
   <p class="text-body text-textSecondary">{d.intro}</p>
-  <div data-stagger class="grid grid-cols-2 gap-md md:grid-cols-4">
+  <div data-stagger class="grid gap-md md:grid-cols-4">
     {
       d.cards.map((card, i) => {
         const available = card.status === 'available';
