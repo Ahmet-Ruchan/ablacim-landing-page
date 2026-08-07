@@ -76,6 +76,11 @@
   --bubbleUserSurface: var(--bakir-100);
   --bubbleUserBorder: rgba(207, 163, 76, 0.45);
 
+  /* Bakır hairline — çizgi işi tonu (K-2/KR-024: marka imzası, her yerde
+     serbest). --premium temaya göre değiştiği için tek tanım iki temada
+     da doğru çözülür. */
+  --premiumHairline: color-mix(in srgb, var(--premium) 55%, transparent);
+
   /* Gölge — light'ta minimum; renk siyah değil mor-mürekkep (#2F1936) */
   --shadow-soft-value: 0 4px 12px rgba(47, 25, 54, 0.06);
   --shadow-lifted-value: 0 10px 24px rgba(47, 25, 54, 0.1);
@@ -251,6 +256,7 @@
   --color-skeleton: var(--skeleton);
   --color-bubbleUserSurface: var(--bubbleUserSurface);
   --color-bubbleUserBorder: var(--bubbleUserBorder);
+  --color-premiumHairline: var(--premiumHairline);
 
   --shadow-*: initial;
   --shadow-soft: var(--shadow-soft-value);

@@ -17,24 +17,25 @@ const strip = [
 ];
 ---
 
-<!-- Bölüm 4 / Nasıl çalışır — 4 adım ≥768px'te yatay; numara üstte,
-     label token + accent. Avuç çizgisi ayracı BURADA KULLANILMAZ.
-     Altta ekran görüntüsü şeridi: yatay scroll-snap, sürüklenebilir,
-     otomatik oynatma yok; düz köşe + hairline border, çerçeve yok. -->
+<!-- Bölüm 4 / Nasıl çalışır — bakır imzalı adım şeridi: numaralı daireler
+     (premiumSubtle + premium) ve aralarında bakır hairline bağlantı
+     (K-2 çizgi işi serbest). Masaüstünde yatay, mobilde dikey ray.
+     Ekran şeridi ortalanır; kareler bakır hairline çerçeveli. -->
 <section id="nasil-calisir" data-section class="flex flex-col gap-xl">
   <h2 class="font-display text-h2">{d.title}</h2>
-  <ol data-stagger class="grid gap-md md:grid-cols-4">
+  <ol data-stagger class="grid gap-lg md:grid-cols-4 md:gap-md">
     {
       d.steps.map((step, i) => (
-        <li class="flex flex-col gap-sm">
-          <span class="text-label uppercase text-accent">{i + 1}</span>
-          <span class="text-body text-textSecondary">{step}</span>
+        <li class="adim relative flex gap-md md:flex-col md:gap-sm">
+          <span class="adim-no z-10 flex h-xxl w-xxl shrink-0 items-center justify-center rounded-pill border border-premiumHairline bg-premiumSubtle text-bodyStrong text-premium">
+            {i + 1}
+          </span>
+          <span class="text-body text-textSecondary md:pr-lg">{step}</span>
         </li>
       ))
     }
   </ol>
-  <!-- Görseller küçültüldü (genel ölçek talebi) -->
-  <div class="flex snap-x snap-mandatory gap-md overflow-x-auto">
+  <div class="flex snap-x snap-mandatory gap-md overflow-x-auto md:justify-center">
     {
       strip.map((shot) => (
         <img
@@ -43,9 +44,33 @@ const strip = [
           width="512"
           height="1112"
           loading="lazy"
-          class="w-3/5 shrink-0 snap-center border border-border md:w-1/4"
+          class="w-3/5 shrink-0 snap-center border border-premiumHairline md:w-1/4"
         />
       ))
     }
   </div>
 </section>
+
+<style>
+  /* Adım bağlantı çizgileri — bakır çizgi işi */
+  @media (min-width: 48rem) {
+    .adim:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px; /* dairenin dikey ortası (32/2) */
+      left: 40px; /* daire 32 + 8 nefes */
+      right: 8px;
+      border-top: 1px solid var(--premiumHairline);
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .adim:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 16px; /* dairenin yatay ortası */
+      top: 40px; /* daire 32 + 8 nefes */
+      bottom: -12px; /* satırlar arası boşluğa köprü */
+      border-left: 1px solid var(--premiumHairline);
+    }
+  }
+</style>

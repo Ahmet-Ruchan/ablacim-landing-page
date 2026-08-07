@@ -31,7 +31,7 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
             role="button"
             aria-expanded="false"
             aria-label={card.title}
-            class="kart-kap h-full rounded-lg border border-border bg-surface"
+            class="kart-kap h-full rounded-lg border border-premiumHairline bg-surface"
           >
             <div class="kart-ic">
               <div class="kart-on flex h-full flex-col gap-sm p-base">
@@ -83,8 +83,9 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
     perspective: 1200px;
     transition: border-color 150ms var(--ease-standard);
   }
+  /* Hover'da bakır hairline tam güce çıkar (çizgi işi — K-2) */
   .kart-kap:hover {
-    border-color: var(--borderStrong);
+    border-color: var(--premium);
   }
   /* focus-visible: 2px accent halka, offset 2 (talimat; genel halka 1.5px) */
   .kart-kap:focus-visible {
