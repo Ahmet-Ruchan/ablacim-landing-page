@@ -10,6 +10,8 @@ export function withBase(path: string): string {
 
 export const siteConfig = {
   siteUrl: 'https://www.ablacim.com',
+  // Web uygulaması — sayfadaki "analize başla" CTA'larının hedefi
+  webAppUrl: 'https://www.ablacim.com/',
 
   store: {
     // Takip parametresi yok (BRIEF-EK S-6); utm gerekirse buradan eklenir.

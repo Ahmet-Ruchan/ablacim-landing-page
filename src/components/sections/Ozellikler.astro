@@ -93,8 +93,9 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
     position: relative;
     height: 100%;
     transform-style: preserve-3d;
-    /* Yumuşak dönüş (talimat): reveal süresi + decelerate */
-    transition: transform var(--duration-reveal) var(--ease-decelerate);
+    /* Yumuşak dönüş (talimat, 2. tur): 1000ms + standard —
+       yavaş kalkış ve yavaş iniş, 700ms "çok hızlı" bulundu */
+    transition: transform var(--duration-flip) var(--ease-standard);
   }
   /* Hover'da çevirme yalnız gerçek hover'ı olan cihazlarda */
   @media (hover: hover) {

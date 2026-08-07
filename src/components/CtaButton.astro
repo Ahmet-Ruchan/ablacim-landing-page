@@ -1,0 +1,39 @@
+---
+/**
+ * Web uygulaması CTA'sı — sade, tek renk (accent) pill buton.
+ * Hedef her yerde aynı: siteConfig.webAppUrl; yeni sekmede açılır
+ * (sahip kuralı: dış bağlantılar yeni sekmede).
+ * 48px dikey hedef (--spacing-huge = hit-min ile aynı değer).
+ */
+import { siteConfig } from '../site.config';
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<a
+  href={siteConfig.webAppUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="cta inline-flex min-h-huge items-center justify-center self-start rounded-pill bg-accent px-xl text-bodyStrong text-onAccent"
+>
+  {label}
+</a>
+
+<style>
+  .cta {
+    transition: background-color var(--duration-fast) var(--ease-standard);
+  }
+  .cta:hover,
+  .cta:active {
+    background-color: var(--accentPressed);
+  }
+  /* Accent zeminde genel 1.5px accent halka görünmez — offsetli halka */
+  .cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>

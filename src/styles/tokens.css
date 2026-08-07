@@ -273,6 +273,7 @@
   --duration-base: 260ms;
   --duration-slow: 420ms;
   --duration-reveal: 700ms; /* yalnız sonuç açılışı */
+  --duration-flip: 1000ms; /* kart çevirme — sahip talebi: yavaş ve yumuşak */
   --stagger: 90ms;
 
   --hit-min: 48px; /* WCAG 2.5.5 alt sınırı */

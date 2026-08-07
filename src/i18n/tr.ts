@@ -13,6 +13,12 @@ export const tr = {
       'Avucundaki izler ve rüyaların üzerine Abla ile sakin, kişisel bir yansıma; aklına takılanı sohbetle sorabilirsin.',
   },
 
+  // Web uygulamasına giden CTA butonları (hedef: siteConfig.webAppUrl)
+  cta: {
+    start: 'Hemen analize başla',
+    tryIt: 'Ablacım’ı dene',
+  },
+
   header: {
     brand: 'Ablacım',
     // Pil kontrolleri — etiketler talimattan birebir (iki tema segmenti)
@@ -71,7 +77,8 @@ export const tr = {
         title: 'El analizi',
         imageAlt: 'Avuç içi çizgileri ve parmak izi detayıyla açık bir el çizimi',
         status: 'available',
-        platformNote: "Android'de kullanılabilir", // BİREBİR (BRIEF-EK S-5)
+        // S-5 notu sahip talebiyle güncellendi: web'de de kullanılabiliyor
+        platformNote: "Android'de ve web'de kullanılabilir",
         desc: 'Avucunun fotoğrafını ve birkaç bilgini paylaşırsın; Abla çizgilere ve elin genel karakterine bakarak kişisel bir yansıma hazırlar. Rapor altı bölümden oluşur ve üzerine sohbet açıktır.',
         // Kart arkası — bölüm başlıkları BİREBİR (brief §7.1)
         back: {
@@ -91,7 +98,7 @@ export const tr = {
         imageAlt:
           'Not satırları ile anahtar, kuş ve kapı sembolleri olan açık bir rüya defteri',
         status: 'available',
-        platformNote: null,
+        platformNote: "Android'de ve web'de kullanılabilir",
         desc: 'Rüyanı kendi cümlelerinle yazarsın; Abla sembolleri seninle birlikte ele alır ve senin için ne ifade edebileceğini yansıtır. Sonrasında 24 saatlik bir soru penceresi açılır; geçmiş yansımaların rüya günlüğünde saklanır.',
         // Kart arkası — brief §7.2 olguları
         back: {

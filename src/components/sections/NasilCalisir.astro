@@ -1,6 +1,7 @@
 ---
 import { t, type Locale } from '../../i18n';
 import { withBase } from '../../site.config';
+import CtaButton from '../CtaButton.astro';
 
 interface Props {
   locale: Locale;
@@ -48,6 +49,10 @@ const strip = [
         />
       ))
     }
+  </div>
+  <!-- CTA 2/3 — adımları gören okur için web uygulaması; ortalı -->
+  <div class="flex justify-center">
+    <CtaButton label={dict.cta.tryIt} />
   </div>
 </section>
 

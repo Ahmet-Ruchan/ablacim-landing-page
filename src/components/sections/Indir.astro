@@ -1,13 +1,15 @@
 ---
 import { t, type Locale } from '../../i18n';
 import StoreBadge from '../StoreBadge.astro';
+import CtaButton from '../CtaButton.astro';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const d = t(locale).indir;
+const dict = t(locale);
+const d = dict.indir;
 ---
 
 <!-- Bölüm 8 / İndir — kapanış CTA. Rozet ve yasal satırlar kart içinde
@@ -17,6 +19,8 @@ const d = t(locale).indir;
   <p class="text-body text-textSecondary">{d.body}</p>
   <div class="flex flex-col gap-md rounded-lg border border-premiumHairline bg-surface p-lg">
     <StoreBadge locale={locale} />
+    <!-- CTA 3/3 — mağaza rozetlerinin yanında web alternatifi -->
+    <CtaButton label={dict.cta.start} />
     <p class="text-caption text-textSecondary">{d.currencyNote}</p>
     <!-- Q3 aktif: otomatik yenileme tek satır caption -->
     <p class="text-caption text-textSecondary">{d.autoRenewNote}</p>

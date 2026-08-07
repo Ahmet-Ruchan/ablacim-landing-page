@@ -14,6 +14,11 @@ export const en: Dict = {
       'A calm, personal reflection on your palm lines and your dreams, with Abla — and a chat for whatever stays on your mind.',
   },
 
+  cta: {
+    start: 'Start your analysis',
+    tryIt: 'Try Ablacım',
+  },
+
   header: {
     brand: 'Ablacım',
     themeGroup: 'Theme selection',
@@ -68,7 +73,8 @@ export const en: Dict = {
         title: 'Palm analysis',
         imageAlt: 'Drawing of an open palm with its lines and a fingerprint detail',
         status: 'available',
-        platformNote: 'Available on Android', // VERBATIM (BRIEF-EK S-5)
+        // S-5 notu sahip talebiyle güncellendi: web'de de kullanılabiliyor
+        platformNote: 'Available on Android and on the web',
         desc: 'You share a photo of your palm and a few details; Abla looks at the lines and the overall character of the hand, then prepares a personal reflection. The report comes in six sections, and the chat stays open afterwards.',
         // Kart arkası — bölüm başlıkları VERBATIM (brief §7.1 EN sütunu)
         back: {
@@ -88,7 +94,7 @@ export const en: Dict = {
         imageAlt:
           'An open dream journal with note lines and key, bird and door symbols',
         status: 'available',
-        platformNote: null,
+        platformNote: 'Available on Android and on the web',
         desc: 'You write your dream in your own words; Abla walks through its symbols with you and reflects on what they might mean for you. A 24-hour question window follows, and past reflections are kept in your dream journal.',
         back: {
           title: 'How it flows',

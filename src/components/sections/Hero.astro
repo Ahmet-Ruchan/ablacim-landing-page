@@ -1,6 +1,7 @@
 ---
 import { t, type Locale } from '../../i18n';
 import StoreBadge from '../StoreBadge.astro';
+import CtaButton from '../CtaButton.astro';
 import IllustrationSlot from '../IllustrationSlot.astro';
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const d = t(locale).hero;
+const dict = t(locale);
+const d = dict.hero;
 ---
 
 <!-- Bölüm 1 / Hero — ≥1024px: solda metin (7 birim), sağda 4:5 görsel
@@ -23,6 +25,8 @@ const d = t(locale).hero;
     <h1 class="font-display text-display">{d.heading}</h1>
     <p class="text-bodyLg text-textSecondary">{d.sub}</p>
     <StoreBadge locale={locale} />
+    <!-- CTA 1/3 — web uygulaması -->
+    <CtaButton label={dict.cta.start} />
   </div>
   <!-- Yuva küçültüldü (genel ölçek talebi); LCP adayı: eager -->
   <div class="w-3/4 lg:col-span-5 lg:ml-auto lg:w-3/5">

@@ -111,12 +111,29 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
 
         // Avuç çizgisi: görünür olunca soldan sağa çizilir (800ms).
         // PRM'de bu blok hiç çalışmaz — çizgi çizili başlar.
+        // Not: non-scaling-stroke dash desenini EKRAN pikselinde uygular,
+        // getTotalLength ise viewBox biriminde döner; ölçeklenmezse çizgi
+        // kopuk kopuk görünür (sahip bildirimi). Uzunluk ekrana ölçeklenir
+        // ve animasyon bitince dash tamamen kaldırılır.
         const divider = document.querySelector('[data-divider]');
         const path = divider?.querySelector('path');
-        if (divider && path instanceof SVGPathElement) {
-          const len = path.getTotalLength();
+        const dividerSvg = divider?.querySelector('svg');
+        if (divider && dividerSvg && path instanceof SVGPathElement) {
+          const scale =
+            divider.getBoundingClientRect().width /
+              dividerSvg.viewBox.baseVal.width || 1;
+          const len = Math.ceil(path.getTotalLength() * Math.max(scale, 1));
           path.style.strokeDasharray = String(len);
           path.style.strokeDashoffset = String(len);
+          path.addEventListener(
+            'transitionend',
+            () => {
+              path.style.removeProperty('stroke-dasharray');
+              path.style.removeProperty('stroke-dashoffset');
+              path.style.removeProperty('transition');
+            },
+            { once: true },
+          );
           const dividerIo = new IntersectionObserver(
             (entries) => {
               for (const entry of entries) {
