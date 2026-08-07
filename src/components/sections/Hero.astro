@@ -28,8 +28,8 @@ const d = dict.hero;
     <!-- CTA 1/3 — web uygulaması -->
     <CtaButton label={dict.cta.start} />
   </div>
-  <!-- Yuva küçültüldü (genel ölçek talebi); LCP adayı: eager -->
-  <div class="w-3/4 lg:col-span-5 lg:ml-auto lg:w-3/5">
+  <!-- Yuva büyütüldü (sahip talebi): sütunu tam doldurur; LCP adayı: eager -->
+  <div class="w-full lg:col-span-5">
     <IllustrationSlot name="hero" ratio="portrait" alt={d.imageAlt} eager />
   </div>
 </section>

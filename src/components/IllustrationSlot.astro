@@ -32,12 +32,13 @@ const match = Object.entries(images).find(([path]) =>
 if (!match) throw new Error(`İllüstrasyon kaynağı eksik: ${name}`);
 
 // 1x genişlik en büyük gösterim ölçüsünden: kart masaüstünde ~244px,
-// mobil tek sütunda tam genişlik; hero masaüstünde ~280px, mobilde %75.
-const oneX = ratio === 'portrait' ? 420 : 400;
+// mobil tek sütunda tam genişlik; hero sütunu tam doldurur
+// (masaüstünde ~460px, mobilde tam genişlik — büyütme talebi).
+const oneX = ratio === 'portrait' ? 560 : 400;
 const height = ratio === 'portrait' ? oneX * 1.25 : oneX;
 const sizes =
   ratio === 'portrait'
-    ? '(min-width: 1024px) 280px, 75vw'
+    ? '(min-width: 1024px) 460px, calc(100vw - 40px)'
     : '(min-width: 768px) 244px, calc(100vw - 40px)';
 ---
 

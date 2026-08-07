@@ -55,9 +55,8 @@ export const tr = {
   hero: {
     heading: 'Kendini daha yakından tanı',
     sub: 'Elini aç ya da rüyanı yaz, kuzum; Abla gerisini sakin sakin yorumlar. Aklına takılanı da birlikte konuşursunuz.',
-    // Görsel alt metni — TASLAK, onaya sunuldu
-    imageAlt:
-      'Parmak izi, notlar ve tablolar taşıyan kâğıt kartları birbirine bağlayan tek bir çizgi',
+    // Görsel alt metni — TASLAK (hero ↔ fizyonomi takası sonrası)
+    imageAlt: 'Gözleri kapalı, sakin bir yüz portresi',
   },
 
   // Abla'nın sesi burada duyulur (hitap 2/3: "canım")
@@ -114,7 +113,8 @@ export const tr = {
       {
         // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
         title: 'Fizyonomi',
-        imageAlt: 'Gözleri kapalı, sakin bir yüz portresi',
+        imageAlt:
+          'Parmak izi, notlar ve tablolar taşıyan kâğıt kartları birbirine bağlayan tek bir çizgi',
         status: 'soon',
         platformNote: null,
         desc: 'Yüz hatları ve oranlarıyla yorum.',

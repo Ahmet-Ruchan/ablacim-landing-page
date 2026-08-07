@@ -52,9 +52,8 @@ export const en: Dict = {
   hero: {
     heading: 'Get to know yourself better',
     sub: 'Open your palm or tell your dream, love; Abla takes her time with it. Whatever stays on your mind, you talk it through together.',
-    // Görsel alt metni — TASLAK, onaya sunuldu
-    imageAlt:
-      'A single line connecting paper cards that carry a fingerprint, notes and tables',
+    // Görsel alt metni — TASLAK (hero ↔ fizyonomi takası sonrası)
+    imageAlt: 'Portrait of a calm face with closed eyes',
   },
 
   // Abla'nın sesi ("love" 2/2)
@@ -109,7 +108,8 @@ export const en: Dict = {
       {
         // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
         title: 'Physiognomy',
-        imageAlt: 'Portrait of a calm face with closed eyes',
+        imageAlt:
+          'A single line connecting paper cards that carry a fingerprint, notes and tables',
         status: 'soon',
         platformNote: null,
         desc: 'Interpretation through facial features and proportions.',
