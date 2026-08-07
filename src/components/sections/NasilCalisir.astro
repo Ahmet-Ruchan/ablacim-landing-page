@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '../../i18n';
+import { withBase } from '../../site.config';
 
 interface Props {
   locale: Locale;
@@ -10,9 +11,9 @@ const dict = t(locale);
 const d = dict.nasilCalisir;
 
 const strip = [
-  { src: '/screens/app-1.jpg', alt: dict.screens.welcomeAlt },
-  { src: '/screens/app-2.jpg', alt: dict.screens.reportAlt },
-  { src: '/screens/app-3.jpg', alt: dict.screens.chatAlt },
+  { src: withBase('/screens/app-1.jpg'), alt: dict.screens.welcomeAlt },
+  { src: withBase('/screens/app-2.jpg'), alt: dict.screens.reportAlt },
+  { src: withBase('/screens/app-3.jpg'), alt: dict.screens.chatAlt },
 ];
 ---
 

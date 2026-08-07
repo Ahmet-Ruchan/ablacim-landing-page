@@ -1,6 +1,6 @@
 ---
 import { t, type Locale } from '../i18n';
-import { siteConfig } from '../site.config';
+import { siteConfig, withBase } from '../site.config';
 import appleRaw from '../../assets/icons/apple.svg?raw';
 
 interface Props {
@@ -11,8 +11,9 @@ const { locale } = Astro.props;
 const d = t(locale).store;
 
 // Resmî Google Play rozeti, yerelde barındırılıyor (Q4). Dil eşleşmeli.
-const badgeSrc =
-  locale === 'tr' ? '/badges/google-play-tr.png' : '/badges/google-play-en.png';
+const badgeSrc = withBase(
+  locale === 'tr' ? '/badges/google-play-tr.png' : '/badges/google-play-en.png',
+);
 
 // App Store rozeti (sahip kararı — EK S-6 uyarısı iki kez yapıldı):
 // Play rozetiyle aynı boyut ve tasarım dilinde, Apple logolu, LINK DEĞİL,

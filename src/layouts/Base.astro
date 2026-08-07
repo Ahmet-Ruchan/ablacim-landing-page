@@ -8,7 +8,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { t, localePath, type Locale } from '../i18n';
-import { siteConfig } from '../site.config';
+import { siteConfig, withBase } from '../site.config';
 
 interface Props {
   locale: Locale;
@@ -29,8 +29,8 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <title>{d.meta.title}</title>
     <meta name="description" content={d.meta.description} />
 

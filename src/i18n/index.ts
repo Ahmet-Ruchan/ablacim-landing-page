@@ -18,5 +18,7 @@ export function otherLocale(locale: Locale): Locale {
 }
 
 export function localePath(locale: Locale): string {
-  return `/${locale}/`;
+  // base-farkındalı: üretimde '/' → '/tr/', test yayınında alt yol korunur
+  const base = import.meta.env.BASE_URL;
+  return `${base.endsWith('/') ? base.slice(0, -1) : base}/${locale}/`;
 }

@@ -2,6 +2,12 @@
  * Tüm dış bağlantılar tek noktada (BRIEF-EK S-6).
  * App Store yayına girince rozet buradan eklenecek; bölüm yeniden yazılmayacak.
  */
+/** Kök-göreli varlık yollarını base'e göre çözer (test yayını alt yolda). */
+export function withBase(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  return `${base.endsWith('/') ? base.slice(0, -1) : base}${path}`;
+}
+
 export const siteConfig = {
   siteUrl: 'https://www.ablacim.com',
 
