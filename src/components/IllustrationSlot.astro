@@ -1,0 +1,44 @@
+---
+/**
+ * İllüstrasyon yuvası (adım 3 / madde 2).
+ * Görsel yok: görünür yer tutucu — surfaceAlt zemin, 1px dashed border,
+ * radii-lg, ortada caption/textMuted "Buraya görsel gelecek".
+ * Görsel geldiğinde assets/illustrations/<name>.(png|svg|webp|jpg) olarak
+ * bırakmak yeterli — bir sonraki build'de aynı orana oturur, kod değişmez.
+ * ratio: kart görselleri "square" (1:1), hero "portrait" (4:5).
+ */
+const images = import.meta.glob<string>(
+  '../../assets/illustrations/*.{png,svg,webp,jpg}',
+  { eager: true, query: '?url', import: 'default' },
+);
+
+interface Props {
+  name: string;
+  label: string;
+  ratio?: 'square' | 'portrait';
+  alt?: string;
+}
+
+const { name, label, ratio = 'square', alt = '' } = Astro.props;
+const match = Object.entries(images).find(([path]) => path.includes(`/${name}.`));
+const ratioClass = ratio === 'portrait' ? 'aspect-4/5' : 'aspect-square';
+---
+
+{
+  match ? (
+    <img
+      src={match[1]}
+      alt={alt}
+      class:list={[ratioClass, 'w-full rounded-lg border border-border object-cover']}
+    />
+  ) : (
+    <div
+      class:list={[
+        ratioClass,
+        'flex w-full items-center justify-center rounded-lg border border-dashed border-border bg-surfaceAlt',
+      ]}
+    >
+      <span class="text-caption text-textMuted">{label}</span>
+    </div>
+  )
+}

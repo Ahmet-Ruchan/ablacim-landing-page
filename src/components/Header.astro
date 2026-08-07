@@ -1,0 +1,90 @@
+---
+import { t, type Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+import logoMark from '../../assets/ablacim-mark.svg?raw';
+import instagramIcon from '../../assets/icons/instagram.svg?raw';
+import tiktokIcon from '../../assets/icons/tiktok.svg?raw';
+import ThemePill from './ThemePill.astro';
+import LangPill from './LangPill.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+const d = dict.header;
+
+// Sosyal hesaplar ikonlarıyla en üstte; dil eşleşmesi EK S-6.
+// 390 sığdırması ölçü küçülterek (onay): ikon kutusu 40px genişlik,
+// dikey hedef 48 korunur; mobilde nav araları 4px.
+const instagramUrl =
+  locale === 'tr' ? siteConfig.social.instagramTr : siteConfig.social.instagramEn;
+
+const iconLinkClass =
+  'flex min-h-huge w-xxxl items-center justify-center text-textSecondary [&_svg]:h-xl [&_svg]:w-xl [&_svg]:fill-current';
+---
+
+<!-- Yapışkan header: zemin düz bg, yarı saydamlık yok; en üstteyken
+     çizgisiz, scroll başlayınca border hairline (tek class toggle). -->
+<header class="sticky top-0 z-10 bg-bg">
+  <div
+    class="mx-auto flex h-full w-full max-w-page items-center justify-between gap-md px-lg md:px-xxl"
+  >
+    <!-- Logo kuralları (V-2): min yükseklik 24px (burada 32); metinle boşluk
+         gap-lg (20); güvenli alan %25 — header dolguları sağlıyor. -->
+    <span class="flex items-center gap-lg text-h3">
+      <span
+        aria-hidden="true"
+        class="flex h-xxl [&_svg]:h-full [&_svg]:w-auto"
+        set:html={logoMark}
+      />
+      <!-- Dar ekranda marka adı yalnız ekran okuyucuya — pillere yer açar -->
+      <span class="sr-only sm:not-sr-only">{d.brand}</span>
+    </span>
+
+    <nav class="flex items-center gap-xs md:gap-sm">
+      <a
+        href={instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={dict.footer.instagramAria}
+        class={iconLinkClass}
+      >
+        <span aria-hidden="true" set:html={instagramIcon} />
+      </a>
+      <a
+        href={siteConfig.social.tiktok}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={dict.footer.tiktokAria}
+        class={iconLinkClass}
+      >
+        <span aria-hidden="true" set:html={tiktokIcon} />
+      </a>
+      <LangPill locale={locale} />
+      <ThemePill locale={locale} />
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    height: var(--header-height);
+    border-bottom: 1px solid transparent;
+    /* instant (120ms) ≤ 150ms sınırı; reduce-motion'da global kural geçişi kapatır */
+    transition: border-bottom-color var(--duration-instant) var(--ease-standard);
+  }
+  header.is-scrolled {
+    border-bottom-color: var(--border);
+  }
+</style>
+
+<script>
+  // Yapışkan header alt çizgisi — tek class toggle, minimal JS
+  const header = document.querySelector('header');
+  const syncScrolled = () =>
+    header?.classList.toggle('is-scrolled', window.scrollY > 0);
+  syncScrolled();
+  window.addEventListener('scroll', syncScrolled, { passive: true });
+</script>

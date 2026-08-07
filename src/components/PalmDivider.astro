@@ -1,0 +1,14 @@
+---
+// İmza öğesi: avuç çizgisi (assets/avuc-cizgisi.svg) — bölüm ayracı.
+// Inline gömülür; rengi currentColor'dan alır, varsayılan border token'ı (Q1).
+// Tek örnek kuralı sürer. Görünür olunca soldan sağa çizilir (Base'deki
+// script, data-divider üzerinden); PRM'de çizili başlar.
+import palmLine from '../../assets/avuc-cizgisi.svg?raw';
+---
+
+<div
+  aria-hidden="true"
+  data-divider
+  class="text-border [&_svg]:h-xl [&_svg]:w-full"
+  set:html={palmLine}
+/>

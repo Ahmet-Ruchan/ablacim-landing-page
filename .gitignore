@@ -1,0 +1,7 @@
+# bağımlılıklar ve build çıktısı
+node_modules/
+dist/
+.astro/
+
+# işletim sistemi
+.DS_Store

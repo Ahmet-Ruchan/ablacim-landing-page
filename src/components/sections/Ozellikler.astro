@@ -1,0 +1,161 @@
+---
+import { t, type Locale } from '../../i18n';
+import IllustrationSlot from '../IllustrationSlot.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+const d = dict.ozellikler;
+
+// Yuva dosya adları — görsel geldiğinde assets/illustrations/<name>.* yeter
+const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
+---
+
+<!-- Bölüm 3 / Özellikler — dört kart TEK SIRADA (sahip talebi):
+     ≥768px 4 yan yana, mobilde 2x2 (fiziksel sınır — raporda işaretli).
+     Kartlar kompakt: p-base, gap-sm. Çevrilebilir kart istisnası sürüyor.
+     "Yakında" rozeti premium ailede. -->
+<section id="ozellikler" data-section class="flex flex-col gap-lg">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+  <div data-stagger class="grid grid-cols-2 gap-md md:grid-cols-4">
+    {
+      d.cards.map((card, i) => {
+        const available = card.status === 'available';
+        return (
+          <div
+            tabindex="0"
+            role="button"
+            aria-expanded="false"
+            aria-label={card.title}
+            class="kart-kap h-full rounded-lg border border-border bg-surface"
+          >
+            <div class="kart-ic">
+              <div class="kart-on flex h-full flex-col gap-sm p-base">
+                <IllustrationSlot
+                  name={slotNames[i]!}
+                  label={dict.common.imagePlaceholder}
+                />
+                <h3 class="text-h3 text-textPrimary">{card.title}</h3>
+                <div class="flex flex-wrap items-center gap-xs">
+                  <span
+                    class:list={[
+                      'rounded-pill px-md py-xxs text-caption uppercase',
+                      available
+                        ? 'bg-surfaceAlt text-textSecondary'
+                        : 'bg-premiumSubtle text-premium',
+                    ]}
+                  >
+                    {available ? d.statusAvailable : d.statusSoon}
+                  </span>
+                  {card.platformNote && (
+                    <span class="rounded-pill bg-surfaceAlt px-md py-xxs text-caption text-textSecondary">
+                      {card.platformNote}
+                    </span>
+                  )}
+                </div>
+                <p class="text-caption text-textSecondary">{card.desc}</p>
+              </div>
+              <div class="kart-arka flex flex-col gap-sm rounded-lg bg-surface p-base">
+                <span class="text-h3 text-textPrimary">{card.title}</span>
+                <span class="text-bodyStrong text-textSecondary">
+                  {card.back.title}
+                </span>
+                <ul class="flex flex-col gap-xs">
+                  {card.back.items.map((item) => (
+                    <li class="text-caption text-textSecondary">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .kart-kap {
+    perspective: 1200px;
+    transition: border-color 150ms var(--ease-standard);
+  }
+  .kart-kap:hover {
+    border-color: var(--borderStrong);
+  }
+  /* focus-visible: 2px accent halka, offset 2 (talimat; genel halka 1.5px) */
+  .kart-kap:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .kart-ic {
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
+    /* Yumuşak dönüş (talimat): reveal süresi + decelerate */
+    transition: transform var(--duration-reveal) var(--ease-decelerate);
+  }
+  /* Hover'da çevirme yalnız gerçek hover'ı olan cihazlarda */
+  @media (hover: hover) {
+    .kart-kap:hover .kart-ic {
+      transform: rotateY(180deg);
+    }
+  }
+  .kart-kap.is-flipped .kart-ic {
+    transform: rotateY(180deg);
+  }
+
+  .kart-on,
+  .kart-arka {
+    backface-visibility: hidden;
+  }
+  .kart-arka {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    transform: rotateY(180deg);
+  }
+
+  /* PRM: dönme yok — anlık içerik değişimi; hover çevirmez, yalnız renk */
+  @media (prefers-reduced-motion: reduce) {
+    .kart-ic,
+    .kart-kap:hover .kart-ic,
+    .kart-kap.is-flipped .kart-ic {
+      transform: none;
+      transform-style: flat;
+      transition: none;
+    }
+    .kart-arka {
+      display: none;
+      position: static;
+      transform: none;
+    }
+    .kart-kap.is-flipped .kart-on {
+      display: none;
+    }
+    .kart-kap.is-flipped .kart-arka {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // Çevirme: tıklama + Enter/Boşluk (dokunmatik ve klavye için).
+  document.querySelectorAll<HTMLElement>('.kart-kap').forEach((card) => {
+    const toggle = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-expanded', String(flipped));
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>

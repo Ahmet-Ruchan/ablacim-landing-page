@@ -1,0 +1,149 @@
+---
+/**
+ * Tema pili — mobildeki segmentli kontrolün web karşılığı.
+ * İKİ segment: Açık · Koyu (talimat — "Sistem" segmenti yok).
+ * Açık seçim yapılmadıysa başlangıç sistem temasından türetilir ve
+ * kullanıcı seçene kadar sistem değişimi takip edilir; seçim yapılınca
+ * localStorage'a yazılır ve kalıcıdır.
+ * role=radiogroup + roving tabindex; ok tuşları segment gezdirir.
+ * Thumb konumu html[data-theme-pref] ile CSS'ten gelir (FOUC scripti
+ * özniteliği ilk boyamadan önce kurar). Haptik taklidi bilinçli yok.
+ */
+import { t, type Locale } from '../i18n';
+import sunIcon from '../../assets/icons/sun.svg?raw';
+import moonIcon from '../../assets/icons/moon.svg?raw';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).header;
+
+const segments = [
+  { pref: 'light', label: d.themeLight, icon: sunIcon },
+  { pref: 'dark', label: d.themeDark, icon: moonIcon },
+];
+---
+
+<div
+  role="radiogroup"
+  aria-label={d.themeGroup}
+  data-theme-pill
+  class="pil relative flex items-center rounded-pill border border-border bg-surfaceAlt p-xxs"
+>
+  <span
+    aria-hidden="true"
+    class="pil-thumb tema-thumb absolute rounded-pill bg-surface"></span>
+  {
+    segments.map((seg, i) => (
+      <button
+        type="button"
+        role="radio"
+        data-pref={seg.pref}
+        aria-checked={i === 0 ? 'true' : 'false'}
+        tabindex={i === 0 ? 0 : -1}
+        aria-label={seg.label}
+        class="seg relative z-10 flex h-full w-xxxl items-center justify-center rounded-pill text-textMuted [&_svg]:h-lg [&_svg]:w-lg"
+      >
+        <span aria-hidden="true" class="flex" set:html={seg.icon} />
+      </button>
+    ))
+  }
+</div>
+
+<style>
+  /* Pil 36px; segment 40px (mobil sığdırma talimatıyla 48'den düşürüldü),
+     iç boşluk 2 */
+  .pil {
+    height: 36px;
+  }
+  .pil-thumb {
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    width: 40px;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  /* Thumb konumu — html[data-theme-pref] tek kaynak (FOUC scripti + JS) */
+  :global(html[data-theme-pref='dark']) .tema-thumb {
+    transform: translateX(40px);
+  }
+
+  .seg {
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+  .seg[aria-checked='true'] {
+    color: var(--accent);
+  }
+  /* Halka thumb'ın üstünde görünür (seg z-10 thumb'ın önünde) */
+  .seg:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  const pill = document.querySelector('[data-theme-pill]');
+  const radios = pill
+    ? Array.from(pill.querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+    : [];
+  const order = ['light', 'dark'] as const;
+  type Pref = (typeof order)[number];
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const root = document.documentElement;
+
+  function currentPref(): Pref {
+    return root.getAttribute('data-theme-pref') === 'dark' ? 'dark' : 'light';
+  }
+
+  function render(pref: Pref) {
+    root.setAttribute('data-theme-pref', pref);
+    root.setAttribute('data-theme', pref);
+    radios.forEach((radio) => {
+      const on = radio.dataset.pref === pref;
+      radio.setAttribute('aria-checked', String(on));
+      radio.tabIndex = on ? 0 : -1;
+    });
+  }
+
+  function choose(pref: Pref) {
+    render(pref);
+    try {
+      localStorage.setItem('ablacim-theme', pref);
+    } catch {
+      /* localStorage kapalıysa tercih bu sekmeyle sınırlı kalır */
+    }
+  }
+
+  radios.forEach((radio, i) => {
+    radio.addEventListener('click', () => choose(order[i]!));
+    radio.addEventListener('keydown', (event) => {
+      let delta = 0;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') delta = 1;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') delta = -1;
+      if (delta !== 0) {
+        event.preventDefault();
+        const next = (i + delta + order.length) % order.length;
+        choose(order[next]!);
+        radios[next]!.focus();
+      }
+    });
+  });
+
+  // Kullanıcı henüz seçim yapmadıysa sistem teması takip edilir
+  mq.addEventListener('change', () => {
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem('ablacim-theme');
+    } catch {
+      /* okunamıyorsa açık seçim yok say */
+    }
+    if (stored !== 'light' && stored !== 'dark') {
+      render(mq.matches ? 'dark' : 'light');
+    }
+  });
+
+  // Başlangıç: aria/tabindex durumunu FOUC scriptinin kurduğu tercihe eşitle
+  if (radios.length) render(currentPref());
+</script>

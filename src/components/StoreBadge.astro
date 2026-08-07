@@ -1,0 +1,83 @@
+---
+import { t, type Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+import appleRaw from '../../assets/icons/apple.svg?raw';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).store;
+
+// Resmî Google Play rozeti, yerelde barındırılıyor (Q4). Dil eşleşmeli.
+const badgeSrc =
+  locale === 'tr' ? '/badges/google-play-tr.png' : '/badges/google-play-en.png';
+
+// App Store rozeti (sahip kararı — EK S-6 uyarısı iki kez yapıldı):
+// Play rozetiyle aynı boyut ve tasarım dilinde, Apple logolu, LINK DEĞİL,
+// üst satırında "Yakında". Apple glifi simple-icons'tan (CC0).
+const appleD = appleRaw.match(/<path d="([^"]+)"/)?.[1] ?? '';
+const soonUpper = d.appStoreSoonLabel.toLocaleUpperCase(
+  locale === 'tr' ? 'tr-TR' : 'en-US',
+);
+const appStoreAria = `${d.appStoreName} — ${d.appStoreSoonLabel}`;
+---
+
+<div class="flex flex-wrap items-center">
+  <!-- p-md = 12px: rozet yüksekliğinin (48px) %25'i kadar boşluk (Q4).
+       Dış bağlantı — yeni sekmede açılır (talimat). -->
+  <a
+    href={siteConfig.store.googlePlayUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex self-start p-md"
+  >
+    <img
+      src={badgeSrc}
+      alt={d.googlePlayAlt}
+      width="646"
+      height="250"
+      class="h-huge w-auto"
+    />
+  </a>
+  <!-- Tıklanamaz rozet: buton/bağlantı değil, role=img -->
+  <div class="inline-flex self-start p-md">
+    <svg
+      viewBox="0 0 646 250"
+      role="img"
+      aria-label={appStoreAria}
+      class="h-huge w-auto"
+    >
+      <rect
+        x="4"
+        y="4"
+        width="638"
+        height="242"
+        rx="32"
+        fill="#000000"
+        stroke="#A6A6A6"
+        stroke-width="4"></rect>
+      <g fill="#FFFFFF">
+        <path d={appleD} transform="translate(64 57) scale(5.7)"></path>
+        <text
+          x="228"
+          y="112"
+          font-size="42"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+        >
+          {soonUpper}
+        </text>
+        <text
+          x="228"
+          y="196"
+          font-size="76"
+          font-weight="600"
+          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
+        >
+          {d.appStoreName}
+        </text>
+      </g>
+    </svg>
+  </div>
+</div>

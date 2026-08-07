@@ -1,0 +1,29 @@
+---
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).sss;
+---
+
+<!-- Bölüm 7 / SSS — akordiyon details/summary ile, JS yok; ilk madde açık.
+     Mistik öğe yok. summary varsayılan görünümde kalır ki açılır işareti
+     (marker) kaybolmasın. -->
+<section id="sss" data-section class="flex flex-col gap-md">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <div class="flex flex-col">
+    {
+      d.items.map((item, i) => (
+        <details class="border-b border-border" open={i === 0}>
+          <summary class="cursor-pointer py-base text-h3 text-textPrimary">
+            <h3 class="inline text-h3">{item.q}</h3>
+          </summary>
+          <p class="pb-lg text-body text-textSecondary">{item.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

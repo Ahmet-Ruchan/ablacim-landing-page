@@ -1,0 +1,36 @@
+---
+import { t, type Locale } from '../../i18n';
+import StoreBadge from '../StoreBadge.astro';
+import IllustrationSlot from '../IllustrationSlot.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+const d = dict.hero;
+---
+
+<!-- Bölüm 1 / Hero — ≥1024px: solda metin (7 birim), sağda 4:5 görsel
+     yuvası (5 birim). Mobilde alt alta, görsel metnin altında.
+     Masaüstünde kapanışa 128'lik nefes: gap 96 + pb 32. -->
+<section
+  id="hero"
+  data-section
+  class="flex flex-col gap-lg lg:grid lg:grid-cols-12 lg:items-center lg:gap-xl lg:pb-xxl"
+>
+  <div class="flex flex-col gap-base lg:col-span-7">
+    <h1 class="font-display text-display">{d.heading}</h1>
+    <p class="text-bodyLg text-textSecondary">{d.sub}</p>
+    <StoreBadge locale={locale} />
+  </div>
+  <!-- Yuva küçültüldü (genel ölçek talebi) -->
+  <div class="w-3/4 lg:col-span-5 lg:ml-auto lg:w-3/5">
+    <IllustrationSlot
+      name="hero"
+      ratio="portrait"
+      label={dict.common.imagePlaceholder}
+    />
+  </div>
+</section>

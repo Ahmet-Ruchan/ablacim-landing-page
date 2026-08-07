@@ -1,0 +1,151 @@
+---
+import '@fontsource/newsreader/600.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '../styles/global.css';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, localePath, type Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale);
+
+const canonical = new URL(localePath(locale), siteConfig.siteUrl).href;
+const trUrl = new URL('/tr/', siteConfig.siteUrl).href;
+const enUrl = new URL('/en/', siteConfig.siteUrl).href;
+const ogLocale = locale === 'tr' ? 'tr_TR' : 'en_US';
+const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{d.meta.title}</title>
+    <meta name="description" content={d.meta.description} />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="tr" href={trUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${siteConfig.siteUrl}/`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={d.meta.title} />
+    <meta property="og:description" content={d.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta
+      property="og:image"
+      content={new URL(locale === 'tr' ? '/og-tr.png' : '/og-en.png', siteConfig.siteUrl).href}
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Tema, ilk boyamadan önce kurulur. İki durum: light | dark.
+         Öncelik: URL parametresi (QA zorlaması) > kayıtlı tercih > sistem
+         temasından türetilen varsayılan. data-theme-pref pil thumb'ını sürer. -->
+    <script is:inline>
+      (function () {
+        var pref = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+        try {
+          var stored = localStorage.getItem('ablacim-theme');
+          if (stored === 'light' || stored === 'dark') pref = stored;
+        } catch (e) {
+          /* localStorage kapalıysa sistem türevi geçerli */
+        }
+        var forced = location.search.match(/[?&]theme=(dark|light)\b/);
+        if (forced) pref = forced[1];
+        document.documentElement.setAttribute('data-theme', pref);
+        document.documentElement.setAttribute('data-theme-pref', pref);
+      })();
+    </script>
+  </head>
+  <body class="bg-bg font-sans text-body text-textPrimary">
+    <!-- Hareket bütçesi (adım 3/5): bölüm girişleri + ayraç çizimi.
+         PRM açıksa veya JS yoksa .motion eklenmez → her şey anında görünür. -->
+    <script>
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
+      if (!reduceMotion) {
+        document.documentElement.classList.add('motion');
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target); // bir kez — geri sarmaz
+              }
+            }
+          },
+          { threshold: 0.15 },
+        );
+        document
+          .querySelectorAll('[data-section]')
+          .forEach((section) => io.observe(section));
+
+        // Klavye odağı animasyona girmemiş bölüme inerse bölümü hemen göster
+        document.addEventListener('focusin', (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+          const section = target.closest('[data-section]');
+          if (section && !section.classList.contains('is-visible')) {
+            section.classList.add('is-visible');
+            io.unobserve(section);
+          }
+        });
+
+        // Avuç çizgisi: görünür olunca soldan sağa çizilir (800ms).
+        // PRM'de bu blok hiç çalışmaz — çizgi çizili başlar.
+        const divider = document.querySelector('[data-divider]');
+        const path = divider?.querySelector('path');
+        if (divider && path instanceof SVGPathElement) {
+          const len = path.getTotalLength();
+          path.style.strokeDasharray = String(len);
+          path.style.strokeDashoffset = String(len);
+          const dividerIo = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  path.style.transition =
+                    'stroke-dashoffset 800ms var(--ease-decelerate)';
+                  requestAnimationFrame(() => {
+                    path.style.strokeDashoffset = '0';
+                  });
+                  dividerIo.disconnect();
+                }
+              }
+            },
+            { threshold: 0.5 },
+          );
+          dividerIo.observe(divider);
+        }
+      }
+    </script>
+
+    <Header locale={locale} />
+    <!-- Konteyner: 1200px ortalı; yatay dolgu mobil 20, ≥768px 32.
+         Bölüm ritmi sahip talebiyle bir kademe küçüldü:
+         mobil 48, ≥1024px 64; hero ve kapanış 96 (64 + 32 dolgu) -->
+    <main
+      class="mx-auto flex w-full max-w-page flex-col gap-huge px-lg py-huge md:px-xxl lg:gap-section lg:py-section"
+    >
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

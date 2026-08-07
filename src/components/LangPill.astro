@@ -1,0 +1,99 @@
+---
+/**
+ * Dil pili — iki segment (TR · EN), tema piliyle aynı görsel aile.
+ * Segmentler gerçek <a>; tıklama sayfa geçişi olduğu için thumb KAYMAZ,
+ * doğru konumda animasyonsuz yüklenir. href tıklama anında mevcut bölüm
+ * çapasıyla güncellenir (bölüm id'leri iki dilde aynı).
+ */
+import { t, localePath, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).header;
+---
+
+<nav
+  aria-label={d.langGroup}
+  data-lang-pill
+  class="pil relative flex items-center rounded-pill border border-border bg-surfaceAlt p-xxs"
+>
+  <span
+    aria-hidden="true"
+    class:list={[
+      'pil-thumb absolute rounded-pill bg-surface',
+      locale === 'en' && 'translate-x-xxxl',
+    ]}></span>
+  <a
+    href={localePath('tr')}
+    hreflang="tr"
+    data-lang-link
+    aria-label={`${d.langTrShort} — ${d.langTr}`}
+    aria-current={locale === 'tr' ? 'true' : undefined}
+    class:list={[
+      'seg relative z-10 flex h-full w-xxxl items-center justify-center rounded-pill text-bodyStrong',
+      locale === 'tr' ? 'text-accent' : 'text-textMuted',
+    ]}
+  >
+    {d.langTrShort}
+  </a>
+  <a
+    href={localePath('en')}
+    hreflang="en"
+    data-lang-link
+    aria-label={`${d.langEnShort} — ${d.langEn}`}
+    aria-current={locale === 'en' ? 'true' : undefined}
+    class:list={[
+      'seg relative z-10 flex h-full w-xxxl items-center justify-center rounded-pill text-bodyStrong',
+      locale === 'en' ? 'text-accent' : 'text-textMuted',
+    ]}
+  >
+    {d.langEnShort}
+  </a>
+</nav>
+
+<style>
+  /* Pil 36px; segment 40px (mobil sığdırma), iç boşluk 2. Thumb geçişsiz. */
+  .pil {
+    height: 36px;
+  }
+  .pil-thumb {
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    width: 40px;
+  }
+  /* Basma geri bildirimi: 100ms opacity 0.7 (talimat) */
+  .seg {
+    transition: opacity 100ms var(--ease-standard);
+  }
+  .seg:active {
+    opacity: 0.7;
+  }
+  .seg:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // Dil geçişi mevcut bölümün karşılığına gitsin (BRIEF-EK S-2):
+  // varsayılan gezinmeden hemen önce href'e görünürdeki bölümün çapası eklenir.
+  document
+    .querySelectorAll<HTMLAnchorElement>('[data-lang-link]')
+    .forEach((link) => {
+      link.addEventListener('click', () => {
+        const base = link.getAttribute('href')?.split('#')[0] ?? '/';
+        const sections = document.querySelectorAll<HTMLElement>('[data-section]');
+        let currentId = '';
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+            currentId = section.id;
+          }
+        }
+        link.setAttribute('href', currentId ? `${base}#${currentId}` : base);
+      });
+    });
+</script>

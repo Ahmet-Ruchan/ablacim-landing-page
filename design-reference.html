@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ablacım — Tasarım Sistemi ve Ekranlar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --kul-0:#FFFFFF; --kul-50:#F7F4F6; --kul-100:#EFEAEE; --kul-200:#E2DAE1;
+  --kul-300:#CDC2CC; --kul-400:#A599A4; --kul-500:#7D717C; --kul-600:#5C525B;
+  --kul-700:#423A41; --kul-800:#2A242A; --kul-900:#1B1419;
+  --mor-50:#F4ECF5; --mor-100:#E6D7E9; --mor-200:#CDB0D3; --mor-300:#AE85B8;
+  --mor-400:#8E5E9B; --mor-500:#74437F; --mor-600:#5C3466; --mor-700:#45264D;
+  --mor-800:#2F1936; --mor-900:#1C0E21;
+  --bakir-100:#F6EBD8; --bakir-300:#E0BE74; --bakir-400:#CFA34C;
+  --bakir-500:#A87C2C; --bakir-600:#7F5C1E;
+  --serif:'Newsreader',Georgia,serif; --sans:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--kul-100);color:var(--kul-900);
+  -webkit-font-smoothing:antialiased;padding:48px 24px 96px}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--kul-500)}
+h1.doc{font-family:var(--serif);font-weight:600;font-size:44px;line-height:50px;letter-spacing:-1px;margin:8px 0 12px}
+h2.doc{font-family:var(--serif);font-weight:600;font-size:28px;line-height:34px;letter-spacing:-.1px;margin:0 0 6px}
+p.lead{font-size:16px;line-height:26px;color:var(--kul-600);max-width:640px}
+section{margin-top:72px}
+.sechead{border-top:1px solid var(--kul-200);padding-top:24px;margin-bottom:28px}
+
+/* palet */
+.ramp{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:10px 0 24px}
+.sw{height:56px;border-radius:8px;display:flex;align-items:flex-end;padding:6px;
+  font-size:9px;font-family:var(--sans);letter-spacing:.2px}
+
+/* telefon */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:32px}
+.phonewrap{}
+.phonelabel{font-size:13px;font-weight:500;color:var(--kul-600);margin-bottom:10px}
+.phonelabel span{color:var(--kul-400);font-weight:400}
+.phone{width:100%;max-width:320px;aspect-ratio:320/660;background:var(--kul-50);
+  border-radius:36px;border:1px solid var(--kul-300);overflow:hidden;position:relative;
+  box-shadow:0 10px 30px rgba(47,25,54,.10)}
+.phone.dark{background:#150F19;border-color:#362B3C}
+.status{height:44px;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 22px 6px;font-size:11px;font-weight:500;color:var(--kul-600)}
+.phone.dark .status{color:#B7ACB8}
+.body{padding:0 20px}
+.d-display{font-family:var(--serif);font-weight:600;font-size:27px;line-height:32px;letter-spacing:-.3px}
+.d-h1{font-family:var(--serif);font-weight:600;font-size:23px;line-height:28px;letter-spacing:-.2px}
+.d-h2{font-family:var(--serif);font-weight:600;font-size:19px;line-height:24px;letter-spacing:-.1px}
+.d-h3{font-size:15px;font-weight:600;line-height:20px}
+.d-bodylg{font-size:14px;line-height:22px}
+.d-body{font-size:13px;line-height:20px}
+.d-cap{font-size:11px;line-height:15px;color:var(--kul-500)}
+.d-label{font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;color:var(--kul-500)}
+.phone.dark .d-cap,.phone.dark .d-label{color:#8A7F8B}
+.phone.dark .d-display,.phone.dark .d-h1,.phone.dark .d-h2,.phone.dark .d-h3,
+.phone.dark .d-bodylg,.phone.dark .d-body{color:#F3EEF4}
+.btn{background:var(--mor-600);color:#fff;font-size:14px;font-weight:600;
+  height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center}
+.btn.ghost{background:transparent;color:var(--mor-600);border:1px solid var(--kul-200)}
+.phone.dark .btn{background:var(--mor-300);color:var(--mor-900)}
+.card{background:#fff;border:1px solid var(--kul-200);border-radius:18px;padding:14px}
+.phone.dark .card{background:#1E1723;border-color:#362B3C}
+.pill{display:inline-block;font-size:10px;font-weight:500;padding:4px 10px;border-radius:999px}
+.pill.gold{background:var(--bakir-100);color:var(--bakir-600)}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:60px;border-top:1px solid var(--kul-200);
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-around;
+  font-size:10px;color:var(--kul-500);padding-bottom:8px}
+.tabbar b{color:var(--mor-600);font-weight:500}
+.dot{width:20px;height:20px;border-radius:6px;border:1.5px solid currentColor;margin:0 auto 4px;opacity:.6}
+
+/* app store */
+.shotrow{display:flex;gap:14px;overflow-x:auto;padding-bottom:16px}
+.shot{flex:0 0 auto;width:206px;height:446px;border-radius:14px;overflow:hidden;
+  position:relative;background:var(--kul-50);border:1px solid var(--kul-200)}
+.shot.accent{background:var(--mor-700)}
+.shot.paper{background:var(--bakir-100)}
+.shot .txt{position:absolute;top:26px;left:20px;right:20px;z-index:2}
+.shot .hl{font-family:var(--serif);font-weight:600;font-size:22px;line-height:26px;letter-spacing:-.2px}
+.shot .sub{font-size:11px;line-height:16px;margin-top:7px;color:var(--kul-600)}
+.shot.accent .hl{color:#F3EEF4} .shot.accent .sub{color:#CDB0D3}
+.shot .mini{position:absolute;left:26px;right:26px;top:150px;bottom:-30px;background:#fff;
+  border-radius:22px 22px 0 0;border:1px solid var(--kul-200);border-bottom:none;overflow:hidden;z-index:2}
+.shot.accent .mini{border-color:var(--mor-600)}
+.shot svg.line{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.mini .mb{padding:16px 14px}
+.mini .mt{font-family:var(--serif);font-weight:600;font-size:15px;line-height:19px}
+.mini .mp{font-size:10px;line-height:15px;color:var(--kul-600);margin-top:6px}
+.mini .mbar{height:8px;border-radius:4px;background:var(--kul-100);margin-top:7px}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--kul-200)}
+th{font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--kul-500);font-weight:500}
+code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--kul-100);
+  padding:2px 6px;border-radius:5px}
+ul.notes{margin:14px 0 0 18px;font-size:14px;line-height:24px;color:var(--kul-700)}
+ul.notes li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Ablacım · Tasarım sistemi v0.1</p>
+  <h1 class="doc">Mistik içerik, temiz kabuk</h1>
+  <p class="lead">Arayüz iskeleti sakin ve okunaklı. Mistik olan yalnızca içerik, illüstrasyon,
+  tek vurgu rengi ve sonuç ekranının açılış hareketi. Ayarlar, ödeme ve yasal ekranlarda
+  mistik öğe bulunmaz.</p>
+
+  <!-- ============ PALET ============ -->
+  <section>
+    <div class="sechead">
+      <h2 class="doc">Palet</h2>
+      <p class="lead">Nötr zemin krem değil: hafif mor alt tonlu kül. Vurgu tek renk.
+      Bakır doygun dolgu olarak yalnızca premium sinyali; çizgi işi olarak
+      (kontur, ayraç, süs) marka imzası — bkz. K-2.</p>
+    </div>
+
+    <p class="eyebrow">Kül — nötr</p>
+    <div class="ramp">
+      <div class="sw" style="background:#FFFFFF;border:1px solid var(--kul-200);color:#7D717C">0</div>
+      <div class="sw" style="background:#F7F4F6;color:#7D717C">50</div>
+      <div class="sw" style="background:#EFEAEE;color:#7D717C">100</div>
+      <div class="sw" style="background:#E2DAE1;color:#5C525B">200</div>
+      <div class="sw" style="background:#CDC2CC;color:#423A41">300</div>
+      <div class="sw" style="background:#A599A4;color:#1B1419">400</div>
+      <div class="sw" style="background:#7D717C;color:#EFEAEE">500</div>
+      <div class="sw" style="background:#5C525B;color:#EFEAEE">600</div>
+      <div class="sw" style="background:#2A242A;color:#CDC2CC">800</div>
+      <div class="sw" style="background:#1B1419;color:#CDC2CC">900</div>
+    </div>
+
+    <p class="eyebrow">Mor — tek vurgu</p>
+    <div class="ramp">
+      <div class="sw" style="background:#F4ECF5;color:#74437F">50</div>
+      <div class="sw" style="background:#E6D7E9;color:#74437F">100</div>
+      <div class="sw" style="background:#CDB0D3;color:#45264D">200</div>
+      <div class="sw" style="background:#AE85B8;color:#2F1936">300</div>
+      <div class="sw" style="background:#8E5E9B;color:#F4ECF5">400</div>
+      <div class="sw" style="background:#74437F;color:#F4ECF5">500</div>
+      <div class="sw" style="background:#5C3466;color:#E6D7E9">600</div>
+      <div class="sw" style="background:#45264D;color:#CDB0D3">700</div>
+      <div class="sw" style="background:#2F1936;color:#CDB0D3">800</div>
+      <div class="sw" style="background:#1C0E21;color:#AE85B8">900</div>
+    </div>
+
+    <p class="eyebrow">Bakır — yalnız premium</p>
+    <div class="ramp" style="grid-template-columns:repeat(10,1fr)">
+      <div class="sw" style="background:#F6EBD8;color:#7F5C1E">100</div>
+      <div class="sw" style="background:#E0BE74;color:#7F5C1E">300</div>
+      <div class="sw" style="background:#CFA34C;color:#412402">400</div>
+      <div class="sw" style="background:#A87C2C;color:#F6EBD8">500</div>
+      <div class="sw" style="background:#7F5C1E;color:#F6EBD8">600</div>
+    </div>
+
+    <p class="eyebrow" style="margin-top:32px">Tipografi — Newsreader + Inter</p>
+    <div style="background:#fff;border:1px solid var(--kul-200);border-radius:18px;padding:28px;margin-top:12px">
+      <p style="font-family:var(--serif);font-weight:600;font-size:34px;line-height:40px;letter-spacing:-.3px">Çizgiler seni anlatıyor</p>
+      <p style="font-family:var(--serif);font-weight:600;font-size:22px;line-height:28px;margin-top:14px">Kalp çizgisi</p>
+      <p style="font-size:15px;font-weight:600;line-height:20px;margin-top:14px;color:var(--kul-900)">Kart başlığı — buradan sonrası Inter</p>
+      <p style="font-size:17px;line-height:26px;margin-top:10px">Rapor gövdesi bu ölçekte set edilir. Uzun okuma ana değer önerisi olduğu için satır yüksekliği bilerek geniş tutuldu.</p>
+      <p style="font-size:15px;line-height:23px;color:var(--kul-600);margin-top:8px">Arayüz metni, açıklama ve ikincil bilgi.</p>
+      <p style="font-size:13px;line-height:18px;color:var(--kul-500);margin-top:8px">Meta, tarih, dipnot.</p>
+    </div>
+  </section>
+
+  <!-- ============ EKRANLAR ============ -->
+  <section>
+    <div class="sechead">
+      <h2 class="doc">Uygulama ekranları</h2>
+      <p class="lead">Ana akış: karşılama → izin açıklaması → çekim → analiz → rapor → ödeme.
+      İlk analiz kayıt istemeden alınır; giriş, rapor kaydedilirken istenir.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1 karşılama -->
+      <div class="phonewrap">
+        <p class="phonelabel">01 Karşılama <span>· kayıtsız giriş</span></p>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <svg viewBox="0 0 320 200" style="width:100%;height:180px" preserveAspectRatio="none">
+            <path d="M10 150 C 70 40, 150 180, 310 60" fill="none" stroke="#5C3466" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+            <path d="M10 178 C 90 110, 170 200, 310 120" fill="none" stroke="#5C3466" stroke-width="1" stroke-linecap="round" opacity=".25"/>
+          </svg>
+          <div class="body" style="margin-top:6px">
+            <p class="d-label">Ablacım</p>
+            <p class="d-display" style="margin-top:8px">Çizgiler seni anlatıyor</p>
+            <p class="d-bodylg" style="color:var(--kul-600);margin-top:12px">El fotoğrafından kişilik ve eğilim analizi. İlk analiz için kayıt gerekmez.</p>
+            <div class="btn" style="margin-top:22px">Analize başla</div>
+            <div class="btn ghost" style="margin-top:10px">Rüyanı yorumlat</div>
+            <p class="d-cap" style="margin-top:16px">Eğlence ve kişisel içgörü amaçlıdır. Tıbbi, finansal veya yatırım tavsiyesi değildir.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 izin -->
+      <div class="phonewrap">
+        <p class="phonelabel">02 İzin açıklaması <span>· sistem diyaloğundan önce</span></p>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <div class="body" style="margin-top:20px">
+            <p class="d-h1">Elinin fotoğrafını çekelim</p>
+            <p class="d-bodylg" style="color:var(--kul-600);margin-top:10px">Kamera iznini şu üç şey için istiyoruz:</p>
+            <div class="card" style="margin-top:16px">
+              <p class="d-h3">Analiz için</p>
+              <p class="d-body" style="color:var(--kul-600);margin-top:4px">Fotoğraf yalnızca çizgileri okumak için işlenir.</p>
+            </div>
+            <div class="card" style="margin-top:10px">
+              <p class="d-h3">Sunucuda tutulmaz</p>
+              <p class="d-body" style="color:var(--kul-600);margin-top:4px">Analiz bitince görsel silinir, rapor kalır.</p>
+            </div>
+            <div class="card" style="margin-top:10px">
+              <p class="d-h3">İstediğin zaman sil</p>
+              <p class="d-body" style="color:var(--kul-600);margin-top:4px">Geçmiş analizlerini hesabından kaldırabilirsin.</p>
+            </div>
+            <div class="btn" style="margin-top:20px">Kamerayı aç</div>
+            <div class="btn ghost" style="margin-top:10px">Galeriden seç</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 çekim -->
+      <div class="phonewrap">
+        <p class="phonelabel">03 Çekim <span>· tek koyu ekran</span></p>
+        <div class="phone dark">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <div class="body" style="margin-top:14px">
+            <p class="d-label" style="text-align:center">Avuç içi kadraja otursun</p>
+          </div>
+          <svg viewBox="0 0 280 340" style="width:100%;height:340px;margin-top:16px">
+            <rect x="34" y="10" width="212" height="300" rx="26" fill="none" stroke="#AE85B8" stroke-width="1.5" stroke-dasharray="4 7" opacity=".8"/>
+            <path d="M78 250 C 78 170, 92 120, 104 96 M112 250 C 108 160, 116 104, 126 74 M146 252 C 146 158, 152 104, 158 78 M180 250 C 182 168, 178 122, 172 102" stroke="#8A7F8B" stroke-width="7" stroke-linecap="round" fill="none" opacity=".4"/>
+            <path d="M66 216 C 92 200, 140 198, 196 208" stroke="#AE85B8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M70 238 C 104 226, 152 226, 200 236" stroke="#AE85B8" stroke-width="1" fill="none" stroke-linecap="round" opacity=".55"/>
+          </svg>
+          <div class="body">
+            <p class="d-cap" style="text-align:center">Işığı yandan al, parmakları hafif aç</p>
+          </div>
+          <div style="position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center">
+            <div style="width:64px;height:64px;border-radius:999px;border:3px solid #AE85B8;background:rgba(174,133,184,.18)"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 analiz -->
+      <div class="phonewrap">
+        <p class="phonelabel">04 Analiz ediliyor <span>· imza hareketi</span></p>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <div class="body" style="margin-top:80px">
+            <svg viewBox="0 0 280 120" style="width:100%;height:120px">
+              <path d="M8 92 C 66 30, 150 104, 272 34" fill="none" stroke="#E2DAE1" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8 92 C 66 30, 150 104, 272 34" fill="none" stroke="#5C3466" stroke-width="2" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="118"/>
+              <circle cx="176" cy="72" r="4" fill="#5C3466"/>
+            </svg>
+            <p class="d-h2" style="margin-top:26px">Kalp çizgisi okunuyor</p>
+            <p class="d-body" style="color:var(--kul-600);margin-top:8px">4 bölümden 2'si tamamlandı</p>
+            <div class="card" style="margin-top:24px">
+              <p class="d-body" style="color:var(--kul-600)">Çizgi derinliği ve kesintileri duygusal ifade biçimiyle ilişkilendiriliyor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 rapor -->
+      <div class="phonewrap">
+        <p class="phonelabel">05 Rapor <span>· uzun okuma, bodyLg</span></p>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <div class="body" style="margin-top:12px">
+            <p class="d-label">Avuç içi · 3 Ağustos</p>
+            <p class="d-h1" style="margin-top:8px">Kalp çizgisi</p>
+            <p class="d-bodylg" style="margin-top:10px;color:var(--kul-700)">Çizgin uzun ve yumuşak kavisli. Bu tip bir çizgi genelde duygularını
+            saklamak yerine ifade etmeyi seçen bir yapıya işaret eder.</p>
+            <svg viewBox="0 0 280 24" style="width:100%;height:24px;margin:14px 0">
+              <path d="M0 18 C 70 4, 190 22, 280 8" fill="none" stroke="#E2DAE1" stroke-width="1.2"/>
+            </svg>
+            <p class="d-h2">Akıl çizgisi</p>
+            <p class="d-bodylg" style="margin-top:8px;color:var(--kul-400)">Bu bölüm tam raporda açılıyor. Karar verme biçimin, odaklanma
+            ritmin ve risk yaklaşımın burada anlatılıyor.</p>
+            <div class="card" style="margin-top:14px;display:flex;align-items:center;justify-content:space-between">
+              <span class="d-h3">3 bölüm daha</span>
+              <span class="pill gold">Premium</span>
+            </div>
+            <div class="btn" style="margin-top:12px">Raporun tamamını aç</div>
+          </div>
+          <div class="tabbar">
+            <div><div class="dot" style="color:#5C3466"></div><b>Analiz</b></div>
+            <div><div class="dot"></div>Geçmiş</div>
+            <div><div class="dot"></div>Rüya</div>
+            <div><div class="dot"></div>Hesap</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 paywall -->
+      <div class="phonewrap">
+        <p class="phonelabel">06 Planlar <span>· nötr ekran, bakır sinyal</span></p>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>▮▮▮</span></div>
+          <div class="body" style="margin-top:18px">
+            <p class="d-h1">Raporun tamamı</p>
+            <p class="d-body" style="color:var(--kul-600);margin-top:8px">Akıl, kader ve ilişki bölümleri dahil.</p>
+
+            <div class="card" style="margin-top:16px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <span class="d-h3">Mini</span><span class="d-body" style="color:var(--kul-600)">tek rapor</span>
+              </div>
+              <p class="d-body" style="color:var(--kul-600);margin-top:5px">Bir el analizinin tamamı</p>
+            </div>
+
+            <div class="card" style="margin-top:10px;border-color:var(--bakir-400);border-width:1.5px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span class="d-h3">Standart</span><span class="pill gold">En çok seçilen</span>
+              </div>
+              <p class="d-body" style="color:var(--kul-600);margin-top:5px">Aylık sınırsız el ve rüya analizi</p>
+            </div>
+
+            <div class="card" style="margin-top:10px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <span class="d-h3">Premium</span><span class="d-body" style="color:var(--kul-600)">+ ilişki</span>
+              </div>
+              <p class="d-body" style="color:var(--kul-600);margin-top:5px">Çift eli analizi ve ebced isim uyumu</p>
+            </div>
+
+            <div class="btn" style="margin-top:16px">Standart ile devam et</div>
+            <p class="d-cap" style="margin-top:10px;text-align:center">İstediğin zaman iptal edebilirsin · Satın alımları geri yükle</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ APP STORE ============ -->
+  <section>
+    <div class="sechead">
+      <h2 class="doc">App Store görselleri</h2>
+      <p class="lead">Altı kare. Avuç çizgisi kareler arasında kesintisiz devam eder —
+      mağazada yatay kaydırılınca tek bir el çizgisi okunur. Şablon görünmemesini
+      sağlayan tek fikir bu; onun dışında dekorasyon yok.</p>
+    </div>
+
+    <div class="shotrow">
+
+      <div class="shot accent">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 300 C 66 268, 140 250, 206 258" fill="none" stroke="#AE85B8" stroke-width="1.5" opacity=".5"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">Çizgiler<br>seni anlatıyor</p>
+          <p class="sub">El fotoğrafından kişilik ve eğilim analizi</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Kalp çizgisi</p>
+          <p class="mp">Çizgin uzun ve yumuşak kavisli. Duygularını ifade etmeyi seçen bir yapıya işaret eder.</p>
+          <div class="mbar"></div><div class="mbar" style="width:76%"></div>
+        </div></div>
+      </div>
+
+      <div class="shot">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 258 C 70 268, 130 218, 206 226" fill="none" stroke="#CDC2CC" stroke-width="1.5"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">Bir dakikada<br>hazır</p>
+          <p class="sub">Kayıt olmadan ilk analizini al</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Analiz ediliyor</p>
+          <p class="mp">4 bölümden 2'si tamamlandı</p>
+          <div class="mbar" style="background:#5C3466;width:52%"></div>
+        </div></div>
+      </div>
+
+      <div class="shot paper">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 226 C 60 234, 150 256, 206 246" fill="none" stroke="#CFA34C" stroke-width="1.5" opacity=".7"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">Dört çizgi,<br>dört ayrı bölüm</p>
+          <p class="sub">Kalp, akıl, kader ve yaşam çizgisi</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Akıl çizgisi</p>
+          <p class="mp">Karar verme biçimin, odaklanma ritmin ve risk yaklaşımın.</p>
+          <div class="mbar"></div><div class="mbar" style="width:88%"></div><div class="mbar" style="width:64%"></div>
+        </div></div>
+      </div>
+
+      <div class="shot">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 246 C 74 236, 132 286, 206 272" fill="none" stroke="#CDC2CC" stroke-width="1.5"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">İki el,<br>tek analiz</p>
+          <p class="sub">İlişki dinamikleri için çift analizi</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Uyum</p>
+          <p class="mp">İki avuç içindeki kalp çizgileri karşılaştırılır.</p>
+          <div class="mbar" style="background:#E6D7E9;width:70%"></div>
+          <div class="mbar" style="background:#E6D7E9;width:84%"></div>
+        </div></div>
+      </div>
+
+      <div class="shot">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 272 C 62 260, 140 232, 206 240" fill="none" stroke="#CDC2CC" stroke-width="1.5"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">Rüyanı<br>anlat, yorumlat</p>
+          <p class="sub">Yazdığın rüya için ayrı bir okuma</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Rüya kaydı</p>
+          <p class="mp">Dün gece denizde yürüdüğümü gördüm…</p>
+          <div class="mbar"></div><div class="mbar" style="width:58%"></div>
+        </div></div>
+      </div>
+
+      <div class="shot accent">
+        <svg class="line" viewBox="0 0 206 446" preserveAspectRatio="none">
+          <path d="M0 240 C 78 248, 138 210, 206 202" fill="none" stroke="#AE85B8" stroke-width="1.5" opacity=".5"/>
+        </svg>
+        <div class="txt">
+          <p class="hl">Geçmiş<br>analizlerin durur</p>
+          <p class="sub">Raporlarını kaydet, sonra tekrar oku</p>
+        </div>
+        <div class="mini"><div class="mb">
+          <p class="mt">Geçmiş</p>
+          <p class="mp">3 Ağustos · El analizi</p>
+          <div class="mbar"></div>
+          <p class="mp" style="margin-top:10px">28 Temmuz · Rüya</p>
+          <div class="mbar" style="width:72%"></div>
+        </div></div>
+      </div>
+
+    </div>
+
+    <h3 style="font-family:var(--serif);font-weight:600;font-size:20px;margin-top:36px">Kare kuralları</h3>
+    <table>
+      <tr><th>Öğe</th><th>Kural</th></tr>
+      <tr><td>Boyut</td><td>iPhone 6.9" için <code>1290 × 2796</code>, Play Store için <code>1080 × 1920</code></td></tr>
+      <tr><td>Adet</td><td>6 kare. Arama sonucunda ilk 3'ü görünür — değer önerisi ilk üçte bitmeli</td></tr>
+      <tr><td>Başlık</td><td>Newsreader SemiBold, en fazla 2 satır, 4 kelime civarı. Nokta yok</td></tr>
+      <tr><td>Alt satır</td><td>Inter Regular, tek satır, açıklama. Vaat değil tarif</td></tr>
+      <tr><td>Cihaz</td><td>Kadrajın alt kenarından taşar — ekran kesiliyor hissi derinlik verir</td></tr>
+      <tr><td>Zemin</td><td>Sıra: mor · kül · bakır · kül · kül · mor. Yan yana iki renkli kare olmaz</td></tr>
+      <tr><td>Çizgi</td><td>Her karenin bitiş y değeri, sonrakinin başlangıcıyla aynı</td></tr>
+    </table>
+
+    <ul class="notes">
+      <li>Kare içinde beş yıldız, "en iyi", "#1" gibi ifadeler kullanma — Apple bunları reddediyor.</li>
+      <li>Gerçek arayüz görüntüsü kullan. Uygulamada olmayan bir ekranı tanıtım görselinde gösterirsen review'da takılırsın.</li>
+      <li>Fal ve astroloji kategorisinde "eğlence amaçlıdır" ifadesinin onboarding'de görünür olması gerekiyor; tanıtım görselinde kesin gelecek vaadi verme.</li>
+      <li>İlk kare hem App Store hem Play Store'da aynı olsun; kullanıcı iki mağazada da aynı ürünü tanısın.</li>
+      <li>Metinler Türkçe ve İngilizce ayrı set olarak üretilmeli — çeviri değil, yeniden yazım.</li>
+    </ul>
+  </section>
+
+
+  <section>
+    <h2 class="doc">v1.0.0 ile gelen bileşenler</h2>
+    <p class="doc lead">
+      v0.1'den sonra sisteme giren yüzeyler. Kural kaynağı
+      <code>docs/design-system.md</code>, karar kaydı
+      <code>docs/design-decisions.md</code>.
+    </p>
+
+    <h3 class="doc">Düşünme göstergesi <span style="opacity:.6">— K-16, İ-1, İ-2</span></h3>
+    <p class="doc">
+      Balonsuz tek satır. 20px halka üç yaya bölünür
+      (<code>thinkingArc1/2/3</code>), metin <code>textSecondary</code>
+      tabanlı ve üzerinden <code>textPrimary</code> bant geçer. Üç nokta
+      metnin taban çizgisine oturur, boyutu punto ile orantılıdır.
+      Reduce Motion açıkken parlama yok, noktalar sabit.
+    </p>
+    <div class="card" style="display:flex;align-items:center;gap:10px">
+      <svg width="20" height="20" viewBox="0 0 20 20">
+        <circle cx="10" cy="10" r="8" fill="none" stroke="#AE85B8" stroke-width="3" stroke-linecap="round" stroke-dasharray="14.3 36" />
+        <circle cx="10" cy="10" r="8" fill="none" stroke="#5C3466" stroke-width="3" stroke-linecap="round" stroke-dasharray="14.3 36" stroke-dashoffset="-16.8" />
+        <circle cx="10" cy="10" r="8" fill="none" stroke="#CFA34C" stroke-width="3" stroke-linecap="round" stroke-dasharray="14.3 36" stroke-dashoffset="-33.5" />
+      </svg>
+      <span style="font-size:15px;color:#5C525B">Rüyan anlamlandırılıyor</span>
+      <span style="display:flex;gap:4px;align-items:flex-end;padding-bottom:3px">
+        <i style="width:4px;height:4px;border-radius:50%;background:#5C525B;opacity:.3"></i>
+        <i style="width:4px;height:4px;border-radius:50%;background:#5C525B;opacity:.65"></i>
+        <i style="width:4px;height:4px;border-radius:50%;background:#5C525B"></i>
+      </span>
+    </div>
+
+    <h3 class="doc">Ekran içi geri butonu <span style="opacity:.6">— K-19</span></h3>
+    <p class="doc">
+      Sabit header yalnız sohbet ekranlarında. Diğer her ekranda başlık
+      içeriğin ilk elemanıdır; geri butonu onun üstünde durur ve scroll ile
+      birlikte kayar. 48×48 dokunma, ikon <code>accent</code>, metin yok.
+    </p>
+
+    <h3 class="doc">Satın alma kartı <span style="opacity:.6">— K-17, K-20, İ-3</span></h3>
+    <p class="doc">
+      <code>surface</code> zemin, <code>border</code> 1px, <code>radii.lg</code>,
+      gölge yok. Fiyat YALNIZCA mağazadan gelir; gelmemişse tutar yerine
+      iskelet durur ve buton kapalıdır. Ön koşulu olmayan ürün gizlenmez —
+      kapalı görünür ve sebebi altında yazar.
+    </p>
+    <div class="card" style="max-width:320px">
+      <span class="eyebrow" style="background:#EFE6F1;color:#5C3466;padding:2px 8px;border-radius:999px">MEVCUT PLANIN</span>
+      <div style="font-size:18px;font-weight:600;margin-top:8px">Üst Düzey Rüyacı</div>
+      <div style="font-size:15px;color:#5C525B;margin-top:4px">Her ay 7 mesaj hakkı</div>
+      <div style="display:flex;align-items:baseline;gap:6px;margin:12px 0 16px">
+        <span style="display:inline-block;width:96px;height:18px;border-radius:6px;background:#EFEAEE"></span>
+        <span style="font-size:13px;color:#8A7F8B">aylık</span>
+      </div>
+      <div class="btn" style="opacity:.45;text-align:center">Abone ol</div>
+      <div style="font-size:13px;color:#8A7F8B;margin-top:8px">Mağaza fiyatı henüz gelmedi</div>
+    </div>
+
+    <h3 class="doc">Onay alt sayfası <span style="opacity:.6">— K-13</span></h3>
+    <p class="doc">
+      Backdrop ve sheet aynı anda başlar; backdrop 0'dan <code>scrim</code>'e
+      yumuşar. Süre <code>motion.duration.base</code>, giriş
+      <code>easing.decelerate</code>, çıkış <code>easing.accelerate</code>.
+      Butonlar dikey: birincil üstte, "Vazgeç" altta ghost.
+    </p>
+
+    <h3 class="doc">Yenilenmesi gereken</h3>
+    <p class="doc">
+      Yukarıdaki "Uygulama ekranları" bölümündeki maketler v0.1
+      döneminden. Sabit header'ın kaldırılması, "Planlar ve satın alımlar"
+      ekranı ve yeni bekleme durumu oraya yansıtılmadı — ayrı bir geçiş
+      gerekiyor.
+    </p>
+  </section>
+
+</div>
+</body>
+</html>

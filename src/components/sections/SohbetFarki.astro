@@ -1,0 +1,35 @@
+---
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).sohbetFarki;
+---
+
+<!-- Bölüm 5 / Sohbet farkı — statik demo, ortalanmış, max 640px.
+     Mobil hiyerarşi: kullanıcı dar + bakır tint + sağda; Abla geniş +
+     nötr + solunda accent hairline. Yazıyor animasyonu bilerek yok. -->
+<section id="sohbet-farki" data-section class="flex flex-col gap-lg">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+  <div class="mx-auto flex w-full max-w-demo flex-col gap-sm">
+    {
+      d.demo.map((bubble) =>
+        bubble.from === 'abla' ? (
+          <div class="rounded-lg border border-border border-l-accent bg-surface px-base py-md">
+            <span class="sr-only">{d.ablaLabel}: </span>
+            <p class="text-body text-textPrimary">{bubble.text}</p>
+          </div>
+        ) : (
+          <div class="max-w-3/4 self-end rounded-lg border border-bubbleUserBorder bg-bubbleUserSurface px-base py-md">
+            <span class="sr-only">{d.youLabel}: </span>
+            <p class="text-body text-textPrimary">{bubble.text}</p>
+          </div>
+        ),
+      )
+    }
+  </div>
+</section>

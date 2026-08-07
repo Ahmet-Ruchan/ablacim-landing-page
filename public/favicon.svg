@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Favicon (karar): işaret düz #F4ECF5 kare zeminde, merkezî %62.
+       Ayrı varlık — renkler literal (işaretin light fallback değerleri). -->
+  <rect width="1024" height="1024" fill="#F4ECF5"/>
+  <g transform="translate(93.11 93.11) scale(0.81814)">
+    <rect x="194" y="292" width="270" height="440" rx="56" fill="#EBD7B0"/>
+    <rect x="560" y="292" width="270" height="440" rx="56" fill="#D7BFDD"/>
+    <path d="M 140 566 C 360 566, 664 458, 884 458" fill="none" stroke="#45264D" stroke-width="28" stroke-linecap="round"/>
+  </g>
+</svg>

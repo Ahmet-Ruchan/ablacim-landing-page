@@ -1,0 +1,50 @@
+---
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+const d = dict.nasilCalisir;
+
+const strip = [
+  { src: '/screens/app-1.jpg', alt: dict.screens.welcomeAlt },
+  { src: '/screens/app-2.jpg', alt: dict.screens.reportAlt },
+  { src: '/screens/app-3.jpg', alt: dict.screens.chatAlt },
+];
+---
+
+<!-- Bölüm 4 / Nasıl çalışır — 4 adım ≥768px'te yatay; numara üstte,
+     label token + accent. Avuç çizgisi ayracı BURADA KULLANILMAZ.
+     Altta ekran görüntüsü şeridi: yatay scroll-snap, sürüklenebilir,
+     otomatik oynatma yok; düz köşe + hairline border, çerçeve yok. -->
+<section id="nasil-calisir" data-section class="flex flex-col gap-xl">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <ol data-stagger class="grid gap-md md:grid-cols-4">
+    {
+      d.steps.map((step, i) => (
+        <li class="flex flex-col gap-sm">
+          <span class="text-label uppercase text-accent">{i + 1}</span>
+          <span class="text-body text-textSecondary">{step}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <!-- Görseller küçültüldü (genel ölçek talebi) -->
+  <div class="flex snap-x snap-mandatory gap-md overflow-x-auto">
+    {
+      strip.map((shot) => (
+        <img
+          src={shot.src}
+          alt={shot.alt}
+          width="512"
+          height="1112"
+          loading="lazy"
+          class="w-3/5 shrink-0 snap-center border border-border md:w-1/4"
+        />
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,284 @@
+/**
+ * Ablacım — token katmanı (web)
+ * Kaynak: landing-page-brief.md §3–§5 + tokens.ts (birebir doğrulandı).
+ * Bileşenler ham ramp adı kullanmaz; yalnız semantik adlar (bg, surface,
+ * textPrimary, accent, premium...). Dark tema light'ın tersi değil —
+ * elle seçilmiş mor-siyah tonlar. invert/filter yok.
+ */
+
+/* ---------------------------------------------------------------
+ * 1. Ham ramp'ler — yalnız bu dosyadaki semantik katman türetir
+ * ------------------------------------------------------------- */
+:root {
+  --kul-0: #ffffff;
+  --kul-50: #f7f4f6;
+  --kul-100: #efeaee;
+  --kul-200: #e2dae1;
+  --kul-300: #cdc2cc;
+  --kul-400: #a599a4;
+  --kul-500: #7d717c;
+  --kul-600: #5c525b;
+  --kul-700: #423a41;
+  --kul-800: #2a242a;
+  --kul-900: #1b1419;
+
+  --mor-50: #f4ecf5;
+  --mor-100: #e6d7e9;
+  --mor-200: #cdb0d3;
+  --mor-300: #ae85b8;
+  --mor-400: #8e5e9b;
+  --mor-500: #74437f;
+  --mor-600: #5c3466;
+  --mor-700: #45264d;
+  --mor-800: #2f1936;
+  --mor-900: #1c0e21;
+
+  --bakir-100: #f6ebd8;
+  --bakir-300: #e0be74;
+  --bakir-400: #cfa34c;
+  --bakir-500: #a87c2c;
+  --bakir-600: #7f5c1e;
+}
+
+/* ---------------------------------------------------------------
+ * 2. Semantik eşleme — light (brief §3.2)
+ * ------------------------------------------------------------- */
+:root {
+  --bg: var(--kul-50);
+  --surface: var(--kul-0);
+  --surfaceAlt: var(--kul-100);
+  --surfacePressed: var(--kul-200);
+  --surfaceTranslucent: rgba(255, 255, 255, 0.92);
+  --border: var(--kul-200);
+  --borderStrong: var(--kul-300);
+  --textPrimary: var(--kul-900);
+  --textSecondary: var(--kul-600);
+  --textMuted: var(--kul-500);
+  --textInverse: var(--kul-0);
+  --accent: var(--mor-600);
+  --accentPressed: var(--mor-700);
+  --accentSubtle: var(--mor-50);
+  --accentBorder: var(--mor-100);
+  --onAccent: #ffffff;
+  --premium: var(--bakir-500);
+  --premiumSubtle: var(--bakir-100);
+  --success: #2f7d5c;
+  --successBg: #e6f1ec;
+  --warning: var(--bakir-500);
+  --warningBg: var(--bakir-100);
+  --danger: #b3423a;
+  --dangerBg: #f7e7e5;
+  --scrim: rgba(27, 20, 25, 0.55);
+  --skeleton: var(--kul-100);
+
+  /* Sohbet balonu — YALNIZ kullanıcı balonu (tokens.ts sohbetBalonu).
+     Asistan balonu surface + border kullanır. */
+  --bubbleUserSurface: var(--bakir-100);
+  --bubbleUserBorder: rgba(207, 163, 76, 0.45);
+
+  /* Gölge — light'ta minimum; renk siyah değil mor-mürekkep (#2F1936) */
+  --shadow-soft-value: 0 4px 12px rgba(47, 25, 54, 0.06);
+  --shadow-lifted-value: 0 10px 24px rgba(47, 25, 54, 0.1);
+}
+
+/* ---------------------------------------------------------------
+ * 3. Semantik eşleme — dark (brief §3.2)
+ * ------------------------------------------------------------- */
+:root[data-theme='dark'] {
+  --bg: #150f19;
+  --surface: #1e1723;
+  --surfaceAlt: #281f2e;
+  --surfacePressed: #332839;
+  --surfaceTranslucent: rgba(30, 23, 35, 0.92);
+  --border: #362b3c;
+  --borderStrong: #483b4e;
+  --textPrimary: #f3eef4;
+  --textSecondary: #b7acb8;
+  --textMuted: #8a7f8b;
+  --textInverse: var(--kul-900);
+  --accent: var(--mor-300);
+  --accentPressed: var(--mor-200);
+  --accentSubtle: rgba(174, 133, 184, 0.14);
+  --accentBorder: rgba(174, 133, 184, 0.28);
+  --onAccent: var(--mor-900);
+  --premium: var(--bakir-300);
+  --premiumSubtle: rgba(224, 190, 116, 0.14);
+  --success: #5fb08a;
+  --successBg: rgba(95, 176, 138, 0.14);
+  --warning: var(--bakir-300);
+  --warningBg: rgba(224, 190, 116, 0.14);
+  --danger: #e08279;
+  --dangerBg: rgba(224, 130, 121, 0.14);
+  --scrim: rgba(8, 5, 10, 0.65);
+  --skeleton: #281f2e;
+
+  /* Sohbet balonu dark — koyu yüzeyde opak bakır ağır durur (tokens.ts) */
+  --bubbleUserSurface: rgba(224, 190, 116, 0.12);
+  --bubbleUserBorder: rgba(224, 190, 116, 0.28);
+
+  /* Dark'ta gölge yok (brief §5.4) — katman farkı yüzey rengiyle */
+  --shadow-soft-value: none;
+  --shadow-lifted-value: none;
+
+  /* Logo (assets/ablacim-mark.svg) dark değerleri — light değerler
+     SVG'nin kendi fallback'lerinde */
+  --logo-thread: #ae85b8;
+  --logo-panel-1: #3a2e22;
+  --logo-panel-2: #3a2540;
+}
+
+/* ---------------------------------------------------------------
+ * 4. Tailwind theme — statik token'lar
+ *    Varsayılan ölçekler kapalı: ölçek dışı utility üretilmez,
+ *    böylece "değer uydurma" derlemede engellenir.
+ * ------------------------------------------------------------- */
+@theme {
+  /* Tipografi aileleri (brief §4.1) */
+  --font-*: initial;
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Tip ölçeği (brief §4.2) — S-1 akışkan; tavanlar sahip talebiyle
+     KÜÇÜLTÜLDÜ ("çok büyük çarpıyor göze"): display 56→44, h1 40→34,
+     h2 30→24, h3 ve bodyLg sabit. Letter-spacing değişmez. */
+  --text-*: initial;
+  --text-display: clamp(2.125rem, 1.5rem + 1.6vw, 2.75rem); /* 34 → 44 */
+  --text-display--line-height: 1.12;
+  --text-display--letter-spacing: -0.3px;
+  --text-display--font-weight: 600;
+  --text-h1: clamp(1.75rem, 1.45rem + 0.8vw, 2.125rem); /* 28 → 34 */
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.2px;
+  --text-h1--font-weight: 600;
+  --text-h2: clamp(1.375rem, 1.25rem + 0.35vw, 1.5rem); /* 22 → 24 */
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.1px;
+  --text-h2--font-weight: 600;
+  --text-h3: 18px;
+  --text-h3--line-height: 24px;
+  --text-h3--letter-spacing: -0.1px;
+  --text-h3--font-weight: 600;
+  --text-bodyLg: 17px;
+  --text-bodyLg--line-height: 26px;
+  --text-body: 15px;
+  --text-body--line-height: 23px;
+  --text-bodyStrong: 15px;
+  --text-bodyStrong--line-height: 23px;
+  --text-bodyStrong--font-weight: 500;
+  --text-caption: 13px;
+  --text-caption--line-height: 18px;
+  --text-label: 12px;
+  --text-label--line-height: 16px;
+  --text-label--letter-spacing: 0.6px;
+  --text-label--font-weight: 500;
+  --text-button: 16px;
+  --text-button--line-height: 20px;
+  --text-button--font-weight: 600;
+
+  /* Boşluk — 4'ün katları (brief §5.1); ara değer üretilmez.
+     DİKKAT: xs/sm/md/lg/xl adları Tailwind'in container adlarıyla çakışır;
+     max-w-sm gibi utility'ler container yerine BU spacing değerine çözülür
+     (max-w-sm = 8px olur). max-w-{xs,sm,md,lg,xl} KULLANMA — kesir (w-3/4),
+     çakışmayan container (max-w-3xs, max-w-6xl) veya w-full kullan. */
+  --spacing-*: initial;
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-base: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+  --spacing-xxxl: 40px;
+  --spacing-huge: 48px;
+  --spacing-section: 64px;
+  /* Bölüm arası masaüstü (≥1024px) boşlukları — karar: bölüm boşluğu kapanışı.
+     section-xl YALNIZ hero ve kapanış CTA'da (masaüstü) kullanılabilir. */
+  --spacing-section-lg: 96px;
+  --spacing-section-xl: 128px;
+
+  /* Yarıçap (brief §5.2) */
+  --radius-*: initial;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Sayfa konteyneri ve demo genişliği — adım 3 talimatındaki değerler */
+  --container-page: 1200px;
+  --container-demo: 640px;
+
+  /* Hareket eğrileri (brief §5.5) */
+  --ease-*: initial;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+}
+
+/* ---------------------------------------------------------------
+ * 5. Tailwind theme — temaya bağlı token'lar (inline: utility'ler
+ *    var() üzerinden çözülür, light/dark canlı değişir)
+ * ------------------------------------------------------------- */
+@theme inline {
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surfaceAlt: var(--surfaceAlt);
+  --color-surfacePressed: var(--surfacePressed);
+  --color-surfaceTranslucent: var(--surfaceTranslucent);
+  --color-border: var(--border);
+  --color-borderStrong: var(--borderStrong);
+  --color-textPrimary: var(--textPrimary);
+  --color-textSecondary: var(--textSecondary);
+  --color-textMuted: var(--textMuted);
+  --color-textInverse: var(--textInverse);
+  --color-accent: var(--accent);
+  --color-accentPressed: var(--accentPressed);
+  --color-accentSubtle: var(--accentSubtle);
+  --color-accentBorder: var(--accentBorder);
+  --color-onAccent: var(--onAccent);
+  --color-premium: var(--premium);
+  --color-premiumSubtle: var(--premiumSubtle);
+  --color-success: var(--success);
+  --color-successBg: var(--successBg);
+  --color-warning: var(--warning);
+  --color-warningBg: var(--warningBg);
+  --color-danger: var(--danger);
+  --color-dangerBg: var(--dangerBg);
+  --color-scrim: var(--scrim);
+  --color-skeleton: var(--skeleton);
+  --color-bubbleUserSurface: var(--bubbleUserSurface);
+  --color-bubbleUserBorder: var(--bubbleUserBorder);
+
+  --shadow-*: initial;
+  --shadow-soft: var(--shadow-soft-value);
+  --shadow-lifted: var(--shadow-lifted-value);
+}
+
+/* ---------------------------------------------------------------
+ * 6. Hareket süreleri ve dokunma hedefleri — düz custom property
+ *    (iskelette animasyon yok; ileride buradan kullanılacak)
+ * ------------------------------------------------------------- */
+:root {
+  --duration-instant: 120ms;
+  --duration-fast: 180ms;
+  --duration-base: 260ms;
+  --duration-slow: 420ms;
+  --duration-reveal: 700ms; /* yalnız sonuç açılışı */
+  --stagger: 90ms;
+
+  --hit-min: 48px; /* WCAG 2.5.5 alt sınırı */
+  --hit-button: 52px;
+  --hit-row: 56px;
+
+  /* Header yüksekliği — karar: header kapanışı (mobil 56, masaüstü 64) */
+  --header-height: 56px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 64px;
+  }
+}

@@ -1,0 +1,123 @@
+---
+import { t, type Locale } from '../i18n';
+import { siteConfig } from '../site.config';
+import instagramIcon from '../../assets/icons/instagram.svg?raw';
+import tiktokIcon from '../../assets/icons/tiktok.svg?raw';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = t(locale);
+const d = dict.footer;
+
+// Dil eşleşmesi (BRIEF-EK S-6): TR sayfada ablacimofficial,
+// EN sayfada ablaciminternational; TikTok her ikisinde de görünür.
+const instagramUrl =
+  locale === 'tr' ? siteConfig.social.instagramTr : siteConfig.social.instagramEn;
+
+// Bağlantılar sütunu: bölüm çapaları — başlıklar sözlükten yeniden kullanılır
+const sectionLinks = [
+  { href: '#ozellikler', label: dict.ozellikler.title },
+  { href: '#nasil-calisir', label: dict.nasilCalisir.title },
+  { href: '#sss', label: dict.sss.title },
+  { href: '#indir', label: dict.indir.title },
+];
+
+const linkClass = 'flex min-h-huge items-center text-body text-textSecondary';
+---
+
+<!-- Bölüm 9 / Altbilgi — mistik öğe yok; ≥768px 4 sütun grid:
+     Bağlantılar · Sosyal · Yasal · Şirket (adım 3 / madde 1) -->
+<footer id="altbilgi" data-section class="border-t border-border py-huge lg:py-section">
+  <div class="mx-auto flex w-full max-w-page flex-col gap-lg px-lg md:px-xxl">
+    <div class="grid gap-lg md:grid-cols-4">
+      <div class="flex flex-col gap-xs">
+        <span class="text-label uppercase text-textMuted">{d.colLinks}</span>
+        <ul class="flex flex-col">
+          {
+            sectionLinks.map((link) => (
+              <li>
+                <a href={link.href} class={linkClass}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-xs">
+        <span class="text-label uppercase text-textMuted">{d.colSocial}</span>
+        <ul class="flex flex-col">
+          <li>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={d.instagramAria}
+              class:list={[linkClass, 'gap-sm [&_svg]:h-lg [&_svg]:w-lg [&_svg]:fill-current']}
+            >
+              <span aria-hidden="true" set:html={instagramIcon} />
+              {d.instagram}
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.social.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={d.tiktokAria}
+              class:list={[linkClass, 'gap-sm [&_svg]:h-lg [&_svg]:w-lg [&_svg]:fill-current']}
+            >
+              <span aria-hidden="true" set:html={tiktokIcon} />
+              {d.tiktok}
+            </a>
+          </li>
+          <li>
+            <!-- Görünür adresin kendisi erişilebilir ad — ayrı aria gerekmez -->
+            <a href={`mailto:${siteConfig.contact.email}`} class={linkClass}>
+              {siteConfig.contact.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-xs">
+        <span class="text-label uppercase text-textMuted">{d.colLegal}</span>
+        <ul class="flex flex-col">
+          <li>
+            <a
+              href={siteConfig.legal.privacyPolicy}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={linkClass}
+            >
+              {d.privacyPolicy}
+            </a>
+          </li>
+          <li>
+            <a
+              href={siteConfig.legal.distanceSalesAgreement}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={linkClass}
+            >
+              {d.distanceSales}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-sm">
+        <span class="text-label uppercase text-textMuted">{d.colCompany}</span>
+        <p class="text-caption text-textSecondary">{d.company}</p>
+        <!-- Mağaza gereği görünür sorumluluk reddi (brief §0.1) -->
+        <p class="text-caption text-textSecondary">{d.disclaimer}</p>
+        <!-- Google Play atıf satırı (Q4) — iki dilde de aynı -->
+        <p class="text-caption text-textSecondary">{d.playTrademark}</p>
+      </div>
+    </div>
+  </div>
+</footer>
