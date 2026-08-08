@@ -43,8 +43,10 @@ const d = dict.indir;
       class="ikon-koyu h-xxxl w-auto"
     />
     <StoreBadge locale={locale} center />
-    <!-- CTA 3/3 — mağaza rozetlerinin yanında web alternatifi -->
-    <CtaButton label={dict.cta.start} />
+    <!-- CTA 3/3 — web alternatifi; CtaButton self-start taşıdığından sarmalayıcıyla ortalanır -->
+    <div class="flex justify-center">
+      <CtaButton label={dict.cta.start} />
+    </div>
     <div class="flex flex-col gap-xs">
       <p class="text-caption text-textSecondary">{d.currencyNote}</p>
       <!-- Q3 aktif: otomatik yenileme tek satır caption -->
