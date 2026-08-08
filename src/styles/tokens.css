@@ -124,12 +124,6 @@
   /* Dark'ta gölge yok (brief §5.4) — katman farkı yüzey rengiyle */
   --shadow-soft-value: none;
   --shadow-lifted-value: none;
-
-  /* Logo (assets/ablacim-mark.svg) dark değerleri — light değerler
-     SVG'nin kendi fallback'lerinde */
-  --logo-thread: #ae85b8;
-  --logo-panel-1: #3a2e22;
-  --logo-panel-2: #3a2540;
 }
 
 /* ---------------------------------------------------------------

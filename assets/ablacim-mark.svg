@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="124 290 776 444" role="img" aria-label="Ablacım">
-  <!-- Eşleme ipliği: iki panel, ikisini de geçen tek sürekli çizgi.
-       Renkler inline kullanımda CSS değişkeninden gelir; fallback light tema. -->
-  <rect x="194" y="292" width="270" height="440" rx="56" fill="var(--logo-panel-1, #EBD7B0)"/>
-  <rect x="560" y="292" width="270" height="440" rx="56" fill="var(--logo-panel-2, #D7BFDD)"/>
-  <path d="M 140 566 C 360 566, 664 458, 884 458" fill="none" stroke="var(--logo-thread, #45264D)" stroke-width="28" stroke-linecap="round"/>
-</svg>

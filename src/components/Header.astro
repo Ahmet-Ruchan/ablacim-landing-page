@@ -1,7 +1,6 @@
 ---
-import { t, type Locale } from '../i18n';
-import { siteConfig } from '../site.config';
-import logoMark from '../../assets/ablacim-mark.svg?raw';
+import { t, localePath, type Locale } from '../i18n';
+import { siteConfig, withBase } from '../site.config';
 import instagramIcon from '../../assets/icons/instagram.svg?raw';
 import tiktokIcon from '../../assets/icons/tiktok.svg?raw';
 import ThemePill from './ThemePill.astro';
@@ -16,32 +15,48 @@ const dict = t(locale);
 const d = dict.header;
 
 // Sosyal hesaplar ikonlarıyla en üstte; dil eşleşmesi EK S-6.
-// 390 sığdırması ölçü küçülterek (onay): ikon kutusu 40px genişlik,
-// dikey hedef 48 korunur; mobilde nav araları 4px.
+// 390 sığdırması: gerçek yatay kilit 28px'te ~100px genişlik istiyor —
+// mobilde ikon kutusu 32px, yatay dolgu 16, logo-nav arası 8 (dikey
+// dokunma hedefi 48 korunur); ≥768'de eski ölçüler geri gelir.
 const instagramUrl =
   locale === 'tr' ? siteConfig.social.instagramTr : siteConfig.social.instagramEn;
 
 const iconLinkClass =
-  'flex min-h-huge w-xxxl items-center justify-center text-textSecondary [&_svg]:h-xl [&_svg]:w-xl [&_svg]:fill-current';
+  'flex min-h-huge w-xxl items-center justify-center text-textSecondary md:w-xxxl [&_svg]:h-xl [&_svg]:w-xl [&_svg]:fill-current';
 ---
 
 <!-- Yapışkan header: zemin düz bg, yarı saydamlık yok; en üstteyken
      çizgisiz, scroll başlayınca border hairline (tek class toggle). -->
 <header class="sticky top-0 z-10 bg-bg">
   <div
-    class="mx-auto flex h-full w-full max-w-page items-center justify-between gap-md px-lg md:px-xxl"
+    class="mx-auto flex h-full w-full max-w-page items-center justify-between gap-sm px-base md:gap-md md:px-xxl"
   >
-    <!-- Logo kuralları (V-2): min yükseklik 24px (burada 32); metinle boşluk
-         gap-lg (20); güvenli alan %25 — header dolguları sağlıyor. -->
-    <span class="flex items-center gap-lg text-h3">
-      <span
+    <!-- Gerçek yatay kilit (kelime markası dahil — ayrıca metin yazılmaz).
+         Dosya adları ASCII'ye çevrildi: "Ü" içeren adlar URL kodlaması +
+         Unicode normalizasyonu (NFC/NFD) yüzünden sunucuya göre 404 verir.
+         Neden iki <img> + CSS gizleme, tek inline SVG değil: sitenin teması
+         prefers-color-scheme ile değil data-theme niteliğiyle (2 durumlu pil)
+         yönetiliyor — SVG içi medya sorgusu pili izlemezdi. Ayrıca iki SVG de
+         aynı .cls-1/2/3 sınıflarını farklı renklerle tanımlıyor; inline
+         gömülse <style>'ları belge geneline sızıp çakışırdı. -->
+    <a href={localePath(locale)} aria-label={d.brand} class="flex items-center">
+      <img
+        src={withBase('/logo/yatay-beyaz-ustu.svg')}
+        alt=""
         aria-hidden="true"
-        class="flex h-xxl [&_svg]:h-full [&_svg]:w-auto"
-        set:html={logoMark}
+        width="123"
+        height="35"
+        class="logo-acik"
       />
-      <!-- Dar ekranda marka adı yalnız ekran okuyucuya — pillere yer açar -->
-      <span class="sr-only sm:not-sr-only">{d.brand}</span>
-    </span>
+      <img
+        src={withBase('/logo/yatay-siyah-ustu.svg')}
+        alt=""
+        aria-hidden="true"
+        width="123"
+        height="34"
+        class="logo-koyu"
+      />
+    </a>
 
     <nav class="flex items-center gap-xs md:gap-sm">
       <a
@@ -78,6 +93,33 @@ const iconLinkClass =
   /* Scroll çizgisi bakır imza tonunda (çizgi işi — K-2) */
   header.is-scrolled {
     border-bottom-color: var(--premiumHairline);
+  }
+
+  /* Logo yüksekliği — sahip talebi (revize): masaüstü 40px ("daha büyük").
+     Mobil 28'de kalır: 390'da nav sonrası logoya ~102px kalıyor, 28px
+     yükseklik (~98-101px genişlik) bu alanı zaten dolduruyor. Çok dar
+     ekranda (≤375) flex daraltırsa kilit sola hizalı küçülür. */
+  .logo-acik,
+  .logo-koyu {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+  }
+  @media (min-width: 768px) {
+    .logo-acik,
+    .logo-koyu {
+      height: 40px;
+    }
+  }
+  .logo-koyu {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .logo-koyu {
+    display: block;
+  }
+  :global(html[data-theme='dark']) .logo-acik {
+    display: none;
   }
 </style>
 

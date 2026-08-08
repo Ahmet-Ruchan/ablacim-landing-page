@@ -55,14 +55,22 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
                 </div>
                 <p class="text-caption text-textSecondary">{card.desc}</p>
               </div>
+              {/* Arka yüz (okunurluk revizyonu — sahip talebi): bakır etiket
+                  başlık, gövde boyutunda satırlar (13→15px), aralarında
+                  hairline ayraç; çok maddeli listelerde bakır sıra numarası */}
               <div class="kart-arka flex flex-col gap-sm rounded-lg bg-surface p-base">
                 <span class="text-h3 text-textPrimary">{card.title}</span>
-                <span class="text-bodyStrong text-textSecondary">
+                <span class="text-label uppercase text-premium">
                   {card.back.title}
                 </span>
-                <ul class="flex flex-col gap-xs">
-                  {card.back.items.map((item) => (
-                    <li class="text-caption text-textSecondary">{item}</li>
+                <ul class="flex flex-col divide-y divide-border">
+                  {card.back.items.map((item, j) => (
+                    <li class="flex items-baseline gap-sm py-sm text-body text-textPrimary">
+                      {card.back.items.length > 1 && (
+                        <span class="text-caption text-premium">{j + 1}</span>
+                      )}
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
