@@ -5,9 +5,11 @@ import appleRaw from '../../assets/icons/apple.svg?raw';
 
 interface Props {
   locale: Locale;
+  /** İndir kartında rozetler ortalanır; Hero'daki sola yaslı düzen değişmez. */
+  center?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, center = false } = Astro.props;
 const d = t(locale).store;
 
 // Resmî Google Play rozeti, yerelde barındırılıyor (Q4). Dil eşleşmeli.
@@ -25,7 +27,7 @@ const soonUpper = d.appStoreSoonLabel.toLocaleUpperCase(
 const appStoreAria = `${d.appStoreName} — ${d.appStoreSoonLabel}`;
 ---
 
-<div class="flex flex-wrap items-center">
+<div class:list={['flex flex-wrap items-center', center && 'justify-center']}>
   <!-- p-md = 12px: rozet yüksekliğinin (48px) %25'i kadar boşluk (Q4).
        Dış bağlantı — yeni sekmede açılır (talimat). -->
   <a

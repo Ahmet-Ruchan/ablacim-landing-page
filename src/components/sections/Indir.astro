@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '../../i18n';
+import { withBase } from '../../site.config';
 import StoreBadge from '../StoreBadge.astro';
 import CtaButton from '../CtaButton.astro';
 
@@ -12,17 +13,54 @@ const dict = t(locale);
 const d = dict.indir;
 ---
 
-<!-- Bölüm 8 / İndir — kapanış CTA. Rozet ve yasal satırlar kart içinde
-     (boşlukta yüzmesin). Masaüstünde üstte 128: gap 96 + pt 32. -->
-<section id="indir" data-section class="flex flex-col gap-md lg:pt-xxl">
+<!-- Bölüm 8 / İndir — kapanış CTA, ortalanmış kompozisyon (sahip talebi:
+     sola yaslı içerik + boş sağ yarı dengesizdi). Kart max-w-demo (640px)
+     ile daraltılıp ortalandı; içinde marka ikonu + rozetler + web CTA +
+     yasal satırlar dikey ortalı akar. -->
+<section id="indir" data-section class="flex flex-col items-center gap-md text-center lg:pt-xxl">
   <h2 class="font-display text-h2">{d.title}</h2>
-  <p class="text-body text-textSecondary">{d.body}</p>
-  <div class="flex flex-col gap-md rounded-lg border border-premiumHairline bg-surface p-lg">
-    <StoreBadge locale={locale} />
+  <p class="max-w-demo text-body text-textSecondary">{d.body}</p>
+  <div
+    class="mt-sm flex w-full max-w-demo flex-col items-center gap-md rounded-lg border border-premiumHairline bg-surface p-lg md:p-xl"
+  >
+    <!-- Dekoratif marka ikonu — temaya göre takas, header/footer ile aynı desen -->
+    <img
+      src={withBase('/logo/icon-beyaz-ustu.svg')}
+      alt=""
+      aria-hidden="true"
+      width="40"
+      height="40"
+      loading="lazy"
+      class="ikon-acik h-xxxl w-auto"
+    />
+    <img
+      src={withBase('/logo/icon-siyah-ustu.svg')}
+      alt=""
+      aria-hidden="true"
+      width="40"
+      height="40"
+      loading="lazy"
+      class="ikon-koyu h-xxxl w-auto"
+    />
+    <StoreBadge locale={locale} center />
     <!-- CTA 3/3 — mağaza rozetlerinin yanında web alternatifi -->
     <CtaButton label={dict.cta.start} />
-    <p class="text-caption text-textSecondary">{d.currencyNote}</p>
-    <!-- Q3 aktif: otomatik yenileme tek satır caption -->
-    <p class="text-caption text-textSecondary">{d.autoRenewNote}</p>
+    <div class="flex flex-col gap-xs">
+      <p class="text-caption text-textSecondary">{d.currencyNote}</p>
+      <!-- Q3 aktif: otomatik yenileme tek satır caption -->
+      <p class="text-caption text-textSecondary">{d.autoRenewNote}</p>
+    </div>
   </div>
 </section>
+
+<style>
+  .ikon-koyu {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .ikon-koyu {
+    display: block;
+  }
+  :global(html[data-theme='dark']) .ikon-acik {
+    display: none;
+  }
+</style>

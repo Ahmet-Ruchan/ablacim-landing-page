@@ -1,6 +1,6 @@
 ---
-import { t, type Locale } from '../i18n';
-import { siteConfig } from '../site.config';
+import { t, localePath, type Locale } from '../i18n';
+import { siteConfig, withBase } from '../site.config';
 import instagramIcon from '../../assets/icons/instagram.svg?raw';
 import tiktokIcon from '../../assets/icons/tiktok.svg?raw';
 
@@ -25,16 +25,46 @@ const sectionLinks = [
   { href: '#indir', label: dict.indir.title },
 ];
 
-const linkClass = 'flex min-h-huge items-center text-body text-textSecondary';
+// Sütun başlıkları Newsreader SemiBold (sahip talebi) — text-h3 zaten 600.
+const headingClass = 'font-display text-h3 text-textPrimary';
+const linkClass =
+  'flex min-h-huge items-center text-body text-textSecondary transition-colors hover:text-textPrimary';
 ---
 
-<!-- Bölüm 9 / Altbilgi — mistik öğe yok; ≥768px 4 sütun grid:
-     Bağlantılar · Sosyal · Yasal · Şirket (adım 3 / madde 1) -->
+<!-- Bölüm 9 / Altbilgi — marka bloğu + 3 bağlantı sütunu, altta hairline
+     üstünde şirket/atıf bandı. Şirket paragrafları sütundan banda taşındı
+     (4. sütun metin yığınıydı); sorumluluk reddi marka bloğunda GÖRÜNÜR kalır
+     (brief §0.1). colCompany anahtarı artık render edilmiyor. -->
 <footer id="altbilgi" data-section class="border-t border-border py-huge lg:py-section">
-  <div class="mx-auto flex w-full max-w-page flex-col gap-lg px-lg md:px-xxl">
-    <div class="grid gap-lg md:grid-cols-4">
-      <div class="flex flex-col gap-xs">
-        <span class="text-label uppercase text-textMuted">{d.colLinks}</span>
+  <div class="mx-auto flex w-full max-w-page flex-col gap-xxl px-lg md:px-xxl">
+    <div class="grid gap-xl md:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-lg">
+      <!-- Marka bloğu: temaya göre logo + görünür sorumluluk reddi -->
+      <div class="flex flex-col gap-base md:col-span-3 lg:col-span-1 lg:pr-xxl">
+        <a href={localePath(locale)} aria-label={dict.header.brand} class="self-start">
+          <img
+            src={withBase('/logo/yatay-beyaz-ustu.svg')}
+            alt=""
+            aria-hidden="true"
+            width="123"
+            height="35"
+            loading="lazy"
+            class="logo-acik"
+          />
+          <img
+            src={withBase('/logo/yatay-siyah-ustu.svg')}
+            alt=""
+            aria-hidden="true"
+            width="123"
+            height="34"
+            loading="lazy"
+            class="logo-koyu"
+          />
+        </a>
+        <p class="text-caption text-textSecondary">{d.disclaimer}</p>
+      </div>
+
+      <nav class="flex flex-col gap-sm" aria-label={d.colLinks}>
+        <span class={headingClass}>{d.colLinks}</span>
         <ul class="flex flex-col">
           {
             sectionLinks.map((link) => (
@@ -46,10 +76,10 @@ const linkClass = 'flex min-h-huge items-center text-body text-textSecondary';
             ))
           }
         </ul>
-      </div>
+      </nav>
 
-      <div class="flex flex-col gap-xs">
-        <span class="text-label uppercase text-textMuted">{d.colSocial}</span>
+      <div class="flex flex-col gap-sm">
+        <span class={headingClass}>{d.colSocial}</span>
         <ul class="flex flex-col">
           <li>
             <a
@@ -84,8 +114,8 @@ const linkClass = 'flex min-h-huge items-center text-body text-textSecondary';
         </ul>
       </div>
 
-      <div class="flex flex-col gap-xs">
-        <span class="text-label uppercase text-textMuted">{d.colLegal}</span>
+      <div class="flex flex-col gap-sm">
+        <span class={headingClass}>{d.colLegal}</span>
         <ul class="flex flex-col">
           <li>
             <a
@@ -109,15 +139,33 @@ const linkClass = 'flex min-h-huge items-center text-body text-textSecondary';
           </li>
         </ul>
       </div>
+    </div>
 
-      <div class="flex flex-col gap-sm">
-        <span class="text-label uppercase text-textMuted">{d.colCompany}</span>
-        <p class="text-caption text-textSecondary">{d.company}</p>
-        <!-- Mağaza gereği görünür sorumluluk reddi (brief §0.1) -->
-        <p class="text-caption text-textSecondary">{d.disclaimer}</p>
-        <!-- Google Play atıf satırı (Q4) — iki dilde de aynı -->
-        <p class="text-caption text-textSecondary">{d.playTrademark}</p>
-      </div>
+    <!-- Alt bant: şirket kimliği + Google Play atıfı (Q4) -->
+    <div
+      class="flex flex-col gap-xs border-t border-border pt-lg md:flex-row md:items-baseline md:justify-between md:gap-xl"
+    >
+      <p class="text-caption text-textMuted">{d.company}</p>
+      <p class="text-caption text-textMuted">{d.playTrademark}</p>
     </div>
   </div>
 </footer>
+
+<style>
+  /* Header'daki iki-img tema takasının aynısı; header mobil boyu (28px)
+     ile eşleşir. SVG'ler inline edilmez — sınıf/id çakışması riski var. */
+  .logo-acik,
+  .logo-koyu {
+    height: 28px;
+    width: auto;
+  }
+  .logo-koyu {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .logo-koyu {
+    display: block;
+  }
+  :global(html[data-theme='dark']) .logo-acik {
+    display: none;
+  }
+</style>
