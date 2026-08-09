@@ -1,0 +1,87 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  /* Form kontrolleri ve kaydırma çubukları temayı takip etsin */
+  :root {
+    color-scheme: light;
+  }
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  /* Overscroll alanı da sayfa zemininde kalsın */
+  html {
+    background-color: var(--bg);
+  }
+
+  /* Gövde satırı 65–75 karakteri geçmesin (S-1) */
+  main p,
+  main li {
+    max-width: 70ch;
+  }
+
+  /* Yapışkan header çapa hedeflerini örtmesin */
+  [data-section] {
+    scroll-margin-top: var(--header-height);
+  }
+
+  /* Görünür odak halkası: accent, 1.5px (brief §6.4; thick yalnız odakta §5.3) */
+  :focus-visible {
+    outline: 1.5px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Reduce Motion: dönme/kayma/parlama yok, içerik statik (brief §6.1) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------
+ * Hareket bütçesi (adım 3 / madde 5)
+ * .motion sınıfını JS ekler: JS yoksa veya prefers-reduced-motion
+ * açıksa hiçbir giriş durumu uygulanmaz — içerik anında görünür.
+ * ------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Bölüm girişi: 400ms, bir kez, geri sarmaz (JS unobserve eder) */
+  .motion [data-section] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 400ms var(--ease-decelerate),
+      transform 400ms var(--ease-decelerate);
+  }
+  .motion [data-section].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Grid çocukları: 60ms gecikmeli sıralı giriş, en fazla 4 eleman */
+  .motion [data-section] [data-stagger] > * {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 400ms var(--ease-decelerate),
+      transform 400ms var(--ease-decelerate);
+  }
+  .motion [data-section].is-visible [data-stagger] > * {
+    opacity: 1;
+    transform: none;
+  }
+  .motion [data-section].is-visible [data-stagger] > :nth-child(2) {
+    transition-delay: 60ms;
+  }
+  .motion [data-section].is-visible [data-stagger] > :nth-child(3) {
+    transition-delay: 120ms;
+  }
+  .motion [data-section].is-visible [data-stagger] > :nth-child(4) {
+    transition-delay: 180ms;
+  }
+}

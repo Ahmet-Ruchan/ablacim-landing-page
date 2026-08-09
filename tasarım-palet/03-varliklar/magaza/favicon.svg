@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.42 0 116.9 116.9">
+  <!-- Icon_BeyazÜstü + Icon_SiyahÜstü tek dosyada birleştirildi:
+       geometri ortak, yalnız dolgular tarayıcı temasına göre değişir
+       (prefers-color-scheme). Kare viewBox için yatayda ortalandı. -->
+  <style>
+    .tepe { fill: #cfa34c; }
+    .govde { fill: #45264d; }
+    .kanat { fill: #cdb0d3; }
+    @media (prefers-color-scheme: dark) {
+      .tepe { fill: #e0be74; }
+      .govde { fill: #8e5e9b; }
+    }
+  </style>
+  <circle class="tepe" cx="56.69" cy="21.31" r="21.31"/>
+  <path class="govde" d="M84.55,81.66c12.17,1,28.88,3.19,27.43,19.43s-20.61,14.86-31.88,15.33c-16.04.67-32.24.66-48.28,0-10.98-.45-28.09.38-31.29-13.48-3.05-13.21,7.7-18.84,18.74-20.45,9.99-1.46,29.5-2.31,39.61-2.11,6.83.13,18.86.74,25.67,1.29Z"/>
+  <path class="kanat" d="M58.88,80.36c-5.62.07-11.23-.21-16.82-.82l-4.04-.44c-9.33-1.49-21.37-5.34-26.43-13.93-6.22-10.56-.67-23.54,11.65-25.27,7.24-1.02,20.56,1.01,28.09,2.18,1.14.18,2.52.26,3.53.44,8.49,1.53,18.34,4.15,26.78,6.41,9.13,2.45,21.18,5.38,20.19,17.52-1.05,12.91-16.69,12.63-26.13,13.35-2.17.17-4.82.35-6.51.44l-10.31.12Z"/>
+</svg>
