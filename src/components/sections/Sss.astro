@@ -10,16 +10,37 @@ const d = t(locale).sss;
 ---
 
 <!-- Bölüm 7 / SSS — akordiyon details/summary ile, JS yok; ilk madde açık.
-     Mistik öğe yok. summary varsayılan görünümde kalır ki açılır işareti
-     (marker) kaybolmasın. -->
+     Mistik öğe yok.
+     Yerleşim (sahip talebi): iki sütun DEĞİL. Başlık ve akordiyon sola
+     hizalı, tek sütun; satırlar konteynerin sağ kenarına kadar uzanır.
+     Bunun için cevap paragraflarındaki 70ch tavanı bu bölümde kaldırıldı
+     (global.css'teki "main p" kuralı) — bilinçli istisna.
+     Mobilde zaten alt alta akar; kırılım noktası gerekmiyor.
+     Ayrıca: tarayıcının varsayılan üçgen işareti yerine accent chevron
+     (açıkken 180° döner) ve satır hover durumu — önceden açılır olduğu
+     yalnız minik markerdan anlaşılıyordu. -->
 <section id="sss" data-section class="flex flex-col gap-md">
   <h2 class="font-display text-h2">{d.title}</h2>
   <div class="flex flex-col">
     {
       d.items.map((item, i) => (
-        <details class="border-b border-border" open={i === 0}>
-          <summary class="cursor-pointer py-base text-h3 text-textPrimary">
-            <h3 class="inline text-h3">{item.q}</h3>
+        <details class="sss-madde border-b border-border" open={i === 0}>
+          <summary class="flex cursor-pointer items-center justify-between gap-base py-base text-h3 text-textPrimary">
+            <h3 class="text-h3">{item.q}</h3>
+            <span aria-hidden="true" class="sss-ok shrink-0 text-accent">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
           </summary>
           <p class="pb-lg text-body text-textSecondary">{item.a}</p>
         </details>
@@ -27,3 +48,38 @@ const d = t(locale).sss;
     }
   </div>
 </section>
+
+<style>
+  /* Varsayılan işaret kaldırılıyor — yerine kendi chevron'umuz geçti.
+     Safari ::-webkit-details-marker'ı ayrıca istiyor. */
+  .sss-madde summary {
+    list-style: none;
+  }
+  .sss-madde summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* global.css'teki "main p { max-width: 70ch }" tavanını bu bölümde
+     kaldırır: cevaplar konteynerin sağ kenarına kadar uzansın (sahip
+     talebi). Yalnız SSS'e özgü istisna. */
+  .sss-madde p {
+    max-width: none;
+  }
+
+  .sss-madde summary:hover {
+    color: var(--accent);
+  }
+  /* Halka satırın tamamını sarsın (summary blok seviyesinde) */
+  .sss-madde summary:focus-visible {
+    outline: 1.5px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .sss-ok {
+    display: flex;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  .sss-madde[open] .sss-ok {
+    transform: rotate(180deg);
+  }
+</style>

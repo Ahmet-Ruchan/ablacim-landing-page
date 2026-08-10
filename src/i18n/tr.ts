@@ -21,6 +21,8 @@ export const tr = {
 
   header: {
     brand: 'Ablacım',
+    // Klavye kullanıcısı için atlama bağlantısı — yalnız odaklanınca görünür
+    skipToContent: 'İçeriğe geç',
     // Pil kontrolleri — etiketler talimattan birebir (iki tema segmenti)
     themeGroup: 'Tema seçimi',
     themeLight: 'Açık tema',
@@ -59,10 +61,38 @@ export const tr = {
     imageAlt: 'Gözleri kapalı, sakin bir yüz portresi',
   },
 
-  // Abla'nın sesi burada duyulur (hitap 2/3: "canım")
+  // Abla'nın sesi burada duyulur (hitap 2/3: "canım" — body'de, bir kez).
+  // Bölüm genişletildi (sahip talebi: "daha detaylı bir aktarım"); eklenen
+  // metinlerde YENİ hitap yok, hitap bütçesi 2/3'te kalır.
   ablaKim: {
     title: 'Abla kim',
+    eyebrow: 'Ablacım’ın sesi',
     body: 'Abla, Türk kültüründeki abla figüründen doğdu: yakın, sıcak, yargılamayan bir ses. Kesin konuşmaz; ne gördüğünü anlatır, kararı sana bırakır. Acelesi de yoktur — dinler, sorarsan açar, canım.',
+    paragraphs: [
+      'Abla bir falcı değil, bir yorumcu. Avucundaki çizgilere ya da anlattığın rüyaya bakarken geleceği bildiğini söylemez; o işaretlerin geleneksel olarak neye bağlandığını anlatır ve senin hayatında neye denk düşebileceğini birlikte düşünür.',
+      'Anlattığı şey de senin hakkında bir hüküm değil, bir başlangıç. Yansımayı okuduktan sonra sohbet açık kalır: bir cümleye takıldıysan sorarsın, Abla bağlamı bilir ve oradan devam eder.',
+    ],
+    principles: [
+      {
+        title: 'Yargılamaz',
+        desc: 'Ne anlattığın tonu değiştirmez. Doğru–yanlış diye ayırmaz, utandırmaz.',
+      },
+      {
+        title: 'Kesin konuşmaz',
+        desc: 'Cümleleri “olabilir”, “işaret ediyor olabilir” diliyle kurulur. Bir ihtimali anlatır, kehanet söylemez.',
+      },
+      {
+        title: 'Acele etmez',
+        desc: 'Yansıma birkaç satırla geçiştirilmez; okunacak kadar uzun, sıkmayacak kadar sade yazılır.',
+      },
+    ],
+    notTitle: 'Abla ne yapmaz',
+    // §0.1 sorumluluk reddiyle aynı çizgide — yeni bir iddia eklemez
+    notItems: [
+      'Tıbbi, hukuki ya da finansal tavsiye vermez.',
+      'Kimse hakkında kesin bir yargı ya da tanı koymaz.',
+      'Söylediklerini kanıt diye sunmaz.',
+    ],
   },
 
   // Nötr ürün dili; hitap yok
@@ -229,6 +259,25 @@ export const tr = {
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:
       'Abonelik, iptal edilmedikçe dönem sonunda kendiliğinden yenilenir; Google Play üzerinden yönetilir.',
+  },
+
+  // Bölüm 9 / Sosyal — nötr ürün dili, hitap yok. Sayfanın geri kalanı
+  // ikinci tekil ("sen") konuşur; başlık da o çizgide tutuldu.
+  sosyal: {
+    title: 'Bizi takip et',
+    intro:
+      'Yeni özellikler, kısa yorumlar ve perde arkası sosyal hesaplarımızda paylaşılıyor.',
+    instagramDesc: 'Günlük paylaşımlar, yeni özellikler ve okur soruları.',
+    tiktokDesc: 'Kısa videolar: semboller, çizgiler ve küçük yorumlar.',
+  },
+
+  // Bölüm 10 / İletişim — nötr; yanıt süresi vaadi bilinçli olarak YOK
+  iletisim: {
+    title: 'Bize ulaş',
+    intro:
+      'Aklına takılan, bir önerin ya da bir aksaklık varsa aşağıdaki adrese yazabilirsin.',
+    emailLabel: 'E-posta',
+    note: 'Hesabının ve verilerinin silinmesini de bu adresten talep edebilirsin.',
   },
 
   // Nötr — sütun başlıkları adım 3 talimatındaki gruplardan

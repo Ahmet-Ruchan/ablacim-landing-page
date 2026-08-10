@@ -33,6 +33,13 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
     <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <title>{d.meta.title}</title>
     <meta name="description" content={d.meta.description} />
+    <!-- Mobil tarayıcı kabuğu sayfa zeminiyle aynı renkte olsun.
+         prefers-color-scheme kullanılamaz: tema OS'ten değil site içi
+         pilden geliyor. Değer aşağıdaki FOUC scripti ve ThemePill
+         tarafından güncellenir. Hex'ler tokens.css --bg değerleridir
+         (light --kul-50, dark #150f19); orada değişirse burası da
+         değişmeli. -->
+    <meta name="theme-color" content="#f7f4f6" />
 
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="tr" href={trUrl} />
@@ -70,6 +77,8 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
         if (forced) pref = forced[1];
         document.documentElement.setAttribute('data-theme', pref);
         document.documentElement.setAttribute('data-theme-pref', pref);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', pref === 'dark' ? '#150f19' : '#f7f4f6');
       })();
     </script>
   </head>
@@ -154,11 +163,18 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
       }
     </script>
 
+    <!-- Atlama bağlantısı: klavyeyle gelen kullanıcı header'daki sosyal
+         ikon + iki pili her sayfada geçmek zorunda kalmasın. Görünmez
+         durur, yalnız odaklanınca belirir. -->
+    <a href="#icerik" class="atla">{d.header.skipToContent}</a>
+
     <Header locale={locale} />
     <!-- Konteyner: 1200px ortalı; yatay dolgu mobil 20, ≥768px 32.
          Bölüm ritmi sahip talebiyle bir kademe küçüldü:
          mobil 48, ≥1024px 64; hero ve kapanış 96 (64 + 32 dolgu) -->
     <main
+      id="icerik"
+      tabindex="-1"
       class="mx-auto flex w-full max-w-page flex-col gap-huge px-lg py-huge md:px-xxl lg:gap-section lg:py-section"
     >
       <slot />
@@ -166,3 +182,35 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
     <Footer locale={locale} />
   </body>
 </html>
+
+<style>
+  /* Atlama hedefi: programatik odak alır ama görünür halka basmaz —
+     kullanıcı zaten oraya gitmeyi kendi istedi. */
+  main:focus {
+    outline: none;
+  }
+  main {
+    scroll-margin-top: var(--header-height);
+  }
+
+  /* Yapışkan header'ın üstünde kalması için z-index header'dan (10) büyük */
+  .atla {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+  }
+  .atla:focus {
+    position: fixed;
+    left: var(--spacing-base);
+    top: var(--spacing-base);
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--hit-min);
+    padding-inline: var(--spacing-lg);
+    border-radius: var(--radius-pill);
+    background-color: var(--accent);
+    color: var(--onAccent);
+    font-weight: 500;
+  }
+</style>

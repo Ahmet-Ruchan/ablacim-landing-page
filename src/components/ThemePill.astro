@@ -97,9 +97,13 @@ const segments = [
     return root.getAttribute('data-theme-pref') === 'dark' ? 'dark' : 'light';
   }
 
+  // Tarayıcı kabuğu rengi — Base.astro'daki meta ile aynı iki değer
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
   function render(pref: Pref) {
     root.setAttribute('data-theme-pref', pref);
     root.setAttribute('data-theme', pref);
+    themeColor?.setAttribute('content', pref === 'dark' ? '#150f19' : '#f7f4f6');
     radios.forEach((radio) => {
       const on = radio.dataset.pref === pref;
       radio.setAttribute('aria-checked', String(on));

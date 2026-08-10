@@ -9,16 +9,28 @@ const { locale } = Astro.props;
 const d = t(locale).gizlilik;
 ---
 
-<!-- Bölüm 6 / Gizlilik — mistik öğe yok. İkincil blok: surfaceAlt panel,
-     büyük panel yarıçapı xl (brief §5.2). Accent tint bilerek değil —
-     bilgi bloğu tıklanabilir gibi durmamalı. -->
+<!-- Bölüm 6 / Gizlilik — mistik öğe yok. Üç onay maddesi tek panelde
+     işaretsiz satırlar hâlindeydi: madde oldukları görünmüyordu ve
+     1200px'te panelin sağ yarısı boş kalıyordu. Maddeler ≥768px'te üç
+     surfaceAlt karta ayrıldı, her birine bakır sıra numarası verildi.
+     Accent tint bilerek yok — bilgi bloğu tıklanabilir görünmemeli. -->
 <section id="gizlilik" data-section class="flex flex-col gap-md">
   <h2 class="font-display text-h2">{d.title}</h2>
-  <div class="flex flex-col gap-md rounded-xl bg-surfaceAlt p-lg">
-    <p class="text-body text-textSecondary">{d.intro}</p>
-    <ul class="flex flex-col gap-sm">
-      {d.items.map((item) => <li class="text-body text-textPrimary">{item}</li>)}
-    </ul>
-    <p class="text-body text-textSecondary">{d.note}</p>
-  </div>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+  <ul data-stagger class="grid gap-md md:grid-cols-3">
+    {
+      d.items.map((item, i) => (
+        <li class="flex flex-col gap-sm rounded-lg bg-surfaceAlt p-lg">
+          <span
+            aria-hidden="true"
+            class="flex h-xl w-xl shrink-0 items-center justify-center rounded-pill border border-premiumHairline bg-premiumSubtle text-caption text-premium"
+          >
+            {i + 1}
+          </span>
+          <span class="text-body text-textPrimary">{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="text-body text-textSecondary">{d.note}</p>
 </section>

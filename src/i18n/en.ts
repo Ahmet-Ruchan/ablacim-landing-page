@@ -21,6 +21,7 @@ export const en: Dict = {
 
   header: {
     brand: 'Ablacım',
+    skipToContent: 'Skip to content',
     themeGroup: 'Theme selection',
     themeLight: 'Light theme',
     themeDark: 'Dark theme',
@@ -56,10 +57,37 @@ export const en: Dict = {
     imageAlt: 'Portrait of a calm face with closed eyes',
   },
 
-  // Abla'nın sesi ("love" 2/2)
+  // Abla'nın sesi ("love" 2/2 — yalnız body'de). Bölüm genişletildi
+  // (sahip talebi); eklenen metinlerde yeni hitap yok.
   ablaKim: {
     title: 'Who is Abla',
+    eyebrow: 'The voice of Ablacım',
     body: "Abla comes from the Turkish word for an older sister: a close, warm voice that never judges. She doesn't deal in certainties; she tells you what she sees and leaves the deciding to you. And she's in no hurry — she listens, and if you ask, she opens things up, love.",
+    paragraphs: [
+      'Abla is not a fortune teller but an interpreter. Looking at the lines on your palm or at the dream you describe, she never claims to know the future; she tells you what those signs have traditionally been tied to, and thinks with you about what they might touch in your own life.',
+      'And what she tells you is not a verdict about you — it is a place to start. Once you have read the reflection, the chat stays open: if a sentence catches you, you ask, and Abla knows the context and picks it up from there.',
+    ],
+    principles: [
+      {
+        title: 'She does not judge',
+        desc: 'Whatever you bring, her tone stays the same. She does not sort things into right and wrong, and she does not shame.',
+      },
+      {
+        title: 'She avoids certainty',
+        desc: 'Her sentences are built on “may” and “might point to”. She offers a possibility, never a prophecy.',
+      },
+      {
+        title: 'She is in no hurry',
+        desc: 'A reflection is not a couple of lines dashed off; it is long enough to sit with and plain enough to read.',
+      },
+    ],
+    notTitle: 'What Abla does not do',
+    // §0.1 sorumluluk reddiyle aynı çizgide — yeni bir iddia eklemez
+    notItems: [
+      'She gives no medical, legal or financial advice.',
+      'She makes no firm verdict or diagnosis about anyone.',
+      'She does not present what she says as proof.',
+    ],
   },
 
   ozellikler: {
@@ -218,6 +246,24 @@ export const en: Dict = {
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:
       'Subscriptions renew automatically at the end of each period unless cancelled; they are managed through Google Play.',
+  },
+
+  // Bölüm 9 / Sosyal
+  sosyal: {
+    title: 'Follow us',
+    intro:
+      'New features, short readings and a little behind the scenes go out on our social accounts.',
+    instagramDesc: 'Daily posts, new features and reader questions.',
+    tiktokDesc: 'Short videos: symbols, lines and small readings.',
+  },
+
+  // Bölüm 10 / İletişim — yanıt süresi vaadi bilinçli olarak YOK
+  iletisim: {
+    title: 'Get in touch',
+    intro:
+      'A question, a suggestion or something that went wrong — write to the address below.',
+    emailLabel: 'Email',
+    note: 'You can also request deletion of your account and data at this address.',
   },
 
   footer: {

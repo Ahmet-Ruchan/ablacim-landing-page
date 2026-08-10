@@ -1,0 +1,87 @@
+---
+import { t, type Locale } from '../../i18n';
+import { siteConfig } from '../../site.config';
+import arrowDownIcon from '../../../assets/icons/arrow-down.svg?raw';
+import mailIcon from '../../../assets/icons/mail.svg?raw';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).iletisim;
+const email = siteConfig.contact.email;
+---
+
+<!-- Bölüm 10 / İletişim — sayfanın son bölümü, altbilginin hemen üstünde.
+     Ortalanmış kompozisyon (İndir ile aynı dil): başlık → giriş → bakır
+     hairline daire içinde aşağı ok → e-posta adresi. Ok göz yönlendirmesi
+     için dekoratif; adresin kendisi bağlantı, görünür metni erişilebilir
+     adıdır. Ok animasyonu bölüm görünür olunca 3 kez oynar ve durur
+     (hareket bütçesi); PRM'de hiç oynamaz. -->
+<section
+  id="iletisim"
+  data-section
+  class="iletisim flex flex-col items-center gap-md text-center"
+>
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="max-w-demo text-body text-textSecondary">{d.intro}</p>
+
+  <span
+    aria-hidden="true"
+    class="ok mt-sm flex h-huge w-huge items-center justify-center rounded-pill border border-premiumHairline bg-premiumSubtle text-premium"
+    set:html={arrowDownIcon}
+  />
+
+  <span class="text-label uppercase text-textMuted">{d.emailLabel}</span>
+
+  <a
+    href={`mailto:${email}`}
+    class="eposta inline-flex min-h-huge items-center gap-md rounded-pill border border-premiumHairline bg-surface px-xl text-h3 text-textPrimary"
+  >
+    <span aria-hidden="true" class="eposta-ikon flex text-premium" set:html={mailIcon} />
+    {email}
+  </a>
+
+  <p class="max-w-demo text-caption text-textSecondary">{d.note}</p>
+</section>
+
+<style>
+  .ok :global(svg) {
+    height: var(--spacing-xl);
+    width: var(--spacing-xl);
+  }
+  .eposta-ikon :global(svg) {
+    height: var(--spacing-lg);
+    width: var(--spacing-lg);
+  }
+
+  .eposta {
+    transition:
+      border-color var(--duration-fast) var(--ease-standard),
+      background-color var(--duration-fast) var(--ease-standard);
+  }
+  .eposta:hover {
+    border-color: var(--premium);
+    background-color: var(--surfaceAlt);
+  }
+  /* Bakır çizginin üstünde 1.5px genel halka zayıf kalıyor — offsetli 2px */
+  .eposta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* .motion sınıfını JS ekler; PRM açıksa hiç eklenmez → ok sabit durur */
+  :global(html.motion) .iletisim:global(.is-visible) .ok {
+    animation: ok-ini 1400ms var(--ease-standard) 3;
+  }
+  @keyframes ok-ini {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+</style>
