@@ -302,15 +302,33 @@ gidiyor**:
 | `/auth/reset-password` | Şifre sıfırlama derin bağlantısı |
 | `/palm` | Uygulama içi bağlantı |
 
-Landing page köke (`/`) gelecek; bu dört yol çalışmaya devam etmeli.
-**Üretim deploy planı henüz kararlaştırılmadı** — bu garantiyi nasıl
-vereceğini sahiple konuşmadan deploy adımına girme.
+**KARAR VERİLDİ (25 Ağu, KR-028): landing page köke GELMİYOR.**
+Site kendi alan adında yayınlanıyor — **app.ablacim.com**. `ablacim.com`
+tek satır bile değişmedi; dört yol da ana sitede, bu repodan etkilenemez.
+Sahip kararı: *"mevcut olan landing-page sayfasını asla bozma."*
 
-### Şu anki yayın: yalnız test
+Ana site ayrı bir proje: `ablacim-dev/ablacim-frontend` (Next.js 16,
+Vercel, next-intl). Kökünde kendi landing'i var — `(marketing)/page.tsx`,
+CTA'sı `/gender`'a yani quiz akışına gidiyor. Bu repoyla ortak dosyası,
+ortak deploy'u, ortak DNS kaydı yok.
 
-`.github/workflows/deploy-test.yml` → GitHub Pages, alt yolda
-(`PUBLIC_BASE=/ablacim-landing-page`). **Kalıcı üretim dağıtımı değildir**;
-iş akışı silinerek yayın kapanır. `main`'e push'ta tetiklenir.
+### Yayın
+
+`.github/workflows/deploy-test.yml` → GitHub Pages, **özel alan adı**,
+kökte. `main`'e push'ta tetiklenir.
+
+| | |
+|---|---|
+| Adres | https://app.ablacim.com |
+| Alan adı bildirimi | `public/CNAME` (**silme** — Pages alan adını unutur) |
+| DNS | Cloudflare · `app` CNAME → `ahmet-ruchan.github.io` · proxy **KAPALI** |
+| Env | `PUBLIC_SITE_URL` · `PUBLIC_BASE` **set edilmez** (kökte çalışıyor) |
+
+Cloudflare proxy'si (turuncu bulut) açılırsa GitHub'ın Let's Encrypt
+doğrulaması düşer ve SSL kırılır — "DNS only" kalmalı.
+
+`robots.txt` ve `sitemap.xml` endpoint olarak üretiliyor
+(`src/pages/*.ts`), ikisi de `site` alanından türer.
 
 ---
 
@@ -358,7 +376,7 @@ neden ölçekleniyor, SSS'te 70ch tavanı neden kaldırıldı).
 ## 10. Açık kalanlar / dikkat edilecekler
 
 **Karar bekleyenler**
-- **Üretim deploy planı** — dört yolun korunması nasıl garanti edilecek (S-3'ün açık kalan yarısı).
+- ~~Üretim deploy planı~~ — **kapandı** (KR-028): ayrı alan adı, ana site dokunulmadı.
 - **V-3: İllüstrasyon lisansı** ticari kullanıma açık mı, atıf gerekiyor mu — **yayın öncesi netleşmeli**.
 - **App Store yayını** — girince `site.config.ts`'te `appStoreUrl` doldurulur, `StoreBadge`'deki "Yakında" çipi resmî rozetle değişir, `Sss.astro` sözlüğünde yorum satırında bekleyen iOS iptal cümlesi açılır (`src/i18n/tr.ts` SSS 3. madde).
 - `brand.md` içindeki logo geometrisi ve oranları **doğrulanmamış** — `public/logo/Ablacım.ai` dosyasından teyit edilmeli.
@@ -368,7 +386,6 @@ neden ölçekleniyor, SSS'te 70ch tavanı neden kaldırıldı).
 - `public/logo.zip` (767 KB) **takip edilmiyor** ve `dist/`'e kopyalanır — repoya girecek mi, silinecek mi belli değil.
 - `public/fizyonomi-deneme.png` (2.3 MB) **hiçbir yerde kullanılmıyor** ama `public/` altında olduğu için her derlemede `dist/`'e kopyalanıyor. Muhtemelen `assets/illustrations/` altına taşınmalı veya silinmeli.
 - `public/logo/` 28 dosya; landing page bunlardan yalnız 4 SVG kullanıyor (`yatay-beyaz-ustu`, `yatay-siyah-ustu`, `icon-beyaz-ustu`, `icon-siyah-ustu`). Gerisi mobil uygulama için.
-- `robots.txt` ve `sitemap.xml` yok.
 - Otomatik test/lint yok; `astro check` script olarak tanımlı değil.
 
 ---

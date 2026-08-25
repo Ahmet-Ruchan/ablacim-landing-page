@@ -1,7 +1,20 @@
-# GEÇİCİ TEST YAYINI — GitHub Pages
-# Kalıcı üretim dağıtımı DEĞİLDİR; üretim planı ayrıca kararlaştırılacak
-# (brief §0.2: mevcut dört yol korunacak). Bu iş akışı silinerek yayın kapanır.
-name: Test yayını (GitHub Pages)
+# YAYIN — GitHub Pages, özel alan adı: https://app.ablacim.com
+#
+# 25 Ağu: bu iş akışı "geçici test yayını" olmaktan çıktı. Site artık alt
+# yolda değil, kendi alan adında kökte çalışıyor:
+#   ÖNCE:  ahmet-ruchan.github.io/ablacim-landing-page/  (PUBLIC_BASE ile)
+#   ŞİMDİ: app.ablacim.com                               (base '/')
+#
+# ⚠️ ANA SİTE BU DEĞİL. www.ablacim.com ayrı bir Next.js/Vercel projesidir
+# (ablacim-dev/ablacim-frontend) ve buradan HİÇ etkilenmez. Uygulamanın kod
+# içinden gittiği dört yol — /privacy-policy, /distance-sales-agreement,
+# /auth/reset-password, /palm — orada durur; bu repo onlara dokunmaz.
+# Sahip kararı (25 Ağu): ana site bozulmayacak, yeni sayfa ayrı alan adında.
+#
+# Özel alan adı `public/CNAME` ile bildiriliyor; Astro onu dist/'e kopyalar.
+# CNAME dosyasını SİLME — GitHub Pages alan adını unutur ve yayın
+# ahmet-ruchan.github.io'ya düşer.
+name: Yayın (GitHub Pages · app.ablacim.com)
 
 on:
   push:
@@ -21,9 +34,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Alt yol: https://ahmet-ruchan.github.io/ablacim-landing-page/
-      PUBLIC_BASE: /ablacim-landing-page
-      SITE_URL: https://ahmet-ruchan.github.io
+      # PUBLIC_BASE SET EDİLMİYOR: site kökte çalışıyor, base '/' kalmalı.
+      # Buraya bir değer yazarsan tüm varlık yolları alt yola kayar.
+      # canonical / hreflang / og:url ve sitemap bu adresten türer:
+      PUBLIC_SITE_URL: https://app.ablacim.com
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

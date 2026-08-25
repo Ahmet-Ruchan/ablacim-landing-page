@@ -543,3 +543,73 @@ Ekran okuyucu görseli değil şemayı duyuyordu.
 
 **Kaynak.** Sahip teslimi (25 Ağu): "yeni kullanman gereken görselleri
 koydum, isimleri direkt dosya adından eşleştir".
+
+---
+
+## KR-028 — Site kendi alan adına taşındı: app.ablacim.com
+
+**Karar.** Landing page **app.ablacim.com** adresinde yayınlanır. GitHub
+Pages, özel alan adı, kökte (alt yol yok). `www.ablacim.com`'a **hiç
+dokunulmaz**.
+
+**Neden ana siteye girmedi.** Üç yol değerlendirildi:
+
+| Yol | Neden elendi / seçildi |
+|---|---|
+| İçeriği Next.js'e port et | Teknik olarak en bütünlüklü, ama ana siteyi değiştirmeyi gerektiriyordu |
+| Vercel rewrite ile `/`'e bağla | Kökte iki sistem; ana sitenin davranışı değişirdi |
+| **Ayrı alan adı** | **Seçildi** — ana site tek satır bile değişmiyor |
+
+Sahip kararı kesin ve gerekçesi tek cümle: *"mevcut olan landing-page
+sayfasını asla bozma."* `www.ablacim.com` canlı bir dönüşüm hattı —
+ölçülmüş bir hero, quiz akışı (`/gender`) ve uygulamanın kod içinden
+gittiği dört yol orada. Yeni bir tanıtım sayfası için o hattı riske
+atmanın karşılığı yok.
+
+**Ana sitenin dokunulmazlığı artık yapısal.** Bu repo ayrı bir alan
+adına, ayrı bir altyapıya (GitHub Pages) yayınlanıyor. `ablacim-frontend`
+(Next.js/Vercel) ile aralarında ortak dosya, ortak deploy ve ortak DNS
+kaydı yok. Brief §0.2'nin dört yolu — `/privacy-policy`,
+`/distance-sales-agreement`, `/auth/reset-password`, `/palm` — bu repodan
+etkilenemez. DEVIR-NOTU §7'de açık duran "üretim deploy planı" maddesi
+böylece kapandı.
+
+### canonical tuzağı — bu taşınmanın asıl riski
+
+`src/site.config.ts`'te `siteUrl` sabit `https://www.ablacim.com`
+yazıyordu ve canonical, hreflang, og:url üçü de ondan türüyordu. Alan adı
+değişirken bu değer kalsaydı yeni sayfa **kendi canonical'ında ana siteyi
+gösterecekti**. Ana sitenin kendi landing'i de indeksli olduğundan Google
+iki sayfayı çakıştırırdı — yani tam kaçınmak için ayrı alan adına
+çıktığımız şey, ayrı alan adında da başımıza gelirdi.
+
+Değer `PUBLIC_SITE_URL`'e bağlandı; `astro.config.ts`'in `site` alanı da
+aynı değişkeni okuyor, tek kaynak. Ayrım şöyle korunuyor:
+
+| Alan | Nereyi gösterir |
+|---|---|
+| `siteConfig.siteUrl` | **Bu site** — app.ablacim.com |
+| `siteConfig.webAppUrl` | Ana site — CTA hedefi |
+| `siteConfig.legal.*` | Ana site — gizlilik, mesafeli satış |
+
+Derlemede doğrulandı: canonical/hreflang/og:url app.ablacim.com; ana
+siteye giden yalnız üç adres var, üçü de yukarıdaki ikinci ve üçüncü
+satır.
+
+### İndeksleme
+
+Sayfa arama motorlarına **açık** (sahip kararı). `robots.txt` ve
+`sitemap.xml` endpoint olarak eklendi — ikisi de `site` alanından türer,
+alan adı değişince elle senkron tutma derdi yok. `@astrojs/sitemap`
+kurulmadı: site üç sayfa ve bu makinede `pnpm install` corepack yüzünden
+TTY onayı istiyor (DEVIR-NOTU §2); bağımlılık kazandırdığından çok
+sürtünme getirirdi.
+
+Bilinen risk: ablacim.com'un kendi landing'i de indeksli, iki sayfa aynı
+kelimelerde yarışabilir. Sahibe söylendi, risk bilerek alındı. Geri almak
+gerekirse `robots.txt.ts` içinde `Disallow: /` yeter.
+
+**Kaynak.** Sahip kararı (25 Ağu): "paylasim.ablacim.com gibi düşün, yani
+asıl ablacim.com'u bozmayacak şekilde." Ad `app.ablacim.com` seçildi —
+sayfanın iki dili var, Türkçe bir ad (tanitim/kesfet) EN ziyaretçiye
+anlamsız gelirdi.

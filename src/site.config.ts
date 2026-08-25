@@ -9,8 +9,20 @@ export function withBase(path: string): string {
 }
 
 export const siteConfig = {
-  siteUrl: 'https://www.ablacim.com',
-  // Web uygulaması — sayfadaki "analize başla" CTA'larının hedefi
+  /*
+   * BU SİTENİN kendi adresi — canonical, hreflang ve og:url buradan türer.
+   *
+   * DİKKAT (25 Ağu): burası uzun süre 'https://www.ablacim.com' yazıyordu.
+   * Site kendi alan adına (app.ablacim.com) taşınırken bu değer kalsaydı
+   * canonical ANA SİTEYİ gösterecekti — ablacim.com'un kendi landing'i de
+   * indeksli olduğu için Google iki sayfayı çakıştırırdı. Tam kaçındığımız
+   * şey. Değeri astro.config.ts'in `site` alanıyla AYNI kaynaktan alıyoruz.
+   *
+   * Aşağıdaki webAppUrl ve legal.* ise ANA SİTEYE gider; onlar bilerek
+   * www.ablacim.com'da kalıyor. İkisini karıştırma.
+   */
+  siteUrl: import.meta.env.PUBLIC_SITE_URL ?? 'https://app.ablacim.com',
+  // Web uygulaması — sayfadaki "analize başla" CTA'larının hedefi (ANA SİTE)
   webAppUrl: 'https://www.ablacim.com/',
 
   store: {
