@@ -11,11 +11,15 @@ const { locale } = Astro.props;
 const dict = t(locale);
 const d = dict.nasilCalisir;
 
-const strip = [
-  { src: withBase('/screens/app-1.jpg'), alt: dict.screens.welcomeAlt },
-  { src: withBase('/screens/app-2.jpg'), alt: dict.screens.reportAlt },
-  { src: withBase('/screens/app-3.jpg'), alt: dict.screens.chatAlt },
-];
+/*
+ * Şerit 3 → 10 kare (25 Ağu, sahip talebi). Kaynak App Store destesinin
+ * kendisi; sıra oradaki slayt sırası — hub → rüya → sohbet → ilişki →
+ * sekiz stil → ikiz → eşleşme → yolculuk → geçmiş → premium.
+ */
+const strip = dict.screens.shots.map((alt, i) => ({
+  src: withBase(`/screens/app-${i + 1}.jpg`),
+  alt,
+}));
 ---
 
 <!-- Bölüm 4 / Nasıl çalışır — bakır imzalı adım şeridi: numaralı daireler
@@ -36,19 +40,40 @@ const strip = [
       ))
     }
   </ol>
-  <div class="flex snap-x snap-mandatory gap-md overflow-x-auto md:justify-center">
-    {
-      strip.map((shot) => (
-        <img
-          src={shot.src}
-          alt={shot.alt}
-          width="512"
-          height="1112"
-          loading="lazy"
-          class="ekran-kare w-3/5 shrink-0 snap-center border border-premiumHairline md:w-1/4"
-        />
-      ))
-    }
+  <!-- Kaydırmalı şerit: ≥768px'te aynı anda DÖRT kare, tek tek kayar.
+       Kaydırma ray'in kendi overflow'u — sayfa scroll'una dokunulmuyor
+       (scroll-jacking yasak). Oklar yalnız işaretçi cihazlarda görünür;
+       dokunmatikte parmakla kaydırma zaten var, klavyede ray odaklanıp
+       ok tuşlarıyla geziliyor (tabindex + role="group"). -->
+  <div class="ray-kap relative">
+    <div
+      id="ekran-ray"
+      tabindex="0"
+      role="group"
+      aria-label={d.stripLabel}
+      class="ray flex snap-x snap-mandatory gap-md overflow-x-auto pb-sm"
+    >
+      {
+        strip.map((shot) => (
+          <img
+            src={shot.src}
+            alt={shot.alt}
+            width="506"
+            height="1100"
+            loading="lazy"
+            decoding="async"
+            class="ekran-kare w-3/5 shrink-0 snap-start border border-premiumHairline sm:w-2/5 md:w-1/4"
+          />
+        ))
+      }
+    </div>
+
+    <button type="button" class="ok ok-sol" data-yon="-1" aria-label={d.stripPrev}>
+      <span aria-hidden="true">‹</span>
+    </button>
+    <button type="button" class="ok ok-sag" data-yon="1" aria-label={d.stripNext}>
+      <span aria-hidden="true">›</span>
+    </button>
   </div>
   <!-- CTA 2/3 — adımları gören okur için web uygulaması; ortalı -->
   <div class="flex justify-center">
@@ -57,6 +82,74 @@ const strip = [
 </section>
 
 <style>
+  /* Ray: kaydırma çubuğu gizli ama kaydırma açık — çubuk 10 karelik
+     şeritte kalıcı bir gri çizgi bırakıyordu. Erişilebilirlik kaybı yok:
+     oklar, parmak ve klavye (ray odaklanınca ok tuşları) çalışıyor. */
+  .ray {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .ray::-webkit-scrollbar {
+    display: none;
+  }
+  /* Ray odaklanınca halka — klavyeyle gezilebildiği görünsün */
+  .ray:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  /* PRM: yumuşak kaydırma kapanır, atlama anında olur */
+  @media (prefers-reduced-motion: reduce) {
+    .ray {
+      scroll-behavior: auto;
+    }
+  }
+
+  .ok {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none; /* varsayılan gizli; yalnız hover'lı cihazda açılır */
+    height: var(--spacing-huge);
+    width: var(--spacing-huge);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--premiumHairline);
+    background: var(--surfaceTranslucent);
+    color: var(--textPrimary);
+    font-size: var(--text-h2);
+    line-height: 1;
+    backdrop-filter: blur(6px);
+    transition:
+      border-color var(--duration-fast) var(--ease-standard),
+      opacity var(--duration-fast) var(--ease-standard);
+  }
+  /* Dokunmatikte ok yok — parmakla kaydırma doğal yol; oklar orada
+     yalnız kareyi örterdi. */
+  @media (hover: hover) and (min-width: 48rem) {
+    .ok {
+      display: flex;
+    }
+  }
+  .ok:hover {
+    border-color: var(--premium);
+  }
+  .ok:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  /* Uçlara gelince sönükleşir ve tıklamayı almaz */
+  .ok[disabled] {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .ok-sol {
+    left: calc(var(--spacing-lg) * -1);
+  }
+  .ok-sag {
+    right: calc(var(--spacing-lg) * -1);
+  }
+
   /* Ekran kareleri çerçevesi (sahip talebi): koyu temada 1px hairline
      yeterince görünür — DOKUNULMADI. Açık temada %55 saydam bakır zeminde
      kayboluyordu; tam bakır + 2px ile koyudaki algı dengesine çekildi. */
@@ -87,3 +180,44 @@ const strip = [
     }
   }
 </style>
+
+<script>
+  /*
+   * Şerit okları. Bir basış = BİR kare (sahip talebi: "teker teker").
+   * Adım genişliği ölçülür, sabit sayı yazılmaz — kare genişliği kırılıma
+   * göre değişiyor (%60 → %40 → %25) ve sabit değer kırılım sınırında
+   * yanlış yere kaydırırdı.
+   */
+  const ray = document.getElementById('ekran-ray');
+  if (ray) {
+    const adim = () => {
+      const kare = ray.querySelector('img');
+      if (!kare) return ray.clientWidth;
+      const bosluk = parseFloat(getComputedStyle(ray).columnGap || '0') || 0;
+      return kare.getBoundingClientRect().width + bosluk;
+    };
+
+    const oklar = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('.ok[data-yon]'),
+    );
+
+    /** Uçta olan oku söndürür — tıklayınca hiçbir şey olmaması kafa karıştırıyor. */
+    const tazele = () => {
+      const son = ray.scrollWidth - ray.clientWidth;
+      for (const ok of oklar) {
+        const yon = Number(ok.dataset.yon);
+        ok.disabled = yon < 0 ? ray.scrollLeft <= 1 : ray.scrollLeft >= son - 1;
+      }
+    };
+
+    for (const ok of oklar) {
+      ok.addEventListener('click', () => {
+        ray.scrollBy({ left: adim() * Number(ok.dataset.yon) });
+      });
+    }
+
+    ray.addEventListener('scroll', tazele, { passive: true });
+    window.addEventListener('resize', tazele);
+    tazele();
+  }
+</script>

@@ -41,13 +41,19 @@ export const en: Dict = {
 
   // Play Store görselleri şu an Türkçe (EN varyant mağazada yok) — alt TASLAK
   screens: {
-    /* 25 Ağu: üç görsel de yenilendi — bkz. tr.ts'teki not. */
-    welcomeAlt:
-      'Ablacım promotional image: the Discover Yourself screen with observations and module cards',
-    reportAlt:
-      'Ablacım promotional image: a measurement result placing a relational style on a two-axis map',
-    chatAlt:
-      'Ablacım promotional image: the chat with Abla that opens after a dream reflection',
+    // 25 Ağu: şerit 10 kareye çıktı — bkz. tr.ts.
+    shots: [
+      'Discover Yourself screen: observations, note of the day and module cards',
+      'Tell Your Dream screen: the field where you write the dream yourself',
+      'Dream chat: the question window that opens with Abla after a reflection',
+      'Relational Style result: the style placed on a two-axis map',
+      'Eight style distribution: each style shown as a percentile bar',
+      'Digital twin screen: the three parts and a portrait through Abla’s eyes',
+      'Twin Match screen: your shared code and the field for a friend’s code',
+      'Your Journey screen: the light-point ring, step and weekly goals',
+      'Your History screen: measures and dream reflections listed with dates',
+      'Profile screen: the premium membership card and remaining credits',
+    ],
   },
 
   // Abla'nın sesi ("love" 1/2)
@@ -231,6 +237,9 @@ export const en: Dict = {
       'You receive the map or the reflection prepared just for you.',
       'You ask whatever stays on your mind in chat, and the result joins your twin.',
     ],
+    stripLabel: 'App screens — horizontally scrollable strip',
+    stripPrev: 'Previous screen',
+    stripNext: 'Next screen',
   },
 
   sohbetFarki: {

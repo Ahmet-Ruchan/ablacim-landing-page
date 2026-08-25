@@ -45,15 +45,19 @@ export const tr = {
 
   // Play Store'daki mevcut tanıtım görselleri (adım 3) — alt metinler TASLAK
   screens: {
-    /* 25 Ağu: üç görsel de yenilendi. Eskiler el analizi raporu, koyu tema
-       ve o zamanki dört modüllü sürümü gösteriyordu; ikisi de artık yok.
-       Sıra "Nasıl çalışır" akışını izler: modülü seç → ölçümünü al → sor. */
-    welcomeAlt:
-      'Ablacım tanıtım görseli: Kendini Keşfet ekranı, gözlemler ve modül kartlarını gösteren uygulama ekranı',
-    reportAlt:
-      'Ablacım tanıtım görseli: ilişki stilini iki eksenli bir harita üzerinde gösteren ölçüm sonucu ekranı',
-    chatAlt:
-      'Ablacım tanıtım görseli: rüya yansımasının ardından Abla ile açılan sohbet ekranı',
+    // 25 Ağu: şerit 10 kareye çıktı; her karenin kendi alt metni var.
+    shots: [
+      'Kendini Keşfet ekranı: gözlemler, günün notu ve modül kartları',
+      'Rüyanı Anlat ekranı: rüyanın kendi cümlelerinle yazıldığı alan',
+      'Rüya sohbeti: yansımanın ardından Abla ile açılan soru penceresi',
+      'İlişki Stilin sonucu: iki eksenli harita üzerinde konumlanmış stil',
+      'Sekiz stil dağılımı: her stilin yüzdelik dilimi çubuklarla',
+      'Dijital ikiz ekranı: üç parçanın durumu ve Abla’nın gözünden portre',
+      'İkiz Eşleşmesi ekranı: paylaşılan kod ve arkadaş kodu girişi',
+      'Yolculuğun ekranı: ışık puanı halkası, basamak ve haftalık hedefler',
+      'Geçmişin ekranı: tarihleriyle sıralanmış ölçümler ve rüya yansımaları',
+      'Profil ekranı: premium üyelik kartı ve kalan haklar',
+    ],
   },
 
   // Abla'nın sesi burada duyulur (hitap 1/3: "kuzum")
@@ -252,6 +256,9 @@ export const tr = {
       'Sana özel hazırlanan haritanı ya da yansımanı alırsın.',
       'Aklına takılanı sohbette sorarsın; sonuç ikizine eklenir.',
     ],
+    stripLabel: 'Uygulama ekranları — yatay kaydırmalı şerit',
+    stripPrev: 'Önceki ekran',
+    stripNext: 'Sonraki ekran',
   },
 
   // Nötr; demo keşif dilinde, hitapsız, sahte kanıt cümlesi yok
