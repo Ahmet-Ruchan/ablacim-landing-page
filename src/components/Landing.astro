@@ -3,9 +3,12 @@ import Hero from './sections/Hero.astro';
 import PalmDivider from './PalmDivider.astro';
 import AblaKim from './sections/AblaKim.astro';
 import Ozellikler from './sections/Ozellikler.astro';
+import DijitalIkiz from './sections/DijitalIkiz.astro';
+import Derinlesme from './sections/Derinlesme.astro';
 import NasilCalisir from './sections/NasilCalisir.astro';
 import SohbetFarki from './sections/SohbetFarki.astro';
 import Gizlilik from './sections/Gizlilik.astro';
+import Premium from './sections/Premium.astro';
 import Sss from './sections/Sss.astro';
 import Indir from './sections/Indir.astro';
 import Sosyal from './sections/Sosyal.astro';
@@ -22,15 +25,26 @@ const { locale } = Astro.props;
 <!-- Bölüm sırası brief §9 — Altbilgi Base layout'ta.
      İndir kapanış CTA'sı olarak yerinde kaldı; Sosyal ve İletişim onun
      ardına, altbilginin hemen üstüne eklendi (dönüşüm → topluluk →
-     iletişim). Böylece kapanış CTA'sı seyrelmez. -->
+     iletişim). Böylece kapanış CTA'sı seyrelmez.
+
+     25 Ağu — üç bölüm eklendi (uygulama sitenin çok ilerisine geçmişti):
+     · Dijital ikizin, Özellikler'in HEMEN ARDINDA: ızgaradaki kart bir
+       giriş; ikizin diğer modülleri birleştirdiği hemen orada anlaşılsın.
+     · Zamanla derinleşir, onun ardında: ikiz "ne toplanıyor"u, bu bölüm
+       "zamanla ne oluyor"u anlatır — ikisi bir yay.
+     · Premium, Gizlilik ile SSS ARASINDA: kapsam → sık sorulanlar (iptal,
+       fiyat) → İndir. Kapanış CTA'sının önüne geçmiyor. -->
 <Hero locale={locale} />
 <!-- İmza öğesi tek örnek: hero sonrası bölüm ayracı (Q1; brief §2 çoğaltma yasağı) -->
 <PalmDivider />
 <AblaKim locale={locale} />
 <Ozellikler locale={locale} />
+<DijitalIkiz locale={locale} />
+<Derinlesme locale={locale} />
 <NasilCalisir locale={locale} />
 <SohbetFarki locale={locale} />
 <Gizlilik locale={locale} />
+<Premium locale={locale} />
 <Sss locale={locale} />
 <Indir locale={locale} />
 <Sosyal locale={locale} />

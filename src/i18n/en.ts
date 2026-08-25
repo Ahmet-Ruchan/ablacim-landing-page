@@ -11,7 +11,7 @@ export const en: Dict = {
   meta: {
     title: 'Ablacım — Get to know yourself a little better',
     description:
-      'A calm, personal reflection on your palm lines and your dreams, with Abla — and a chat for whatever stays on your mind.',
+      'Your personality map, your relational style, your dreams and your palm lines in a single portrait. Abla writes a calm, personal reflection — and a chat for whatever stays on your mind.',
   },
 
   cta: {
@@ -52,9 +52,10 @@ export const en: Dict = {
   // Abla'nın sesi ("love" 1/2)
   hero: {
     heading: 'Get to know yourself better',
-    sub: 'Open your palm or tell your dream, love; Abla takes her time with it. Whatever stays on your mind, you talk it through together.',
-    // Görsel alt metni — TASLAK (hero ↔ fizyonomi takası sonrası)
-    imageAlt: 'Portrait of a calm face with closed eyes',
+    sub: 'Answer a few questions, write your dream or open your palm, love; Abla takes her time with it, and over time gathers everything into a single portrait.',
+    // Görsel alt metni — 25 Ağu: yeni hero.png teslim edildi, alt yenilendi
+    imageAlt:
+      'Portrait of a calm face with closed eyes and the head tilted slightly up, against a network of points of light',
   },
 
   // Abla'nın sesi ("love" 2/2 — yalnız body'de). Bölüm genişletildi
@@ -92,7 +93,8 @@ export const en: Dict = {
 
   ozellikler: {
     title: 'Features',
-    intro: 'Palm analysis and dreams are available today; physiognomy and abjad are on the way.',
+    intro:
+      'Five modules are available today: palm analysis, dreams, your personality map, your relational style and your digital twin. Physiognomy and abjad are on the way.',
     statusAvailable: 'Available',
     statusSoon: 'Coming soon',
     cards: [
@@ -119,9 +121,10 @@ export const en: Dict = {
       {
         title: 'Dreams',
         imageAlt:
-          'An open dream journal with note lines and key, bird and door symbols',
+          'A starry sky and a face in profile held within a crescent moon, with clouds and flowing lines around them',
         status: 'available',
-        platformNote: 'Available on Android and on the web',
+        // Platform notu YOK — kalıcı platform sınırı yalnız el analizinde.
+        platformNote: null,
         desc: 'You write your dream in your own words; Abla walks through its symbols with you and reflects on what they might mean for you. A 24-hour question window follows, and past reflections are kept in your dream journal.',
         back: {
           title: 'How it flows',
@@ -134,10 +137,64 @@ export const en: Dict = {
         },
       },
       {
-        // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
+        // Uygulamadaki modül adı birebir: "Personality Map"
+        title: 'Personality Map',
+        imageAlt:
+          'A circle of colour layers with a compass star reaching out from its centre in four directions',
+        status: 'available',
+        platformNote: null,
+        desc: 'You read short statements and mark how well each one fits you. At the end you get a map of where you stand on five traits.',
+        back: {
+          title: 'How it flows',
+          items: [
+            '60 items, about 7 minutes.',
+            'Pause whenever you like and pick up where you left off.',
+            'You get a map of your position across five traits.',
+            'The deep measure is 120 items and opens the subscales too.',
+          ],
+        },
+      },
+      {
+        // Uygulamadaki modül adı birebir: "Your Relational Style"
+        title: 'Your Relational Style',
+        imageAlt:
+          'Two figures facing each other inside two overlapping circles, with lines flowing between them',
+        status: 'available',
+        platformNote: null,
+        desc: 'It places how you relate to people on two axes: how much you lead and how much warmth you build.',
+        back: {
+          title: 'How it flows',
+          items: [
+            '32 items, about 5 minutes.',
+            'Pause whenever you like and pick up where you left off.',
+            'Two axes: leading and warmth.',
+            'At the end you get a map of your style.',
+          ],
+        },
+      },
+      {
+        // Uygulamadaki modül adı birebir: "Your Digital Twin"
+        title: 'Your Digital Twin',
+        imageAlt:
+          'A profile in side view, one half a watercolour portrait and the other a network of dots and lines',
+        status: 'available',
+        platformNote: null,
+        desc: 'Everything Ablacım has measured and written about you gathers in one place: your personality map, your relational style and your dream world.',
+        back: {
+          title: 'Three parts',
+          items: [
+            'Your Personality Map',
+            'Your Relational Style',
+            'Your Dream World',
+          ],
+        },
+      },
+      {
+        // Ad "Physiognomy" (sahip kararı, 25 Ağu) — TR'deki "Fizyonomi"nin
+        // karşılığı. Brief §7.3 sınırı sürüyor: vaat yazılmaz.
         title: 'Physiognomy',
         imageAlt:
-          'A single line connecting paper cards that carry a fingerprint, notes and tables',
+          'A face seen from the front, with proportion lines across it, axes reaching out to either side and a point of light on the brow',
         status: 'soon',
         platformNote: null,
         desc: 'Interpretation through facial features and proportions.',
@@ -149,7 +206,8 @@ export const en: Dict = {
       {
         // Brief §7.4: hesaplama anlatılır, sonuç vaadi verilmez
         title: 'Abjad',
-        imageAlt: 'An open notebook with letter and number tables and a reed pen',
+        imageAlt:
+          'A circle divided into colour segments, with tablet cards carrying Arabic letters at its four sides',
         status: 'soon',
         platformNote: null,
         desc: 'An interpretation calculated from the letters of your name and surname.',
@@ -166,10 +224,10 @@ export const en: Dict = {
   nasilCalisir: {
     title: 'How it works',
     steps: [
-      'You upload a photo of your palm, or write down a dream.',
+      'You pick a module: answer the questions, write a dream, or upload a photo of your palm.',
       'Abla reads what you shared, without hurry.',
-      'You receive a reflection prepared just for you.',
-      'You ask whatever stays on your mind, in chat.',
+      'You receive the map or the reflection prepared just for you.',
+      'You ask whatever stays on your mind in chat, and the result joins your twin.',
     ],
   },
 
@@ -199,6 +257,77 @@ export const en: Dict = {
     ],
   },
 
+  // Bölüm 5 / Dijital ikizin — YENİ (25 Ağu). TR ile aynı olgular.
+  ikiz: {
+    title: 'Your digital twin',
+    eyebrow: 'Where it all comes together',
+    // Bölüm görseli — kart ile aynı illüstrasyon (dijital-ikiz.png)
+    imageAlt:
+      'A profile in side view, one half a watercolour portrait and the other a network of dots and lines',
+    intro:
+      'On its own, each module is one piece. Everything Ablacım has measured and written about you gathers into a single portrait in your digital twin.',
+    partsTitle: 'It is made of three parts',
+    parts: [
+      {
+        title: 'Your Personality Map',
+        desc: 'Where you stand across five traits — and how that shifts as you repeat the measure.',
+      },
+      {
+        title: 'Your Relational Style',
+        desc: 'On two axes — how much you lead and how much warmth you build.',
+      },
+      {
+        title: 'Your Dream World',
+        desc: 'The symbols and recurring themes that build up from the dreams you write.',
+      },
+    ],
+    extrasTitle: 'Also on the twin screen',
+    extras: [
+      'A portrait written through Abla’s eyes.',
+      'A timeline that lays out your measures in order.',
+      'Your step, your light points and your streak.',
+      'A card you can share if you want to.',
+    ],
+    matchTitle: 'Twin Match',
+    matchBody:
+      'You share your code with a friend, or enter theirs. Once both sides agree, the two twins are compared at band level; you can end the link whenever you like.',
+    matchSteps: [
+      'You share your code, or enter one.',
+      'Once the other side accepts, the comparison is prepared.',
+      'Your personality and relational bands are read side by side.',
+      'Either side can end the link at any time.',
+    ],
+    matchPremiumNote:
+      'Twin Match and the full comparison are opened by a premium membership.',
+  },
+
+  // Bölüm 6 / Zamanla derinleşir — YENİ (25 Ağu).
+  derinlesme: {
+    title: 'It deepens over time',
+    intro:
+      'Ablacım is not a one-off reading. Two layers build up in the background as you visit and as you write.',
+    cards: [
+      {
+        title: 'Observations',
+        desc: 'Abla reads the dreams you write together, not one by one. If a symbol or a theme repeats across the last 180 days, she writes you an observation.',
+        items: [
+          'It takes a few dreams to build up.',
+          'Every observation shows what it is based on.',
+          'If nothing repeats, she stays quiet — she does not invent something just to be talking.',
+        ],
+      },
+      {
+        title: 'Your journey',
+        desc: 'Every visit builds up as light points. Steps rise, the streak is kept, badges open.',
+        items: [
+          'Light points, current streak and longest streak.',
+          'Steps, and what each step brings with it.',
+          'Three weekly goals, and badges.',
+        ],
+      },
+    ],
+  },
+
   gizlilik: {
     title: 'Privacy',
     intro: 'Before your dream text is sent, your consent is asked for openly:',
@@ -212,13 +341,47 @@ export const en: Dict = {
     note: 'Your privacy comes first. Data is stored temporarily on secure servers and anonymised to protect your identity.',
   },
 
+  // Bölüm 8 / Premium üyelik — YENİ (25 Ağu). FİYAT YAZILMAZ (brief §6.2).
+  premium: {
+    title: 'Premium membership',
+    intro:
+      'Most modules can also be bought one at a time. A premium membership adds credits that renew each period, and opens what is locked on the twin side.',
+    items: [
+      {
+        title: 'Twin Match',
+        desc: 'Link up with a friend, compare the two twins, and see the whole comparison.',
+      },
+      {
+        title: 'Credits that renew each period',
+        desc: 'One palm analysis and one dream reflection stay yours as credits throughout your membership period.',
+      },
+      {
+        title: 'The deep personality measure',
+        desc: 'The 120-item deep measure, and the subscales it opens, are included in the membership.',
+      },
+    ],
+    plansNote: 'There are two periods: monthly and yearly.',
+    // Fiyat yazılmaz — brief §6.2
+    priceNote:
+      'Prices are not written on this site; they appear in the app, in your own currency. Subscriptions renew automatically at the end of each period unless cancelled, and are managed through the store.',
+  },
+
   sss: {
     title: 'FAQ',
     items: [
       {
         q: 'Is Ablacım free?',
         // Neyin ücretsiz olduğu brief'te yazmıyor — ücret iddiası yok; SORULDU.
-        a: 'Palm analysis works as a one-time purchase, and the dream side runs on a subscription; extra message credits are also available in the app. Prices are shown in the app, in your own currency — not on this site.',
+        // 25 Ağu: kişilik/ilişki ölçümlerinin girişi ve premium kapsamı eklendi.
+        a: 'You start the Personality Map and Your Relational Style for free. Palm analysis works as a one-time purchase, and the dream side runs on a subscription; extra message credits are also available in the app. A premium membership covers Twin Match, the full comparison, the deep personality measure and credits that renew each period. Prices are shown in the app, in your own currency — not on this site.',
+      },
+      {
+        q: 'What is the difference between the Personality Map and Your Relational Style?',
+        a: 'The Personality Map places you across five traits; it is 60 items and takes about 7 minutes. Your Relational Style places how you relate to people on two axes — how much you lead and how much warmth you build; it is 32 items and takes about 5 minutes. Each becomes a separate part of your digital twin.',
+      },
+      {
+        q: 'What is the digital twin for?',
+        a: 'So the results of the modules do not stay scattered, they gather in one place: your personality map, your relational style and your dream world. The timeline keeps your measures in order, and if you like, you can match with a friend and compare the two twins.',
       },
       {
         q: 'What happens to my data?',
@@ -241,7 +404,7 @@ export const en: Dict = {
   // Kapanış CTA — sıcak ton, hitap yok
   indir: {
     title: 'Download',
-    body: 'Ablacım is on Google Play today. Come whenever it suits you — a palm or a dream is enough to begin.',
+    body: 'Ablacım is on Google Play today. Come whenever it suits you — a measure, a dream or a palm is enough to begin.',
     currencyNote: 'Prices appear in the app, in your own currency.',
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:

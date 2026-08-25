@@ -10,7 +10,7 @@ export const tr = {
   meta: {
     title: 'Ablacım — Kendini daha yakından tanı',
     description:
-      'Avucundaki izler ve rüyaların üzerine Abla ile sakin, kişisel bir yansıma; aklına takılanı sohbetle sorabilirsin.',
+      'Kişilik haritan, ilişki stilin, rüyaların ve avucundaki izler tek bir portrede. Abla sakin, kişisel bir yansıma hazırlar; aklına takılanı sohbetle sorabilirsin.',
   },
 
   // Web uygulamasına giden CTA butonları (hedef: siteConfig.webAppUrl)
@@ -56,9 +56,10 @@ export const tr = {
   // Abla'nın sesi burada duyulur (hitap 1/3: "kuzum")
   hero: {
     heading: 'Kendini daha yakından tanı',
-    sub: 'Elini aç ya da rüyanı yaz, kuzum; Abla gerisini sakin sakin yorumlar. Aklına takılanı da birlikte konuşursunuz.',
-    // Görsel alt metni — TASLAK (hero ↔ fizyonomi takası sonrası)
-    imageAlt: 'Gözleri kapalı, sakin bir yüz portresi',
+    sub: 'Birkaç soruyu yanıtla, rüyanı yaz ya da elini aç, kuzum; Abla gördüklerini sakin sakin yansıtır ve zamanla hepsini tek bir portrede toplar.',
+    // Görsel alt metni — 25 Ağu: yeni hero.png teslim edildi, alt yenilendi
+    imageAlt:
+      'Gözleri kapalı, başı hafifçe yukarı dönük sakin bir yüz portresi; ardında ışık noktalarından oluşan bir ağ',
   },
 
   // Abla'nın sesi burada duyulur (hitap 2/3: "canım" — body'de, bir kez).
@@ -98,7 +99,8 @@ export const tr = {
   // Nötr ürün dili; hitap yok
   ozellikler: {
     title: 'Özellikler',
-    intro: 'El analizi ve rüya bugün kullanılabilir; fizyonomi ve ebced yakında.',
+    intro:
+      'Beş modül bugün kullanılabilir: el analizi, rüya, kişilik haritası, ilişki stilin ve dijital ikizin. Fizyonomi ile ebced yakında.',
     statusAvailable: 'Kullanılabilir',
     statusSoon: 'Yakında',
     cards: [
@@ -125,9 +127,12 @@ export const tr = {
       {
         title: 'Rüya',
         imageAlt:
-          'Not satırları ile anahtar, kuş ve kapı sembolleri olan açık bir rüya defteri',
+          'Hilal ay içinde yıldızlı bir gökyüzü ve yandan bir yüz profili; çevresinde bulutlar ve dalgalanan çizgiler',
         status: 'available',
-        platformNote: "Android'de ve web'de kullanılabilir",
+        // Platform notu YOK: kalıcı bir platform sınırı yalnız el analizinde
+        // var. Rüya iki platforma da açık; "bugün Android'de" bilgisi İndir
+        // bölümünde zaten duruyor, kartta tekrarlanmıyor.
+        platformNote: null,
         desc: 'Rüyanı kendi cümlelerinle yazarsın; Abla sembolleri seninle birlikte ele alır ve senin için ne ifade edebileceğini yansıtır. Sonrasında 24 saatlik bir soru penceresi açılır; geçmiş yansımaların rüya günlüğünde saklanır.',
         // Kart arkası — brief §7.2 olguları
         back: {
@@ -141,10 +146,71 @@ export const tr = {
         },
       },
       {
-        // Brief §7.3: tek satırdan fazlası yazılmaz — vaat yok
+        // Uygulamadaki modül adı birebir: "Kişilik Haritası"
+        // (src/features/personality/personality-strings.ts hubTitle).
+        // Olgular ölçeğin kendisinden: 60 madde, ~7 dk, beş boyut,
+        // 120 maddelik derin ölçüm ayrı bir oturum.
+        title: 'Kişilik Haritası',
+        imageAlt:
+          'Renk katmanlarından oluşan bir daire ve merkezinden dört yöne uzanan pusula yıldızı',
+        status: 'available',
+        platformNote: null,
+        desc: 'Kısa cümleler okur, sana ne kadar uyduğunu işaretlersin. Sonunda beş boyutta nerede durduğunu gösteren bir harita çıkar.',
+        back: {
+          title: 'Nasıl işler',
+          items: [
+            '60 madde, yaklaşık 7 dakika.',
+            'İstediğin an ara verir, kaldığın yerden dönersin.',
+            'Beş boyutta konumunu gösteren bir harita çıkar.',
+            'Derin ölçüm 120 maddedir; alt boyutları da açar.',
+          ],
+        },
+      },
+      {
+        // Uygulamadaki modül adı birebir: "İlişki Stilin"
+        // (src/features/interpersonal/interpersonal-strings.ts hubTitle).
+        title: 'İlişki Stilin',
+        imageAlt:
+          'Kesişen iki daire içinde birbirine dönük iki figür ve aralarında akan çizgiler',
+        status: 'available',
+        platformNote: null,
+        desc: 'İnsanlarla nasıl ilişki kurduğunu iki eksende konumlandırır: ne kadar yönlendirdiğin ve ne kadar yakınlık kurduğun.',
+        back: {
+          title: 'Nasıl işler',
+          items: [
+            '32 madde, yaklaşık 5 dakika.',
+            'İstediğin an ara verir, kaldığın yerden dönersin.',
+            'İki eksen: yönlendirme ve yakınlık.',
+            'Sonunda stilini gösteren bir harita çıkar.',
+          ],
+        },
+      },
+      {
+        // Uygulamadaki modül adı birebir: "Senin Dijital İkizin"
+        // (src/features/twin/twin-strings.ts hubTitle). Üç parça adı da
+        // ekrandan: Kişilik Haritan · İlişki Stilin · Rüya Dünyan.
+        title: 'Dijital İkizin',
+        imageAlt:
+          'Bir yanı suluboya portre, öbür yanı nokta ve çizgilerden oluşan veri ağı olan yandan bir profil',
+        status: 'available',
+        platformNote: null,
+        desc: 'Ablacım’ın seninle ilgili ölçtüğü ve yazdığı her şey tek yerde toplanır: kişilik haritan, ilişki stilin ve rüya dünyan.',
+        back: {
+          title: 'Üç parça',
+          items: [
+            'Kişilik Haritan',
+            'İlişki Stilin',
+            'Rüya Dünyan',
+          ],
+        },
+      },
+      {
+        // Ad "Fizyonomi" (sahip kararı, 25 Ağu). Uygulamadaki hub kartı
+        // "Yüz Analizi" diyor; sitede modülün adı Fizyonomi olarak kalıyor.
+        // Brief §7.3 sınırı sürüyor: vaat yazılmaz.
         title: 'Fizyonomi',
         imageAlt:
-          'Parmak izi, notlar ve tablolar taşıyan kâğıt kartları birbirine bağlayan tek bir çizgi',
+          'Önden bir yüz portresi; üzerinde oran çizgileri, iki yana uzanan eksenler ve alında bir ışık noktası',
         status: 'soon',
         platformNote: null,
         desc: 'Yüz hatları ve oranlarıyla yorum.',
@@ -157,7 +223,8 @@ export const tr = {
       {
         // Brief §7.4: hesaplama anlatılır, sonuç vaadi verilmez
         title: 'Ebced',
-        imageAlt: 'Harf ve sayı tabloları olan açık bir defter ile kamış kalem',
+        imageAlt:
+          'Renk dilimlerine bölünmüş bir çember ve dört yönünde Arap harfleri taşıyan tablo kartları',
         status: 'soon',
         platformNote: null,
         desc: 'İsim ve soyisimden harflerle hesaplanan yorum.',
@@ -176,10 +243,10 @@ export const tr = {
   nasilCalisir: {
     title: 'Nasıl çalışır',
     steps: [
-      'Avucunun fotoğrafını yükler ya da rüyanı yazarsın.',
+      'Bir modül seçersin: soruları yanıtlar, rüyanı yazar ya da avucunun fotoğrafını yüklersin.',
       'Abla paylaştıklarını acele etmeden okur.',
-      'Sana özel hazırlanan yansımanı alırsın.',
-      'Aklına takılanı sohbette sorarsın.',
+      'Sana özel hazırlanan haritanı ya da yansımanı alırsın.',
+      'Aklına takılanı sohbette sorarsın; sonuç ikizine eklenir.',
     ],
   },
 
@@ -210,6 +277,87 @@ export const tr = {
     ],
   },
 
+  /*
+   * Bölüm 5 / Dijital ikizin — YENİ (25 Ağu). Uygulamadaki en büyük modül
+   * sitede hiç anlatılmıyordu. Metinler ekrandan türedi:
+   * src/features/twin/twin-strings.ts (üç parça, istatistikler, portre) ve
+   * src/features/twin/match/match-strings.ts (eşleşme akışı).
+   * Nötr ürün dili; hitap yok — hitap bütçesi 2/3'te kalır.
+   */
+  ikiz: {
+    title: 'Dijital ikizin',
+    eyebrow: 'Hepsinin buluştuğu yer',
+    // Bölüm görseli — kart ile aynı illüstrasyon (dijital-ikiz.png)
+    imageAlt:
+      'Bir yanı suluboya portre, öbür yanı nokta ve çizgilerden oluşan veri ağı olan yandan bir profil',
+    intro:
+      'Her modül tek başına bir parça. Ablacım’ın seninle ilgili ölçtüğü ve yazdığı her şey, dijital ikizinde tek bir portrede toplanır.',
+    partsTitle: 'Üç parçadan oluşur',
+    parts: [
+      {
+        title: 'Kişilik Haritan',
+        desc: 'Beş boyutta nerede durduğun; ölçümü tekrarladıkça zaman içindeki değişimin.',
+      },
+      {
+        title: 'İlişki Stilin',
+        desc: 'İki eksende — ne kadar yönlendirdiğin ve ne kadar yakınlık kurduğun.',
+      },
+      {
+        title: 'Rüya Dünyan',
+        desc: 'Yazdığın rüyalardan biriken semboller ve tekrar eden temalar.',
+      },
+    ],
+    extrasTitle: 'İkiz ekranında ayrıca',
+    extras: [
+      'Abla’nın gözünden yazılmış bir portre metni.',
+      'Ölçümlerini sırasıyla gösteren bir zaman çizgisi.',
+      'Basamağın, ışık puanın ve serin.',
+      'İstersen paylaşabileceğin bir kart.',
+    ],
+    matchTitle: 'İkiz Eşleşmesi',
+    matchBody:
+      'Kodunu bir arkadaşınla paylaşır ya da onun kodunu girersin. İki taraf da onay verince iki ikiz bant düzeyinde karşılaştırılır; bağlantıyı her an bitirebilirsin.',
+    matchSteps: [
+      'Kodunu paylaşır ya da bir kod girersin.',
+      'Karşı taraf kabul edince kıyas hazırlanır.',
+      'Kişilik ve ilişki bantlarınız yan yana okunur.',
+      'Bağlantıyı istediğin an, iki taraf da bitirebilir.',
+    ],
+    matchPremiumNote: 'İkiz Eşleşmesi ve kıyasın tamamı premium üyelikle açılır.',
+  },
+
+  /*
+   * Bölüm 6 / Zamanla derinleşir — YENİ (25 Ağu). İki arka plan katmanı:
+   * Gözlemler (src/features/synthesis) ve Yolculuğun (src/features/gamification).
+   * Gözlem metni ekrandaki yardım sayfasından türedi; "her zaman söyleyecek
+   * bir şey olmayabilir" cümlesi bilinçli korundu — vaat üretmiyor.
+   */
+  derinlesme: {
+    title: 'Zamanla derinleşir',
+    intro:
+      'Ablacım tek seferlik bir okuma değil. Uğradıkça ve yazdıkça iki katman arka planda birikir.',
+    cards: [
+      {
+        title: 'Gözlemler',
+        desc: 'Abla yazdığın rüyaları tek tek değil, birlikte okur. Son 180 günde tekrar eden bir sembol ya da tema çıkarsa sana bir gözlem yazar.',
+        items: [
+          'Birkaç rüya birikmesi gerekir.',
+          'Neye dayandığını her gözlemde gösterir.',
+          'Tekrar eden bir şey yoksa susar — konuşmuş olmak için bir şey uydurmaz.',
+        ],
+      },
+      {
+        title: 'Yolculuğun',
+        desc: 'Her uğrayışın ışık puanı olarak birikir. Basamaklar yükselir, seri tutulur, rozetler açılır.',
+        items: [
+          'Işık puanı, güncel seri ve en uzun seri.',
+          'Basamaklar ve her basamağın getirdikleri.',
+          'Haftalık üç hedef ve rozetler.',
+        ],
+      },
+    ],
+  },
+
   // Nötr; üç madde ve not brief'ten birebir
   gizlilik: {
     title: 'Gizlilik',
@@ -224,6 +372,37 @@ export const tr = {
     note: 'Gizliliğine öncelik veriyoruz. Veriler güvenli sunucularımızda geçici olarak depolanır ve anonimliğini korumak için anonimleştirilir.',
   },
 
+  /*
+   * Bölüm 8 / Premium üyelik — YENİ (25 Ağu). Kapsam
+   * src/features/subscriptions/subscriptions-strings.ts ve
+   * docs/premium-ayricaliklar-backend-request.md'den birebir.
+   * FİYAT YAZILMAZ (brief §6.2): tutar mağazada, kullanıcının para
+   * biriminde. Burada yalnız kapsam anlatılır.
+   */
+  premium: {
+    title: 'Premium üyelik',
+    intro:
+      'Modüllerin çoğu tek tek de alınabilir. Premium üyelik, üstüne her dönem yenilenen haklar ve ikiz tarafındaki kilitleri açar.',
+    items: [
+      {
+        title: 'İkiz Eşleşmesi',
+        desc: 'Bir arkadaşınla bağlantı kurup iki ikizi karşılaştırma ve kıyasın tamamını görme.',
+      },
+      {
+        title: 'Her dönem yenilenen haklar',
+        desc: 'Bir el analizi ve bir rüya yansıması, üyelik dönemin boyunca hakkın olarak durur.',
+      },
+      {
+        title: 'Derin kişilik ölçümü',
+        desc: '120 maddelik derin ölçüm ve onunla açılan alt boyutlar üyeliğe dahildir.',
+      },
+    ],
+    plansNote: 'Aylık ve yıllık olmak üzere iki dönem var.',
+    // Fiyat yazılmaz — brief §6.2
+    priceNote:
+      'Fiyatlar sitede yazmaz; uygulamada, kendi para biriminde görünür. Abonelik iptal edilmedikçe dönem sonunda kendiliğinden yenilenir ve mağaza üzerinden yönetilir.',
+  },
+
   // Nötr; cevaplar brief §7 ve §8 olgularına dayanır
   sss: {
     title: 'SSS',
@@ -231,7 +410,16 @@ export const tr = {
       {
         q: 'Ablacım ücretsiz mi?',
         // Neyin ücretsiz olduğu brief'te yazmıyor — ücret iddiası yok; SORULDU.
-        a: 'El analizi tek seferlik satın almayla, rüya tarafı abonelikle çalışır; gerekirse ek mesaj hakkı da uygulama içinden alınabilir. Fiyatlar sitede değil, uygulamada — kendi para biriminde görünür.',
+        // 25 Ağu: kişilik/ilişki ölçümlerinin girişi ve premium kapsamı eklendi.
+        a: 'Kişilik Haritası ve İlişki Stilin ölçümlerine ücretsiz başlarsın. El analizi tek seferlik satın almayla, rüya tarafı abonelikle çalışır; gerekirse ek mesaj hakkı da uygulama içinden alınabilir. Premium üyelik ikiz eşleşmesini, kıyasın tamamını, derin kişilik ölçümünü ve her dönem yenilenen hakları kapsar. Fiyatlar sitede değil, uygulamada — kendi para biriminde görünür.',
+      },
+      {
+        q: 'Kişilik Haritası ile İlişki Stilin arasındaki fark ne?',
+        a: 'Kişilik Haritası seni beş boyutta konumlandırır; 60 madde, yaklaşık 7 dakika sürer. İlişki Stilin ise insanlarla kurduğun ilişkiyi iki eksende — ne kadar yönlendirdiğin ve ne kadar yakınlık kurduğun — konumlandırır; 32 madde, yaklaşık 5 dakika. İkisi de dijital ikizinin ayrı birer parçası olur.',
+      },
+      {
+        q: 'Dijital ikiz ne işe yarar?',
+        a: 'Modüllerin sonuçları dağınık kalmasın diye tek bir yerde toplanır: kişilik haritan, ilişki stilin ve rüya dünyan. Zaman çizgisinde ölçümlerin sırayla durur; istersen bir arkadaşınla eşleşip iki ikizi karşılaştırabilirsin.',
       },
       {
         q: 'Verilerim ne oluyor?',
@@ -254,7 +442,7 @@ export const tr = {
   // Kapanış CTA — Abla'nın sesi tonda duyulur, hitap yok (indir hitapsız)
   indir: {
     title: 'İndir',
-    body: "Ablacım şu an Google Play'de. Ne zaman istersen gel; avucunla ya da bir rüyayla başlarsın.",
+    body: "Ablacım şu an Google Play'de. Ne zaman istersen gel; bir ölçümle, bir rüyayla ya da avucunla başlarsın.",
     currencyNote: 'Fiyatlar uygulamada, kendi para biriminde görünür.',
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:

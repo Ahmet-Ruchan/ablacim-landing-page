@@ -1,0 +1,94 @@
+---
+/**
+ * Bölüm 5 / Dijital ikizin — YENİ (25 Ağu).
+ *
+ * NEDEN VAR: uygulamadaki en büyük modül sitede hiç anlatılmıyordu.
+ * Özellikler ızgarasındaki kart yalnız bir giriş; asıl anlatım burada,
+ * çünkü ikiz diğer modülleri BİRLEŞTİREN katman — kart ölçüsüne sığmıyor.
+ *
+ * Metin kaynağı: src/features/twin/twin-strings.ts (üç parça, portre,
+ * zaman çizgisi, istatistikler) ve twin/match/match-strings.ts (eşleşme
+ * akışı). Uydurma özellik yok.
+ *
+ * Kart dili Özellikler'den ve Sosyal'den devralınır: bakır hairline
+ * çerçeve, surface zemin. YENİ hareket eklenmedi — bölüm girişi
+ * data-section/data-stagger ile mevcut bütçeden geliyor.
+ *
+ * Accent bütçesi: bu bölümde SOLID accent buton YOK. Kapanış CTA'sı
+ * İndir'de duruyor; burada ikinci bir accent buton koymak "ekranda tek
+ * accent" kuralını bozardı.
+ */
+import { t, type Locale } from '../../i18n';
+import IllustrationSlot from '../IllustrationSlot.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).ikiz;
+---
+
+<section id="ikiz" data-section class="flex flex-col gap-lg">
+  <div class="flex flex-col gap-xs">
+    <span class="text-label uppercase text-premium">{d.eyebrow}</span>
+    <h2 class="font-display text-h2">{d.title}</h2>
+  </div>
+  <p class="text-bodyLg text-textSecondary">{d.intro}</p>
+
+  <!-- Üst blok: amblem solda, üç parça sağda. Telefonda alt alta;
+       amblem tek sütunda sayfa genişliğini yemesin diye tavanlı. -->
+  <div class="flex flex-col gap-lg md:flex-row md:items-start md:gap-xl">
+    <div class="w-full shrink-0 md:w-3/12">
+      <IllustrationSlot name="dijital-ikiz" alt={d.imageAlt} />
+    </div>
+    <div class="flex flex-1 flex-col gap-md">
+      <span class="text-label uppercase text-premium">{d.partsTitle}</span>
+      <ul data-stagger class="flex flex-col gap-md">
+        {
+          d.parts.map((part, i) => (
+            <li class="flex items-baseline gap-base rounded-md border border-premiumHairline bg-surface p-base">
+              {/* Bakır sıra numarası — çizgi işi (K-2/KR-024) */}
+              <span class="text-caption text-premium">{i + 1}</span>
+              <span class="flex flex-col gap-xxs">
+                <span class="text-h3 text-textPrimary">{part.title}</span>
+                <span class="text-body text-textSecondary">{part.desc}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- Alt blok: ikiz ekranındaki diğer parçalar + eşleşme, yan yana -->
+  <div class="grid gap-md md:grid-cols-2">
+    <div class="flex flex-col gap-sm rounded-lg border border-premiumHairline bg-surface p-lg">
+      <span class="text-label uppercase text-premium">{d.extrasTitle}</span>
+      <ul class="flex flex-col divide-y divide-border">
+        {
+          d.extras.map((extra) => (
+            <li class="py-sm text-body text-textPrimary">{extra}</li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="flex flex-col gap-sm rounded-lg border border-premiumHairline bg-surface p-lg">
+      <h3 class="text-h3 text-textPrimary">{d.matchTitle}</h3>
+      <p class="text-body text-textSecondary">{d.matchBody}</p>
+      <ol class="flex flex-col divide-y divide-border">
+        {
+          d.matchSteps.map((step, i) => (
+            <li class="flex items-baseline gap-sm py-sm text-body text-textPrimary">
+              <span class="text-caption text-premium">{i + 1}</span>
+              <span>{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+      {/* Premium sinyali — bakır ton yalnız burada ödeme bağlamında */}
+      <p class="text-caption text-premium">{d.matchPremiumNote}</p>
+    </div>
+  </div>
+</section>

@@ -18,9 +18,14 @@ const instagramUrl =
   locale === 'tr' ? siteConfig.social.instagramTr : siteConfig.social.instagramEn;
 
 // Bağlantılar sütunu: bölüm çapaları — başlıklar sözlükten yeniden kullanılır
+// 25 Ağu: Dijital ikizin ve Premium eklendi — ikisi de sayfada yeni bölüm.
+// "Zamanla derinleşir" listeye ALINMADI: sütun yedi satıra çıkıyordu ve
+// o bölüm ikizin devamı, ayrı bir hedef değil.
 const sectionLinks = [
   { href: '#ozellikler', label: dict.ozellikler.title },
+  { href: '#ikiz', label: dict.ikiz.title },
   { href: '#nasil-calisir', label: dict.nasilCalisir.title },
+  { href: '#premium', label: dict.premium.title },
   { href: '#sss', label: dict.sss.title },
   { href: '#indir', label: dict.indir.title },
   { href: '#iletisim', label: dict.iletisim.title },

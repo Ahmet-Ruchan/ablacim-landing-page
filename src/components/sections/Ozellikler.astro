@@ -10,17 +10,36 @@ const { locale } = Astro.props;
 const dict = t(locale);
 const d = dict.ozellikler;
 
-// Yuva dosya adları — görsel geldiğinde assets/illustrations/<name>.* yeter
-const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
+/*
+ * Görsel yuvaları — sözlükteki kart dizisiyle AYNI SIRADA (7 kart).
+ * Dosya adı: assets/illustrations/<slot>.png
+ *
+ * 25 Ağu (2. tur): Kişilik/İlişki/İkiz için sahip gerçek illüstrasyonları
+ * teslim etti; geçici ModuleEmblem SVG'leri kaldırıldı (KR-027 güncellendi).
+ * Kart adı "Fizyonomi" (sahip kararı, 25 Ağu) — dosya adıyla da aynı.
+ * Uygulamadaki hub kartı "Yüz Analizi" diyor; sitede ad Fizyonomi kalıyor.
+ */
+const slots = [
+  'el-analizi',
+  'ruya',
+  'kisilik-haritan',
+  'iliski-stilin',
+  'dijital-ikiz',
+  'fizyonomi',
+  'ebced',
+];
 ---
 
-<!-- Bölüm 3 / Özellikler — ≥768px dört kart TEK SIRADA (sahip talebi),
-     telefonda TEK SÜTUN alt alta (sahip talebi — 2x2 dar ekranda kötü
-     duruyordu). Kartlar kompakt; çevrilebilir kart istisnası sürüyor. -->
+<!-- Bölüm 3 / Özellikler — kart sayısı 4'ten 7'ye çıktı (25 Ağu: uygulamada
+     açılmış olan Kişilik Haritası, İlişki Stilin ve Dijital İkizin eklendi).
+     Izgara ≥1024px'te DÖRT sütun (4+3): "dört kart tek sıra" sahip talebiydi,
+     ilk sıra olarak korundu; ikinci sıra üç kartla sola yaslı akar.
+     768–1023px iki sütun, telefonda TEK SÜTUN alt alta (sahip talebi — 2x2
+     dar ekranda kötü duruyordu). Çevrilebilir kart istisnası sürüyor. -->
 <section id="ozellikler" data-section class="flex flex-col gap-lg">
   <h2 class="font-display text-h2">{d.title}</h2>
   <p class="text-body text-textSecondary">{d.intro}</p>
-  <div data-stagger class="grid gap-md md:grid-cols-4">
+  <div data-stagger class="grid gap-md md:grid-cols-2 lg:grid-cols-4">
     {
       d.cards.map((card, i) => {
         const available = card.status === 'available';
@@ -34,7 +53,7 @@ const slotNames = ['el-analizi', 'ruya', 'fizyonomi', 'ebced'];
           >
             <div class="kart-ic">
               <div class="kart-on flex h-full flex-col gap-sm p-base">
-                <IllustrationSlot name={slotNames[i]!} alt={card.imageAlt} />
+                <IllustrationSlot name={slots[i]!} alt={card.imageAlt} />
                 <h3 class="text-h3 text-textPrimary">{card.title}</h3>
                 <div class="flex flex-wrap items-center gap-xs">
                   <span

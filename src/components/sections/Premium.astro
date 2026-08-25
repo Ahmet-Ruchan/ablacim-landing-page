@@ -1,0 +1,50 @@
+---
+/**
+ * Bölüm 8 / Premium üyelik — YENİ (25 Ağu).
+ *
+ * NEDEN VAR: neyin premium olduğu sitede hiç yazmıyordu; kullanıcı
+ * İkiz Eşleşmesi'ni görüp kilidi ancak uygulamada öğreniyordu.
+ *
+ * FİYAT YAZILMAZ (brief §6.2): tutar mağazada, kullanıcının kendi para
+ * biriminde belirlenir. Burada YALNIZ kapsam anlatılır; otomatik yenileme
+ * ve mağazadan yönetim cümlesi mağaza gereği görünür durur.
+ *
+ * Renk: `premium` (bakır) tonu bu bölümde ödeme bağlamında kullanılıyor —
+ * kuralın asıl kullanım alanı burası. Solid accent buton YOK: kapanış
+ * CTA'sı İndir'de, "ekranda tek accent" korunuyor.
+ */
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).premium;
+---
+
+<section id="premium" data-section class="flex flex-col gap-lg">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+
+  <div
+    data-stagger
+    class="flex flex-col gap-lg rounded-lg border border-premium bg-premiumSubtle p-lg md:p-xl"
+  >
+    <ul class="grid gap-md md:grid-cols-3">
+      {
+        d.items.map((item) => (
+          <li class="flex flex-col gap-xxs rounded-md border border-premiumHairline bg-surface p-base">
+            <span class="text-h3 text-textPrimary">{item.title}</span>
+            <span class="text-body text-textSecondary">{item.desc}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="flex flex-col gap-xs">
+      <p class="text-bodyStrong text-textPrimary">{d.plansNote}</p>
+      {/* Mağaza gereği görünür kalması gereken satır (brief §6.2) */}
+      <p class="text-caption text-textSecondary">{d.priceNote}</p>
+    </div>
+  </div>
+</section>

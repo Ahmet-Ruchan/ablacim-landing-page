@@ -418,3 +418,128 @@ Uydurmadım — netleştirilecek.
 | D-4 | `radii` ölçeği | Değerler nereden geldi? `pill` dışında hangi kural var? |
 | D-5 | Avuç akışındaki gradyanlar | Bilinçli bir "onboarding imzası" mı, yoksa v0.1 öncesinden kalan borç mu? (Bkz. B-1) |
 | D-6 | `opacity.pressed` değeri | Basılı hâl için tek bir opaklık mı, yoksa yüzeye göre değişmeli mi? |
+
+---
+
+## KR-025 — Site içerik kapsamı uygulamaya hizalandı (yedi modül)
+
+**Karar.** Özellikler ızgarası dört karttan **yedi karta** çıktı ve iki
+modül adı ürünle hizalandı:
+
+| Kart | Durum | Not |
+|---|---|---|
+| El Analizi | Kullanılabilir | Yalnız kalıcı platform notu burada |
+| Rüya | Kullanılabilir | Platform notu KALDIRILDI |
+| Kişilik Haritası | Kullanılabilir | YENİ — 60 madde, beş boyut |
+| İlişki Stilin | Kullanılabilir | YENİ — 32 madde, iki eksen |
+| Dijital İkizin | Kullanılabilir | YENİ — üç parçayı birleştirir |
+| Fizyonomi | Yakında | Ad korundu (bkz. aşağıda) |
+| Ebced | Yakında | Uygulamada hub kartı yok (sahip kararı: kalsın) |
+
+**Neden.** Site 24 Ağustos'ta dört modül anlatıyordu; uygulamada o gün
+dokuz modül açıktı. Kişilik Haritası iOS'ta **birincil** kart — App Store
+4.3(b) çözümünün "ilk açılışta görünen ana akış" iddiası ona dayanıyor.
+Sitenin ondan hiç söz etmemesi, inceleme sırasında pazarlama sitesine
+bakan Apple için tutarsızlık üretirdi.
+
+Aktif modül adları uygulamadan **birebir** alındı (`hub-strings.ts`,
+`personality-strings.ts`, `interpersonal-strings.ts`, `twin-strings.ts`).
+
+**Tek istisna Fizyonomi.** İlk turda kart adı uygulamadaki "Yüz Analizi"ne
+çekilmişti; sahip aynı gün geri aldı — sitede modülün adı **Fizyonomi**
+kalıyor (EN: *Physiognomy*). Uygulamada o kart "Yüz Analizi" diyor ve
+öyle kalıyor; iki yüzey bu tek adda bilerek ayrışıyor. Ad, illüstrasyon
+dosya adıyla (`fizyonomi.png`) da örtüşüyor.
+
+Ad ayrışması App Store 4.3(b) açısından sorun değil: iki ad da fal dili
+taşımıyor, ikisi de "yakında" rozetli bir karta ait ve kart aksiyonsuz.
+
+**Rüya kartındaki platform notu kaldırıldı.** Not yedi kartın beşinde
+tekrarlanınca gürültü oluyordu ve rüya iki platforma da açık; "bugün
+Android'de" bilgisi İndir bölümünde zaten duruyor. Kalıcı platform sınırı
+yalnız el analizinde var (iOS'ta 4.3(b) yüzünden hiç çizilmiyor), not
+orada kaldı.
+
+**Elenen alternatif.** Aktif modülleri ızgarada, "yakında"ları ayrı bir
+alt şeritte toplamak. Elendi: rozet (KULLANILABİLİR / YAKINDA) ayrımı
+zaten yapıyor, ikinci bir yapı katmanı brief'te karşılığı olmayan bir
+yenilik olurdu.
+
+**Izgara.** `md:grid-cols-2 lg:grid-cols-4` — ≥1024px'te 4+3. "Dört kart
+tek sıra" sahip talebiydi, ilk sıra olarak korundu. 768–1023px'te dört
+sütun yedi kartla çok darlaşıyordu, o aralık ikiye indi. Telefonda tek
+sütun değişmedi.
+
+**Kaynak.** Kullanıcı: "ne var ne yoksa her şeyi bu landing page içerisine
+koyacağız en güncel hale getireceğiz" (25 Ağu).
+
+---
+
+## KR-026 — Üç yeni bölüm: Dijital ikizin, Zamanla derinleşir, Premium
+
+**Karar.** Sayfaya üç bölüm eklendi. Yeni sıra:
+
+Hero → Abla kim → Özellikler → **Dijital ikizin** → **Zamanla derinleşir**
+→ Nasıl çalışır → Sohbet farkı → Gizlilik → **Premium** → SSS → İndir →
+Sosyal → İletişim
+
+**Neden ızgaraya kart olarak eklenmediler.**
+
+- **Dijital ikizin** diğer modülleri *birleştiren* katman. Kart ölçüsünde
+  anlatılınca beşinci bir modül gibi okunuyor; asıl işi — üç parçayı tek
+  portrede toplaması — kaybolur. Izgaradaki kart giriş olarak duruyor,
+  anlatım hemen ardındaki bölümde.
+- **Gözlemler ve Yolculuğun** modül değil, arka plan katmanı. Kart olarak
+  konsalar tek seferlik bir akış gibi görünürlerdi; oysa ikisinin de tek
+  iddiası zamanla birikmeleri.
+- **Premium** bir özellik değil, ticari kapsam. Gizlilik ile SSS arasına
+  kondu: kapsam → sık sorulanlar (iptal, fiyat) → İndir. Kapanış CTA'sının
+  önüne geçmiyor.
+
+**Accent bütçesi.** Üç bölümde de solid accent buton YOK. Kapanış CTA'sı
+İndir'de tek başına duruyor; K-4 ("bir görüntü alanında en fazla bir solid
+accent buton") korunuyor. Premium bölümü bakır (`premium`) çerçeve ve
+`premiumSubtle` zemin kullanıyor — ödeme bağlamı, kuralın asıl kullanım
+alanı.
+
+**Fiyat.** Premium bölümünde tutar YOK (brief §6.2). Yalnız kapsam, dönem
+adları (aylık/yıllık) ve mağaza gereği görünmesi gereken otomatik yenileme
+cümlesi var.
+
+**Hareket.** Yeni animasyon eklenmedi; üç bölüm de mevcut
+`data-section` / `data-stagger` bütçesini kullanıyor.
+
+**Kaynak.** Kullanıcı seçimi (25 Ağu): "6 kart + 2 yeni bölüm" ve
+"Premium: evet, kendi bölümü".
+
+---
+
+## KR-027 — Üç yeni modülün illüstrasyonları
+
+**Karar.** Kişilik Haritası, İlişki Stilin ve Dijital İkizin kartları
+`assets/illustrations/` altındaki gerçek illüstrasyonları kullanıyor:
+
+| Kart | Dosya |
+|---|---|
+| Kişilik Haritası | `kisilik-haritan.png` |
+| İlişki Stilin | `iliski-stilin.png` |
+| Dijital İkizin | `dijital-ikiz.png` |
+
+`dijital-ikiz.png` iki yerde kullanılıyor: Özellikler kartında ve
+"Dijital ikizin" bölümünün başında. Aynı görsel bilinçli olarak
+tekrarlanıyor — kart girişi ile bölüm arasındaki bağı kuran işaret o.
+
+**Ara çözümün tarihi.** İlk turda (25 Ağu) bu üç modül için illüstrasyon
+kaynağı yoktu; yerine `ModuleEmblem.astro` yazılmıştı — inline SVG çizgi
+işi amblemler (beş eksenli harita, iki eksenli düzlem, üç halkanın
+buluşması). Sahip aynı gün gerçek illüstrasyonları teslim edince bileşen
+**silindi**. Kayıt burada duruyor çünkü aynı boşluk tekrar açılırsa
+(yeni modül, kaynağı gelmemiş görsel) izlenecek yol belli olsun:
+görselsiz kart bırakmak yerine, modülün gerçek çıktısının şemasını çiz.
+
+**Alt metinler.** Amblem döneminden kalan `imageAlt` değerleri şemayı
+tarif ediyordu; illüstrasyonlar gelince TR ve EN'de yeniden yazıldı.
+Ekran okuyucu görseli değil şemayı duyuyordu.
+
+**Kaynak.** Sahip teslimi (25 Ağu): "yeni kullanman gereken görselleri
+koydum, isimleri direkt dosya adından eşleştir".

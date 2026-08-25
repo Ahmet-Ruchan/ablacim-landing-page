@@ -1,0 +1,62 @@
+---
+/**
+ * Bölüm 6 / Zamanla derinleşir — YENİ (25 Ağu).
+ *
+ * NEDEN VAR: Gözlemler (src/features/synthesis) ve Yolculuğun
+ * (src/features/gamification) modül değil, arka plan katmanı — Özellikler
+ * ızgarasına kart olarak koymak onları tek seferlik bir akış gibi
+ * gösterirdi. Ürünün "tek seferlik okuma değil" iddiası burada duruyor.
+ *
+ * Metin kaynağı: synthesis-strings.ts (helpBody1–3) ve
+ * gamification-strings.ts (ışık puanı, seri, basamak, rozet, haftalık
+ * hedef). "Her zaman söyleyecek bir şey olmayabilir" cümlesi bilinçli
+ * korundu — vaat üretmemesi ürün kararı.
+ *
+ * Kart dili Sosyal/Özellikler ile aynı; çevrilebilir kart YOK (o istisna
+ * yalnız Özellikler ızgarasına ait). Yeni hareket eklenmedi.
+ */
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).derinlesme;
+---
+
+<section id="derinlesme" data-section class="flex flex-col gap-lg">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+  <div data-stagger class="grid gap-md md:grid-cols-2">
+    {
+      d.cards.map((card) => (
+        <div class="flex flex-col gap-sm rounded-lg border border-premiumHairline bg-surface p-lg">
+          <h3 class="text-h3 text-textPrimary">{card.title}</h3>
+          <p class="text-body text-textSecondary">{card.desc}</p>
+          <ul class="flex flex-col divide-y divide-border">
+            {card.items.map((item) => (
+              <li class="flex items-baseline gap-sm py-sm text-body text-textPrimary">
+                {/* Bakır çizgi işi: madde imi yerine hairline nokta */}
+                <span aria-hidden="true" class="madde-imi shrink-0 bg-premium" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* Madde imi — 4px bakır nokta, satır tabanına hizalı.
+     Ölçek dışı değer uydurulmadı: xs (4px) token'ı. */
+  .madde-imi {
+    display: inline-block;
+    width: var(--spacing-xs);
+    height: var(--spacing-xs);
+    border-radius: var(--radius-pill);
+    transform: translateY(-2px);
+  }
+</style>

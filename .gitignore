@@ -5,3 +5,7 @@ dist/
 
 # işletim sistemi
 .DS_Store
+
+# elenen illüstrasyon adayları — yerelde dursun, repoya ve derlemeye girmesin
+# (IllustrationSlot globu da `x-*`'i dışlar; bkz. KR-027)
+assets/illustrations/x-*
