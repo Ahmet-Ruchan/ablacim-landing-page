@@ -41,12 +41,13 @@ export const en: Dict = {
 
   // Play Store görselleri şu an Türkçe (EN varyant mağazada yok) — alt TASLAK
   screens: {
-    reportAlt:
-      'Ablacım promotional image: app screens showing the palm analysis report and its sections',
-    chatAlt:
-      'Ablacım promotional image: app screens showing analysis history and the chat with Abla',
+    /* 25 Ağu: üç görsel de yenilendi — bkz. tr.ts'teki not. */
     welcomeAlt:
-      'Ablacım promotional image: app screens showing the welcome screen and feature list',
+      'Ablacım promotional image: the Discover Yourself screen with observations and module cards',
+    reportAlt:
+      'Ablacım promotional image: a measurement result placing a relational style on a two-axis map',
+    chatAlt:
+      'Ablacım promotional image: the chat with Abla that opens after a dream reflection',
   },
 
   // Abla'nın sesi ("love" 1/2)

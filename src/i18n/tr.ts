@@ -45,12 +45,15 @@ export const tr = {
 
   // Play Store'daki mevcut tanıtım görselleri (adım 3) — alt metinler TASLAK
   screens: {
-    reportAlt:
-      'Ablacım tanıtım görseli: el analizi raporu ve bölümlerini gösteren uygulama ekranları',
-    chatAlt:
-      'Ablacım tanıtım görseli: analiz geçmişi ve Abla ile sohbeti gösteren uygulama ekranları',
+    /* 25 Ağu: üç görsel de yenilendi. Eskiler el analizi raporu, koyu tema
+       ve o zamanki dört modüllü sürümü gösteriyordu; ikisi de artık yok.
+       Sıra "Nasıl çalışır" akışını izler: modülü seç → ölçümünü al → sor. */
     welcomeAlt:
-      'Ablacım tanıtım görseli: karşılama ekranı ve özellik listesini gösteren uygulama ekranları',
+      'Ablacım tanıtım görseli: Kendini Keşfet ekranı, gözlemler ve modül kartlarını gösteren uygulama ekranı',
+    reportAlt:
+      'Ablacım tanıtım görseli: ilişki stilini iki eksenli bir harita üzerinde gösteren ölçüm sonucu ekranı',
+    chatAlt:
+      'Ablacım tanıtım görseli: rüya yansımasının ardından Abla ile açılan sohbet ekranı',
   },
 
   // Abla'nın sesi burada duyulur (hitap 1/3: "kuzum")
