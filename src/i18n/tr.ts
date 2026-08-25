@@ -106,7 +106,8 @@ export const tr = {
     cards: [
       {
         title: 'El analizi',
-        imageAlt: 'Avuç içi çizgileri ve parmak izi detayıyla açık bir el çizimi',
+        imageAlt:
+          'Çizgileri görünen açık bir avuç; çevresinde eşmerkezli halkalar, iki yana uzanan dalgalar ve küçük ay motifleri',
         status: 'available',
         // S-5 notu sahip talebiyle güncellendi: web'de de kullanılabiliyor
         platformNote: "Android'de ve web'de kullanılabilir",

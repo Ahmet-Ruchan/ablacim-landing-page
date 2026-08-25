@@ -100,7 +100,8 @@ export const en: Dict = {
     cards: [
       {
         title: 'Palm analysis',
-        imageAlt: 'Drawing of an open palm with its lines and a fingerprint detail',
+        imageAlt:
+          'An open palm with its lines showing, ringed by concentric circles, waves reaching out to either side and small moon motifs',
         status: 'available',
         // S-5 notu sahip talebiyle güncellendi: web'de de kullanılabiliyor
         platformNote: 'Available on Android and on the web',
