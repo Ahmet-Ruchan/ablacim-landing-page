@@ -5,6 +5,7 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '../styles/global.css';
 
+import DuyuruSeridi from '../components/DuyuruSeridi.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { t, localePath, type Locale } from '../i18n';
@@ -168,6 +169,7 @@ const ogLocaleAlt = locale === 'tr' ? 'en_US' : 'tr_TR';
          durur, yalnız odaklanınca belirir. -->
     <a href="#icerik" class="atla">{d.header.skipToContent}</a>
 
+    <DuyuruSeridi locale={locale} />
     <Header locale={locale} />
     <!-- Konteyner: 1200px ortalı; yatay dolgu mobil 20, ≥768px 32.
          Bölüm ritmi sahip talebiyle bir kademe küçüldü:

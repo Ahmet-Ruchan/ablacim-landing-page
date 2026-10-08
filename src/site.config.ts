@@ -28,8 +28,10 @@ export const siteConfig = {
   store: {
     // Takip parametresi yok (BRIEF-EK S-6); utm gerekirse buradan eklenir.
     googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.ablacim.app',
-    // App Store henüz yayında değil — resmî rozet yalnız yayındaki uygulamalar için.
-    appStoreUrl: null as string | null,
+    // 8 Eki: App Store'da yayında. Ülke kodu ve ?l= bilerek YOK — sahibin
+    // paylaştığı bağlantı es-MX dil parametresi taşıyordu; ülkesiz /app/id
+    // biçimi ziyaretçiyi kendi mağazasına yönlendirir.
+    appStoreUrl: 'https://apps.apple.com/app/id6768921310',
   },
 
   social: {

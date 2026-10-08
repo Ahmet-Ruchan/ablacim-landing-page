@@ -66,6 +66,12 @@
   --successBg: #e6f1ec;
   --warning: var(--bakir-500);
   --warningBg: var(--bakir-100);
+  /* Duyuru şeridi (KR-029) — sahip talebi: "sarı, fark edilir uyarı rengi".
+     Paletin en sarı adımı bakir-300; iki temada da AYNI (dark'ta yeniden
+     tanımlanmaz) — şerit sayfanın üstünde temadan bağımsız bir bant. Metin
+     kul-900: e0be74 üzerinde ~10:1 kontrast. Yalnız şeritte kullanılır. */
+  --announceBg: var(--bakir-300);
+  --onAnnounce: var(--kul-900);
   --danger: #b3423a;
   --dangerBg: #f7e7e5;
   --scrim: rgba(27, 20, 25, 0.55);
@@ -244,6 +250,8 @@
   --color-successBg: var(--successBg);
   --color-warning: var(--warning);
   --color-warningBg: var(--warningBg);
+  --color-announceBg: var(--announceBg);
+  --color-onAnnounce: var(--onAnnounce);
   --color-danger: var(--danger);
   --color-dangerBg: var(--dangerBg);
   --color-scrim: var(--scrim);
@@ -268,6 +276,9 @@
   --duration-slow: 420ms;
   --duration-reveal: 700ms; /* yalnız sonuç açılışı */
   --duration-flip: 1000ms; /* kart çevirme — sahip talebi: yavaş ve yumuşak */
+  /* Duyuru şeridinin bir tam turu (KR-029). Geçiş değil sürekli döngü;
+     eğri linear — kayan yazıda hızlanma/yavaşlama okumayı bozar. */
+  --duration-marquee: 36s;
   --stagger: 90ms;
 
   --hit-min: 48px; /* WCAG 2.5.5 alt sınırı */

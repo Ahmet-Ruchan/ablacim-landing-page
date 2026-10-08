@@ -28,6 +28,7 @@ const sectionLinks = [
   { href: '#premium', label: dict.premium.title },
   { href: '#sss', label: dict.sss.title },
   { href: '#indir', label: dict.indir.title },
+  { href: '#haberler', label: dict.haberler.title },
   { href: '#iletisim', label: dict.iletisim.title },
 ];
 
@@ -147,12 +148,15 @@ const linkClass =
       </div>
     </div>
 
-    <!-- Alt bant: şirket kimliği + Google Play atıfı (Q4) -->
+    <!-- Alt bant: şirket kimliği + mağaza atıfları (Q4; Apple satırı KR-029) -->
     <div
       class="flex flex-col gap-xs border-t border-border pt-lg md:flex-row md:items-baseline md:justify-between md:gap-xl"
     >
       <p class="text-caption text-textMuted">{d.company}</p>
-      <p class="text-caption text-textMuted">{d.playTrademark}</p>
+      <div class="flex flex-col gap-xxs md:items-end md:text-right">
+        <p class="text-caption text-textMuted">{d.playTrademark}</p>
+        <p class="text-caption text-textMuted">{d.appleTrademark}</p>
+      </div>
     </div>
   </div>
 </footer>

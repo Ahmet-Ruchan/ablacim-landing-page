@@ -1,0 +1,92 @@
+---
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).duyuru;
+
+// Kesintisiz döngü: iz iki özdeş kopyadan oluşur ve -50% kayar; ikinci kopya
+// ilkinin yerine geldiği an animasyon başa sarar, dikiş görünmez. Bunun için
+// TEK kopyanın en geniş ekrandan uzun olması gerekir — maddeler kopya içinde
+// iki kez tekrarlanır (2 madde × 2 ≈ 2600px, 1920'lik ekranı aşar).
+const kopya = [...d.items, ...d.items];
+---
+
+<!-- Duyuru şeridi (KR-029) — sayfanın en üstünde, yapışkan header'ın
+     ÜSTÜNDE ve onunla birlikte yapışmaz: kaydırınca yukarı çıkar, header
+     tek başına kalır. Şeridin tamamı Haberler bölümüne giden tek bağlantı.
+     Ekran okuyucu kayan izi değil, sr-only düz metni okur (iz aria-hidden).
+     Hareket azaltılmışsa iz gizlenir, maddeler sabit ve ortalı görünür
+     (K-14). Fare üstüne gelince ya da klavye odağında kayma durur
+     (WCAG 2.2.2 — 5 sn'den uzun hareket durdurulabilmeli). -->
+<aside aria-label={d.regionLabel} class="duyuru bg-announceBg text-onAnnounce">
+  <a href="#haberler" class="duyuru-link flex min-h-huge items-center overflow-hidden">
+    <span class="sr-only">{d.items.join('. ')}. {d.linkLabel}</span>
+
+    <span class="duyuru-iz flex w-max" aria-hidden="true">
+      {
+        [0, 1].map(() => (
+          <span class="flex shrink-0 items-center">
+            {kopya.map((madde) => (
+              <span class="flex items-center gap-xxl pr-xxl">
+                <span class="whitespace-nowrap text-bodyStrong">{madde}</span>
+                <span class="duyuru-nokta h-sm w-sm shrink-0 rounded-pill bg-onAnnounce" />
+              </span>
+            ))}
+          </span>
+        ))
+      }
+    </span>
+
+    <span
+      class="duyuru-sabit w-full flex-wrap items-center justify-center gap-x-xl gap-y-xs px-base py-sm text-center"
+      aria-hidden="true"
+    >
+      {d.items.map((madde) => <span class="text-bodyStrong">{madde}</span>)}
+    </span>
+  </a>
+</aside>
+
+<style>
+  .duyuru-iz {
+    animation: duyuru-kay var(--duration-marquee) linear infinite;
+  }
+  .duyuru-link:hover .duyuru-iz,
+  .duyuru-link:focus-visible .duyuru-iz {
+    animation-play-state: paused;
+  }
+  /* Sarı zeminde genel 1.5px halka ince kalıyor — içe dönük 2px, şerit
+     sayfa kenarına dayalı olduğundan dışa taşan halka kırpılırdı */
+  .duyuru-link:focus-visible {
+    outline: 2px solid var(--onAnnounce);
+    outline-offset: -4px;
+  }
+  .duyuru-nokta {
+    opacity: 0.5;
+  }
+  .duyuru-sabit {
+    display: none;
+  }
+
+  @keyframes duyuru-kay {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* K-14: kayma yok, bilgi kaybolmaz — maddeler sabit, satır kırılabilir */
+  @media (prefers-reduced-motion: reduce) {
+    .duyuru-iz {
+      display: none;
+    }
+    .duyuru-sabit {
+      display: flex;
+    }
+  }
+</style>

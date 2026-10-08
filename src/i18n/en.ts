@@ -32,11 +32,44 @@ export const en: Dict = {
     langEnShort: 'EN',
   },
 
-  // EK S-6'daki "Coming soon to iPhone" satırının yerini App Store çipi aldı
+  // 8 Eki (KR-029): iOS yayında — resmî App Store rozeti
   store: {
     googlePlayAlt: 'Get it on Google Play',
-    appStoreSoonLabel: 'Coming soon',
-    appStoreName: 'App Store',
+    appStoreAlt: 'Download on the App Store',
+  },
+
+  // Kayan duyuru şeridi (KR-029) — TR açıklaması tr.ts'te
+  duyuru: {
+    regionLabel: 'Announcements',
+    linkLabel: 'Go to the News section for details',
+    items: [
+      'Ablacım has been accepted into the Sentry for Startups program: $5,000 in credits for our startup',
+      'Ablacım is now on the App Store: download it on iPhone and start right away',
+    ],
+  },
+
+  // Haberler — newest first; ISO date, formatted with Intl per page language
+  haberler: {
+    title: 'News',
+    intro: 'The latest from Ablacım.',
+    items: [
+      {
+        date: '2026-10-08',
+        tag: 'Startup',
+        title: 'We’ve joined the Sentry for Startups program',
+        body: 'Ablacım has been accepted into Sentry’s program for startups, and $5,000 in credits have been added to our account. The credits are available to use from today; they help us spot issues in the app earlier and fix them faster — which comes back to you as a smoother experience.',
+        link: null,
+        linkLabel: null,
+      },
+      {
+        date: '2026-09-26',
+        tag: 'App',
+        title: 'Ablacım is now on the App Store',
+        body: 'Ablacım has arrived on iPhone. Download it from the App Store and start right away; just like on Android, your subscription is managed through the store you use.',
+        link: 'appStore',
+        linkLabel: 'Open in the App Store',
+      },
+    ],
   },
 
   // Play Store görselleri şu an Türkçe (EN varyant mağazada yok) — alt TASLAK
@@ -400,10 +433,8 @@ export const en: Dict = {
       },
       {
         q: 'How do I cancel the subscription?',
-        a: 'Subscriptions are managed through Google Play. To cancel, follow Play Store → Profile → Payments and subscriptions → Subscriptions. Your access continues until the end of the period, and the subscription renews automatically unless cancelled.',
-        // App Store yayınlanınca AÇILACAK iOS iptal satırı (şimdi render edilmez — Q3).
-        // Taslak, birlikte teyit edilecek:
-        // "On iOS, subscriptions are managed through the App Store."
+        // 8 Eki (KR-029): iOS iptal yolu açıldı (Q3'te bekleyen satır)
+        a: 'Subscriptions are managed through the store you bought them from. On Android, follow Play Store → Profile → Payments and subscriptions → Subscriptions; on iPhone, follow Settings → your name → Subscriptions. Your access continues until the end of the period, and the subscription renews automatically unless cancelled.',
       },
       {
         q: 'Why 18 and over?',
@@ -415,11 +446,11 @@ export const en: Dict = {
   // Kapanış CTA — sıcak ton, hitap yok
   indir: {
     title: 'Download',
-    body: 'Ablacım is on Google Play today. Come whenever it suits you — a measure, a dream or a palm is enough to begin.',
+    body: 'Ablacım is on the App Store and Google Play today. Come whenever it suits you — a measure, a dream or a palm is enough to begin.',
     currencyNote: 'Prices appear in the app, in your own currency.',
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:
-      'Subscriptions renew automatically at the end of each period unless cancelled; they are managed through Google Play.',
+      'Subscriptions renew automatically at the end of each period unless cancelled; they are managed through the App Store or Google Play.',
   },
 
   // Bölüm 9 / Sosyal
@@ -458,5 +489,8 @@ export const en: Dict = {
     // VERBATIM (Q4) — iki dilde de aynı kalır
     playTrademark:
       'Google Play and the Google Play logo are trademarks of Google LLC.',
+    // Apple rozet kılavuzunun istediği bildirim — iki dilde de aynı kalır
+    appleTrademark:
+      'Apple, the Apple logo and App Store are trademarks of Apple Inc., registered in the U.S. and other countries.',
   },
 };

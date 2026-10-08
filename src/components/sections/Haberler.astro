@@ -1,0 +1,81 @@
+---
+import { t, type Locale } from '../../i18n';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const d = t(locale).haberler;
+
+// Tarih elle yazılmaz (KR-023 deseni): ISO değer sayfa diline göre Intl ile
+// biçimlenir. UTC sabitlenir — derleme makinesinin saat dilimi günü kaydırmasın.
+const tarihBicimi = new Intl.DateTimeFormat(locale === 'tr' ? 'tr-TR' : 'en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+// Haber kartındaki dış bağlantı anahtarı → siteConfig (tek kaynak, S-6)
+const baglantilar: Record<string, string | null> = {
+  appStore: siteConfig.store.appStoreUrl,
+};
+
+const haberler = d.items.map((haber) => ({
+  ...haber,
+  tarihMetni: tarihBicimi.format(new Date(`${haber.date}T00:00:00Z`)),
+  href: haber.link ? baglantilar[haber.link] ?? null : null,
+}));
+---
+
+<!-- Bölüm / Haberler (KR-029) — İndir'in ardında, Sosyal'in önünde
+     (dönüşüm → gelişmeler → topluluk → iletişim). Kart dili Sosyal ve
+     Özellikler'den: bakır hairline çerçeve, surface zemin. En üstteki
+     duyuru şeridi buraya bağlanır. -->
+<section id="haberler" data-section class="flex flex-col gap-lg">
+  <h2 class="font-display text-h2">{d.title}</h2>
+  <p class="text-body text-textSecondary">{d.intro}</p>
+  <ul data-stagger class="grid gap-md md:grid-cols-2">
+    {
+      haberler.map((haber) => (
+        <li class="flex flex-col gap-sm rounded-lg border border-premiumHairline bg-surface p-lg">
+          <p class="flex flex-wrap items-center gap-sm text-caption">
+            <span class="rounded-pill border border-border px-sm py-xxs text-label text-textSecondary">
+              {haber.tag}
+            </span>
+            <time datetime={haber.date} class="text-textSecondary">
+              {haber.tarihMetni}
+            </time>
+          </p>
+          <h3 class="text-h3 text-textPrimary">{haber.title}</h3>
+          <p class="text-body text-textSecondary">{haber.body}</p>
+          {haber.href && haber.linkLabel && (
+            <a
+              href={haber.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="haber-link inline-flex min-h-huge items-center self-start text-bodyStrong text-accent"
+            >
+              {haber.linkLabel}
+              <span aria-hidden="true" class="pl-xs">→</span>
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .haber-link {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+  .haber-link:hover {
+    text-decoration-color: currentColor;
+  }
+</style>

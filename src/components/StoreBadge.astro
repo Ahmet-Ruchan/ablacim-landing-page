@@ -1,7 +1,6 @@
 ---
 import { t, type Locale } from '../i18n';
 import { siteConfig, withBase } from '../site.config';
-import appleRaw from '../../assets/icons/apple.svg?raw';
 
 interface Props {
   locale: Locale;
@@ -17,19 +16,34 @@ const badgeSrc = withBase(
   locale === 'tr' ? '/badges/google-play-tr.png' : '/badges/google-play-en.png',
 );
 
-// App Store rozeti (sahip kararı — EK S-6 uyarısı iki kez yapıldı):
-// Play rozetiyle aynı boyut ve tasarım dilinde, Apple logolu, LINK DEĞİL,
-// üst satırında "Yakında". Apple glifi simple-icons'tan (CC0).
-const appleD = appleRaw.match(/<path d="([^"]+)"/)?.[1] ?? '';
-const soonUpper = d.appStoreSoonLabel.toLocaleUpperCase(
-  locale === 'tr' ? 'tr-TR' : 'en-US',
+// Resmî App Store rozeti (8 Eki, KR-029 — uygulama yayında; EK S-6 yasağı
+// yalnız yayında OLMAYAN uygulama içindi). Apple'ın rozet aracından
+// indirildi, yerelde barındırılıyor, dil eşleşmeli. Play PNG'si kendi
+// saydam dolgusunu taşıyor (görünen rozet 48px kutunun ~32–37px'i);
+// App Store SVG'si dolgusuz geldiği için aynı 48px kutuda xxl (32px)
+// yüksekliğe oturtuldu — iki rozet göz hizasında eşit durur.
+const appStoreSrc = withBase(
+  locale === 'tr' ? '/badges/app-store-tr.svg' : '/badges/app-store-en.svg',
 );
-const appStoreAria = `${d.appStoreName} — ${d.appStoreSoonLabel}`;
 ---
 
 <div class:list={['flex flex-wrap items-center', center && 'justify-center']}>
   <!-- p-md = 12px: rozet yüksekliğinin (48px) %25'i kadar boşluk (Q4).
        Dış bağlantı — yeni sekmede açılır (talimat). -->
+  <a
+    href={siteConfig.store.appStoreUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="box-content inline-flex h-huge items-center self-start p-md"
+  >
+    <img
+      src={appStoreSrc}
+      alt={d.appStoreAlt}
+      width={locale === 'tr' ? 151 : 120}
+      height="40"
+      class="h-xxl w-auto"
+    />
+  </a>
   <a
     href={siteConfig.store.googlePlayUrl}
     target="_blank"
@@ -44,43 +58,4 @@ const appStoreAria = `${d.appStoreName} — ${d.appStoreSoonLabel}`;
       class="h-huge w-auto"
     />
   </a>
-  <!-- Tıklanamaz rozet: buton/bağlantı değil, role=img -->
-  <div class="inline-flex self-start p-md">
-    <svg
-      viewBox="0 0 646 250"
-      role="img"
-      aria-label={appStoreAria}
-      class="h-huge w-auto"
-    >
-      <rect
-        x="4"
-        y="4"
-        width="638"
-        height="242"
-        rx="32"
-        fill="#000000"
-        stroke="#A6A6A6"
-        stroke-width="4"></rect>
-      <g fill="#FFFFFF">
-        <path d={appleD} transform="translate(64 57) scale(5.7)"></path>
-        <text
-          x="228"
-          y="112"
-          font-size="42"
-          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        >
-          {soonUpper}
-        </text>
-        <text
-          x="228"
-          y="196"
-          font-size="76"
-          font-weight="600"
-          font-family="-apple-system, 'Segoe UI', system-ui, sans-serif"
-        >
-          {d.appStoreName}
-        </text>
-      </g>
-    </svg>
-  </div>
 </div>

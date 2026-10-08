@@ -11,6 +11,7 @@ import Gizlilik from './sections/Gizlilik.astro';
 import Premium from './sections/Premium.astro';
 import Sss from './sections/Sss.astro';
 import Indir from './sections/Indir.astro';
+import Haberler from './sections/Haberler.astro';
 import Sosyal from './sections/Sosyal.astro';
 import Iletisim from './sections/Iletisim.astro';
 import type { Locale } from '../i18n';
@@ -47,5 +48,8 @@ const { locale } = Astro.props;
 <Premium locale={locale} />
 <Sss locale={locale} />
 <Indir locale={locale} />
+<!-- 8 Eki (KR-029): Haberler, kapanış CTA'sının ardında — CTA seyrelmez,
+     en üstteki duyuru şeridi buraya bağlanır. -->
+<Haberler locale={locale} />
 <Sosyal locale={locale} />
 <Iletisim locale={locale} />

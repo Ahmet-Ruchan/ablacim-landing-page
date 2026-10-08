@@ -613,3 +613,52 @@ gerekirse `robots.txt.ts` içinde `Disallow: /` yeter.
 asıl ablacim.com'u bozmayacak şekilde." Ad `app.ablacim.com` seçildi —
 sayfanın iki dili var, Türkçe bir ad (tanitim/kesfet) EN ziyaretçiye
 anlamsız gelirdi.
+
+---
+
+## KR-029 — App Store rozeti, Haberler bölümü ve kayan duyuru şeridi
+
+**Karar.** 8 Eki — üç değişiklik, tek commit:
+
+1. **App Store rozeti resmîleşti.** Uygulama 26 Eyl'den beri App Store'da.
+   "Yakında" yazan, link olmayan taklit rozetin yerini Apple'ın resmî
+   "App Store'dan indirin / Download on the App Store" rozeti aldı (dil
+   eşleşmeli, `public/badges/app-store-{tr,en}.svg`, yerelde barındırılıyor).
+   EK S-6 yasağı yalnız yayında *olmayan* uygulama içindi. Rozet Play'in
+   önünde durur; Play PNG'si kendi saydam dolgusunu taşıdığından App Store
+   SVG'si aynı 48px kutuda 32px'e oturtuldu, göz hizasında eşitler.
+   Altbilgiye Apple ticari marka bildirimi eklendi. SSS iptal cevabı,
+   İndir gövdesi ve otomatik yenileme notu iki mağazayı anar (Q3'te bekleyen
+   iOS satırı açıldı). Mağaza adresi ülkesiz `/app/id6768921310` — sahibin
+   paylaştığı bağlantıdaki `?l=es-MX` bilerek alınmadı.
+2. **Haberler bölümü** (`sections/Haberler.astro`), İndir'in ardında,
+   Sosyal'in önünde. Kart dili Sosyal'den. Tarih ISO yazılır, Intl ile
+   sayfa diline göre biçimlenir (KR-023 deseni). İlk iki haber: Sentry for
+   Startups ve App Store çıkışı.
+3. **Kayan duyuru şeridi** (`DuyuruSeridi.astro`), header'ın üstünde,
+   yapışmaz. Sahip talebi: "en üstte sarı, fark edilir uyarı renginde
+   şerit kayarak geçsin." Tamamı `#haberler`'e tek bağlantı.
+
+**Yeni token'lar.** `--announceBg` (bakir-300) ve `--onAnnounce`
+(kul-900), iki temada aynı — şerit temadan bağımsız bir bant; yalnız
+şeritte kullanılır. `--duration-marquee: 36s` — geçiş değil sürekli döngü,
+eğri linear (kayan yazıda hızlanma okumayı bozar). Bu üçü K-12'nin
+ölçeğinin dışında; bilinçli ve tek kullanımlık.
+
+**Elenen.** Paletin dışında saf sarı (#FFD400 benzeri) — markada karşılığı
+yok, bakir-300 paletin en sarı adımı ve kul-900 ile ~10:1 kontrast veriyor.
+`--warning` kullanmak — light'ta bakir-500 (bakır kahve), "sarı" değil;
+ayrıca uyarı anlamı taşıyor, duyuru bir hata değil.
+
+**Erişilebilirlik.** Ekran okuyucu kayan izi değil sr-only düz metni okur.
+`prefers-reduced-motion`'da iz gizlenir, maddeler sabit ve ortalı görünür
+(K-14). Fare üstünde ve klavye odağında kayma durur (WCAG 2.2.2).
+Dokunma kutusu 48 (K-11).
+
+**İçerik dürüstlüğü.** Sentry for Startups bir **kredi** programıdır
+(5.000 $ Sentry kredisi, bir yıl geçerli); hisse karşılığı yatırım
+değildir. Metinler bu yüzden "yatırım" değil "kredi desteği" der —
+kamuya açık sayfada yanlış finansman iddiası yatırımcı ve basın için
+sorun yaratır.
+
+**Kaynak.** Sahip talebi (8 Eki); Sentry hoş geldin e-postası (8 Eki).

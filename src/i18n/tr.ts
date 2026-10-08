@@ -35,12 +35,49 @@ export const tr = {
   },
 
   // Mağaza rozeti — Hero ve İndir bölümlerinde ortak (StoreBadge).
-  // EK S-6'daki "iOS sürümü yakında" satırının yerini App Store çipi aldı
-  // (talimat). Resmî Apple rozeti bilinçli olarak YOK (EK S-6 yasağı).
+  // 8 Eki (KR-029): iOS yayında — "Yakında" çipinin yerini resmî App Store
+  // rozeti aldı. EK S-6 yasağı yalnız yayında olmayan uygulama içindi.
   store: {
     googlePlayAlt: "Google Play'den indir",
-    appStoreSoonLabel: 'Yakında',
-    appStoreName: 'App Store',
+    appStoreAlt: "App Store'dan indir",
+  },
+
+  // Sayfanın en üstündeki kayan duyuru şeridi (KR-029). Şeridin tamamı
+  // Haberler bölümüne giden tek bağlantı; maddeler orada ayrıntılanır.
+  // Hareket azaltılmışsa şerit kaymaz, maddeler sabit durur.
+  duyuru: {
+    regionLabel: 'Duyurular',
+    linkLabel: 'Duyuruların ayrıntısı için Haberler bölümüne git',
+    items: [
+      'Ablacım, Sentry for Startups programına kabul edildi: girişimimize 5.000 $ kredi desteği',
+      'Ablacım artık App Store’da: iPhone’a indir, hemen kullanmaya başla',
+    ],
+  },
+
+  // Haberler — nötr ürün dili, hitap yok. En yeni üstte. Tarih ISO yazılır,
+  // ekranda Intl ile sayfa diline göre biçimlenir (KR-023 deseni).
+  // link: siteConfig'te tanımlı dış bağlantının anahtarı ya da null.
+  haberler: {
+    title: 'Haberler',
+    intro: 'Ablacım’dan son gelişmeler.',
+    items: [
+      {
+        date: '2026-10-08',
+        tag: 'Girişim',
+        title: 'Sentry for Startups programına kabul edildik',
+        body: 'Ablacım, Sentry’nin girişimlere yönelik programına kabul edildi ve hesabımıza 5.000 $ değerinde kredi tanımlandı. Kredi bugünden itibaren kullanılabilir durumda; uygulamadaki aksaklıkları daha erken görüp daha hızlı düzeltmemize destek oluyor. Bu da sana daha sorunsuz bir deneyim olarak dönüyor.',
+        link: null,
+        linkLabel: null,
+      },
+      {
+        date: '2026-09-26',
+        tag: 'Uygulama',
+        title: 'Ablacım artık App Store’da',
+        body: 'Ablacım iPhone’a geldi. App Store’dan indirip hemen kullanmaya başlayabilirsin; Android’de olduğu gibi aboneliğin de bulunduğun mağaza üzerinden yönetilir.',
+        link: 'appStore',
+        linkLabel: 'App Store’da aç',
+      },
+    ],
   },
 
   // Play Store'daki mevcut tanıtım görselleri (adım 3) — alt metinler TASLAK
@@ -438,10 +475,8 @@ export const tr = {
       },
       {
         q: 'Aboneliği nasıl iptal ederim?',
-        a: "Abonelik Google Play üzerinden yönetilir. İptal için Play Store'da Profil → Ödemeler ve abonelikler → Abonelikler yolunu izleyebilirsin. İptal ettiğinde erişimin dönem sonuna kadar sürer; iptal edilmedikçe abonelik dönem sonunda kendiliğinden yenilenir.",
-        // App Store yayınlanınca AÇILACAK iOS iptal satırı (şimdi render edilmez — Q3).
-        // Taslak, birlikte teyit edilecek:
-        // "iOS'ta abonelik App Store üzerinden yönetilir."
+        // 8 Eki (KR-029): iOS iptal yolu açıldı (Q3'te bekleyen satır)
+        a: "Abonelik, satın aldığın mağaza üzerinden yönetilir. Android'de Play Store'da Profil → Ödemeler ve abonelikler → Abonelikler yolunu, iPhone'da Ayarlar → adın → Abonelikler yolunu izleyebilirsin. İptal ettiğinde erişimin dönem sonuna kadar sürer; iptal edilmedikçe abonelik dönem sonunda kendiliğinden yenilenir.",
       },
       {
         q: 'Neden 18 yaş ve üzeri?',
@@ -453,11 +488,11 @@ export const tr = {
   // Kapanış CTA — Abla'nın sesi tonda duyulur, hitap yok (indir hitapsız)
   indir: {
     title: 'İndir',
-    body: "Ablacım şu an Google Play'de. Ne zaman istersen gel; bir ölçümle, bir rüyayla ya da avucunla başlarsın.",
+    body: "Ablacım şu an App Store'da ve Google Play'de. Ne zaman istersen gel; bir ölçümle, bir rüyayla ya da avucunla başlarsın.",
     currencyNote: 'Fiyatlar uygulamada, kendi para biriminde görünür.',
     // Q3 aktifleştirildi — otomatik yenileme tek satır caption
     autoRenewNote:
-      'Abonelik, iptal edilmedikçe dönem sonunda kendiliğinden yenilenir; Google Play üzerinden yönetilir.',
+      'Abonelik, iptal edilmedikçe dönem sonunda kendiliğinden yenilenir; App Store ya da Google Play üzerinden yönetilir.',
   },
 
   // Bölüm 9 / Sosyal — nötr ürün dili, hitap yok. Sayfanın geri kalanı
@@ -498,5 +533,8 @@ export const tr = {
     // BİREBİR (Q4) — iki dilde de aynı kalır
     playTrademark:
       'Google Play and the Google Play logo are trademarks of Google LLC.',
+    // Apple rozet kılavuzunun istediği bildirim — iki dilde de aynı kalır
+    appleTrademark:
+      'Apple, the Apple logo and App Store are trademarks of Apple Inc., registered in the U.S. and other countries.',
   },
 };
